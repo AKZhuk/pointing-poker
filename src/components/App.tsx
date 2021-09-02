@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux';
 import Footer from './Footer/Footer';
 import Header from './Header/Header';
 import './App.scss';
-import { setUser } from '../redux/actionsSync/userActions';
+import { setUser } from '../redux/reducers/user/userActions';
 
 export const App = (): JSX.Element => {
   const dispatch = useDispatch();

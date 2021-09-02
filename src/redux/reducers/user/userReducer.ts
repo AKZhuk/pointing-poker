@@ -1,6 +1,6 @@
-import { SET_USER } from './../actionsSync/userActions';
-import { IUser, GameRole } from './../../types';
-import { IAction } from '../../types';
+import { SET_USER } from './userActions';
+import { IUser, GameRole } from '../../../types';
+import { IAction } from '../../../types';
 
 export const defaultUserState: IUser = {
   firstName: '',
