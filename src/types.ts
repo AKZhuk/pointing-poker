@@ -1,34 +1,29 @@
+
 export interface IAction {
   type: string;
-  payload?: null | string;
+  payload?: any;
 }
-
-export interface IState1 {
-  isLoad: boolean;
-  error: string;
-}
-
-enum GameRole {
+export enum GameRole {
   scrumMaster = 'scrum master',
   player = 'player',
   observer = 'observer',
 }
-interface IState {
+export interface IState {
   user: IUser;
   memders: IUser[];
   issues: { title: string; priority: string; link: string }[];
   gameSettings: IGameSettings;
 }
 
-interface IUser {
+export interface IUser {
   firstName: string;
   lastName?: string;
   jobPostion?: string;
-  urlToImage: string;
-  role: typeof GameRole;
+  urlToImage?: string;
+  role: string;
 }
 
-interface IGameSettings {
+export interface IGameSettings {
   isScrumMasterAsPlayer: boolean;
   changingCardInRoundEnd: boolean;
   isTimerNeeded: boolean;

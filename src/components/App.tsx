@@ -1,15 +1,15 @@
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import { switchIsLoad } from '../redux/actions';
 import Footer from './Footer/Footer';
 import Header from './Header/Header';
 import './App.scss';
+import { setUser } from '../redux/actionsSync/userActions';
 
 export const App = (): JSX.Element => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(switchIsLoad());
+    dispatch(setUser('firstName', 'vova'));
   }, [dispatch]);
 
   return (
