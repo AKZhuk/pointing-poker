@@ -1,5 +1,4 @@
-
-import { Button, Modal, TextField } from '@material-ui/core';
+import { Button, TextField } from '@material-ui/core';
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import Footer from './Footer/Footer';
@@ -21,19 +20,19 @@ const App = (): JSX.Element => {
     <div className="app">
       <Header />
       <main className="main">
-      <Button variant="contained" color="primary">
-        Primary
-      </Button>
-      <Button variant="contained" color="secondary">
-        Secondary
-      </Button>
-      <Button variant="contained" disabled>
-        Disabled
-      </Button>
-      <Switcher />
-      <TextField id="standard-basic" label="Standard" />
-      <UploadButton />
-      <PopUp />
+        <Button variant="contained" color="primary">
+          Primary
+        </Button>
+        <Button variant="contained" color="secondary">
+          Secondary
+        </Button>
+        <Button variant="contained" disabled>
+          Disabled
+        </Button>
+        <Switcher />
+        <TextField id="standard-basic" label="Standard" />
+        <UploadButton />
+        <PopUp />
       </main>
       <Footer />
     </div>

@@ -1,7 +1,7 @@
 import React from 'react';
 import Switch from '@material-ui/core/Switch';
 
-const  Switcher = () => {
+const Switcher = (): JSX.Element => {
   const [state, setState] = React.useState({
     checkedA: true,
     checkedB: true,
@@ -22,6 +22,6 @@ const  Switcher = () => {
       />
     </div>
   );
-}
+};
 
 export default Switcher;

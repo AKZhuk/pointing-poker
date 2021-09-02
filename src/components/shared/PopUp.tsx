@@ -20,7 +20,7 @@ const useStyles = makeStyles((theme: Theme) =>
   }),
 );
 
-const PopUp = () => {
+const PopUp = (): JSX.Element => {
   const classes = useStyles();
   const [open, setOpen] = React.useState(false);
 
@@ -58,5 +58,5 @@ const PopUp = () => {
       </Modal>
     </div>
   );
-}
-export default PopUp
+};
+export default PopUp;

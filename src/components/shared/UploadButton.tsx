@@ -17,31 +17,25 @@ const useStyles = makeStyles((theme: Theme) =>
   }),
 );
 
-const UploadButton = () => {
+const UploadButton = (): JSX.Element => {
   const classes = useStyles();
 
   return (
     <div className={classes.root}>
-      <input
-        accept="image/*"
-        className={classes.input}
-        id="contained-button-file"
-        multiple
-        type="file"
-      />
       <label htmlFor="contained-button-file">
+        <input accept="image/*" className={classes.input} id="contained-button-file" multiple type="file" />
         <Button variant="contained" color="primary" component="span">
           Upload
         </Button>
       </label>
-      <input accept="image/*" className={classes.input} id="icon-button-file" type="file" />
       <label htmlFor="icon-button-file">
+        <input accept="image/*" className={classes.input} id="icon-button-file" type="file" />
         <IconButton color="primary" aria-label="upload picture" component="span">
           <PhotoCamera />
         </IconButton>
       </label>
     </div>
   );
-}
+};
 
 export default UploadButton;

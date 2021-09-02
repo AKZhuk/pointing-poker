@@ -1,6 +1,6 @@
 export interface IAction {
   type: string;
-  payload?: any;
+  payload?: { [key: string]: string };
 }
 export enum GameRole {
   scrumMaster = 'scrum master',
