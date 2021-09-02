@@ -1,14 +1,13 @@
 import { SET_USER } from './userActions';
-import { IUser, GameRole } from '../../../types';
-import { IAction } from '../../../types';
+import { IUser, GameRole, IAction } from '../../../types';
 
 export const defaultUserState: IUser = {
   firstName: '',
   lastName: '',
   jobPostion: '',
   urlToImage: '',
-  role: GameRole.player
-}
+  role: GameRole.player,
+};
 
 export const userReducer = (state = defaultUserState, action: IAction): IUser => {
   switch (action.type) {
