@@ -51,6 +51,3 @@ export const App = (): JSX.Element => {
     </div>
   );
 };
-
-// "url-loader": "^4.1.1",
-// "save-dev": "0.0.1-security",

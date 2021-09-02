@@ -5,6 +5,8 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const ESLintPlugin = require('eslint-webpack-plugin');
 const CopyPlugin = require('copy-webpack-plugin');
+const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
+const TerserWebpackPlugin = require('terser-webpack-plugin');
 
 const esLintPlugin = isDev => (isDev ? [] : [new ESLintPlugin({ extensions: ['ts', 'js', 'tsx', 'jsx'] })]);
 
@@ -22,6 +24,18 @@ const devServer = isDev =>
         },
       };
 
+const optimization = isDev => {
+  const config = {
+    splitChunks: {
+      chunks: 'all',
+    },
+  };
+  if (!isDev) {
+    config.minimizer = [new CssMinimizerPlugin(), new TerserWebpackPlugin()];
+  }
+  return config;
+};
+
 module.exports = ({ development }) => ({
   mode: development ? 'development' : 'production',
   devtool: development ? 'source-map' : false,
@@ -35,11 +49,7 @@ module.exports = ({ development }) => ({
   resolve: {
     extensions: ['.tsx', '.ts', '.js', 'jsx'],
   },
-  optimization: {
-    splitChunks: {
-      chunks: 'all',
-    },
-  },
+  optimization: optimization(development),
   module: {
     rules: [
       {

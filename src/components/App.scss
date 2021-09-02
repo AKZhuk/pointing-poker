@@ -1,3 +1,6 @@
+@import '../../node_modules/normalize-scss/sass/normalize';
+@include normalize();
+
 main {
   max-width: 1400px;
   margin: 110px auto 0 auto;
