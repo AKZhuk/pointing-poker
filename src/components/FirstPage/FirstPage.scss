@@ -1,0 +1,13 @@
+@import '../../abstract.scss';
+.firstPage {
+    height: 100%;
+    width: 100%;
+    background: $firstPageBG;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    .FPLogo{
+        padding-top: 4%;
+        padding-bottom: 4%;
+    }
+}
