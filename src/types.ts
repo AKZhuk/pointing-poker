@@ -31,3 +31,7 @@ export interface IGameSettings {
   timer?: string;
   cards: { value: string; name: string }[];
 }
+
+export interface IConnection {
+  url: string;
+}

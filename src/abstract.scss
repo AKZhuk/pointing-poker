@@ -1,5 +1,4 @@
 $red: red;
-
 @mixin flexbox($justify-content, $align-items: normal, $direction: row, $wrap: wrap) {
   display: flex;
   justify-content: $justify-content;
