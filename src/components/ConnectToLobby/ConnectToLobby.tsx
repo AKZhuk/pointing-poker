@@ -1,9 +1,10 @@
 import { Avatar, Box, Button, Container, Grid, TextField, Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
-import { ChangeEvent } from 'react';
+import { ChangeEvent, FormEvent, SyntheticEvent, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { setUser } from '../../redux/reducers/user/userActions';
-import { IState } from '../../types';
+import { setOpen } from '../../redux/reducers/popUp/popUpActions';
+import { setDefaultUser, setUser } from '../../redux/reducers/user/userActions';
+import { GameRole, IState } from '../../types';
 import Switcher from '../shared/Switcher';
 import UploadButton from '../shared/UploadButton';
 
@@ -27,15 +28,78 @@ const useStyles = makeStyles(theme => ({
     margin: theme.spacing(1),
     backgroundColor: theme.palette.secondary.main,
   },
+  form: {
+    width: '100%', // Fix IE 11 issue.
+    marginTop: theme.spacing(3),
+  },
 }));
 
 const ConnectToLobby = (): JSX.Element => {
   const classes = useStyles();
   const dispatch = useDispatch();
-  const { firstName, lastName, jobPostion } = useSelector((state: IState) => state.user);
-  const changeHandler = (e: ChangeEvent<HTMLInputElement>): void => {
+  const { observer } = GameRole;
+  const { firstName, lastName, jobPostion, urlToImage, role } = useSelector((state: IState) => state.user);
+  const defaultRole = role;
+  const [firstNameDirty, setFirstNameDirty] = useState(false);
+  const [firstNameError, setFirstNameError] = useState(' ');
+  const [formValid, setFormValid] = useState(false);
+  const errorMessage = firstNameDirty && firstNameError ? firstNameError : ' ';
+  const isValidationError = !!(firstNameDirty && firstNameError.length > 1);
+
+  useEffect(() => {
+    if (!isValidationError) {
+      setFormValid(false);
+    } else {
+      setFormValid(true);
+    }
+  }, [firstNameError, isValidationError]);
+
+  const validateInput = (inputName: string, value: string) => {
+    if (inputName === 'firstName' && value.length > 0) {
+      setFirstNameError(' ');
+    } else if (inputName === 'firstName' && value.length === 0) {
+      setFirstNameError('Имя не может быть пустым');
+    }
+  };
+
+  const handleTextInputsChange = (e: ChangeEvent<HTMLInputElement>): void => {
     const inputName = e.target.name as 'firstName' | 'lastName' | 'jobPostion';
     dispatch(setUser(inputName, e.target.value));
+    validateInput(e.target.name, e.target.value);
+  };
+
+  const handleUpdateImage = (imageURL: string): void => {
+    dispatch(setUser('urlToImage', imageURL));
+  };
+
+  const handleChecked = (isChecked: boolean) => {
+    const userRole = !isChecked ? observer : defaultRole;
+    dispatch(setUser('role', userRole));
+  };
+
+  const handleFormSubmit = (e: FormEvent): void => {
+    e.preventDefault();
+    if (firstName.length > 0) {
+      dispatch(setOpen('isOpen', false));
+    } else {
+      validateInput('firstName', '');
+    }
+  };
+
+  const handleCancelButton = (): void => {
+    dispatch(setDefaultUser('firstName', ''));
+    dispatch(setOpen('isOpen', false));
+  };
+
+  const blurHandler = (e: SyntheticEvent): void => {
+    const target = e.target as HTMLInputElement;
+    switch (target.name) {
+      case 'firstName':
+        setFirstNameDirty(true);
+        break;
+      default:
+        setFirstNameDirty(false);
+    }
   };
 
   return (
@@ -44,75 +108,76 @@ const ConnectToLobby = (): JSX.Element => {
         <Typography variant="h5" gutterBottom>
           Connect to lobby
         </Typography>
+        <form className={classes.form} onSubmit={handleFormSubmit} noValidate>
+          <Grid container spacing={2}>
+            <Grid item xs={12}>
+              <TextField
+                error={isValidationError}
+                autoComplete="off"
+                name="firstName"
+                id="firstName"
+                label="First Name"
+                helperText={errorMessage}
+                value={firstName}
+                onChange={handleTextInputsChange}
+                fullWidth
+                required
+                onBlur={blurHandler}
+                autoFocus
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <TextField
+                fullWidth
+                id="lastName"
+                label="Last Name"
+                name="lastName"
+                autoComplete="off"
+                value={lastName}
+                onChange={handleTextInputsChange}
+                helperText=" "
+              />
+            </Grid>
 
-        <Grid container spacing={2}>
-          <Grid item xs={12}>
-            <TextField
-              autoComplete="off"
-              name="firstName"
-              id="firstName"
-              label="First Name"
-              helperText=""
-              value={firstName}
-              onChange={changeHandler}
-              fullWidth
-              required
-              autoFocus
-            />
-          </Grid>
-          <Grid item xs={12}>
-            <TextField
-              fullWidth
-              id="lastName"
-              label="Last Name"
-              name="lastName"
-              autoComplete="off"
-              value={lastName}
-              onChange={changeHandler}
-              helperText=""
-            />
-          </Grid>
-
-          <Grid item xs={12}>
-            <TextField
-              fullWidth
-              id="email"
-              label="Job position"
-              name="jobPostion"
-              autoComplete="off"
-              value={jobPostion}
-              onChange={changeHandler}
-              helperText=""
-            />
-          </Grid>
-          <Grid item xs={7}>
-            <Box component="div">
-              <Typography variant="subtitle1" gutterBottom>
-                Upload Avatar
-              </Typography>
+            <Grid item xs={12}>
+              <TextField
+                fullWidth
+                id="email"
+                label="Job position"
+                name="jobPostion"
+                autoComplete="off"
+                value={jobPostion}
+                onChange={handleTextInputsChange}
+                helperText=" "
+              />
+            </Grid>
+            <Grid item xs={7}>
+              <Box component="div">
+                <Typography variant="subtitle1" gutterBottom>
+                  Upload Avatar
+                </Typography>
+                <div className={classes.wrapper}>
+                  <Avatar alt={firstName} src={urlToImage} className={classes.avatar} />
+                  <UploadButton handleUpdateImage={handleUpdateImage} />
+                </div>
+              </Box>
+            </Grid>
+            <Grid item xs={7}>
               <div className={classes.wrapper}>
-                <Avatar alt="" src="" className={classes.avatar} />
-                <UploadButton />
+                <Switcher handleChecked={handleChecked} />
+                <Typography variant="subtitle1">Connect as Observer</Typography>
               </div>
-            </Box>
+            </Grid>
           </Grid>
-          <Grid item xs={7}>
-            <div className={classes.wrapper}>
-              <Switcher />
-              <Typography variant="subtitle1" gutterBottom>
-                Connect as Observer
-              </Typography>
-            </div>
-          </Grid>
-        </Grid>
-        <div className={classes.wrapper}>
-          <Button variant="contained" color="primary">
-            Confirm
-          </Button>
-          <Button variant="contained" color="secondary">
-            Cancel
-          </Button>
-        </div>
+          <div className={classes.wrapper}>
+            <Button variant="contained" color="primary" type="submit" disabled={formValid}>
+              Confirm
+            </Button>
+            <Button variant="contained" color="secondary" onClick={handleCancelButton}>
+              Cancel
+            </Button>
+          </div>
+        </form>
       </div>
     </Container>
   );
