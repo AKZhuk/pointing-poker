@@ -1,20 +1,20 @@
 import './FirstPage.scss';
 import { Box, Button, Container, TextField, Typography } from '@material-ui/core';
 import { useDispatch } from 'react-redux';
-import React from 'react';
+import { ChangeEvent } from 'react';
 import { setConnection } from '../../redux/reducers/connection/connectionActions';
 import firstPageLogo from '../../assets/img/MainLogo.svg';
 
 const FirstPage = (): JSX.Element => {
   const dispatch = useDispatch();
 
-  function changeHandler(ev: React.ChangeEvent<HTMLInputElement>): void {
+  function changeHandler(ev: ChangeEvent<HTMLInputElement>): void {
     dispatch(setConnection('url', ev.target.value));
   }
 
   return (
-    <div className="firstPage">
-      <img className="FPLogo" src={firstPageLogo} alt="logo-404" />
+    <div className="firstPage" data-testid="FirstPage-test">
+      <img className="first-page__logo" src={firstPageLogo} alt="logo-404" />
       <Container>
         <Box marginBottom={4}>
           <Typography variant="h2" gutterBottom>

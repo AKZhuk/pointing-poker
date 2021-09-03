@@ -2,7 +2,8 @@
 @include normalize();
 
 main {
-  height: 85vh;
   max-width: 100%;
-  margin: 100px auto 0 auto;
+  margin: 50px auto 0 auto;
+  min-height: 85vh;
+  height: 90vh;
 }
