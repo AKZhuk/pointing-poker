@@ -49,6 +49,7 @@
     "import/extensions": "off",
     "import/prefer-default-export": "off",
     "func-names": "off",
+    "react/require-default-props": "off", // Отключил временно, потом верну))
     "no-param-reassign": [
       "error",
       {

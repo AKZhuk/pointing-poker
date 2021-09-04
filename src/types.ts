@@ -1,12 +1,19 @@
 export interface IAction {
   type: string;
-  payload?: { [key: string]: string };
+  payload: { [key: string]: string };
 }
+
+export interface IIssueAction {
+  type: string;
+  payload?: IIssue;
+}
+
 export enum GameRole {
   scrumMaster = 'scrum master',
   player = 'player',
   observer = 'observer',
 }
+
 export interface IState {
   user: IUser;
   memders: IUser[];
@@ -34,4 +41,21 @@ export interface IGameSettings {
 
 export interface IConnection {
   url: string;
+}
+
+export interface IIssue {
+  title: string;
+  priority: 'low' | 'high' | 'normal';
+  link: string;
+}
+
+export interface IRootState {
+  user: IUserState;
+  issues: IIssue[];
+  connection: IConnection;
+}
+
+export interface IUserState {
+  user: IUser;
+  members: IUser[];
 }

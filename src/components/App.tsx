@@ -8,6 +8,8 @@ import { setUser } from '../redux/reducers/user/userActions';
 import Switcher from './shared/Switcher';
 import UploadButton from './shared/UploadButton';
 import PopUp from './shared/PopUp';
+import Members from './Members/Members';
+import Issues from './Issues/Issues';
 
 const App = (): JSX.Element => {
   const dispatch = useDispatch();
@@ -20,6 +22,9 @@ const App = (): JSX.Element => {
     <div className="app">
       <Header />
       <main className="main">
+        <Members />
+        <Issues />
+
         <Button variant="contained" color="primary">
           Primary
         </Button>
