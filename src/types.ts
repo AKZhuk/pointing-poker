@@ -54,3 +54,7 @@ export interface IUploadButtonProps {
 export interface ISwitcherProps {
   handleChecked(isChecked: boolean): void;
 }
+
+export interface IConnection {
+  url: string;
+}
