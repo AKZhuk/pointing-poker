@@ -6,13 +6,16 @@ import Header from './Header/Header';
 
 import { setUser } from '../redux/reducers/user/userActions';
 import PopUp from './shared/PopUp';
-import Members from './Members/Members';
-import Issues from './Issues/Issues';
 import ConnectToLobby from './ConnectToLobby/ConnectToLobby';
 import './App.scss';
+import { setOpen } from '../redux/reducers/popUp/popUpActions';
+import Members from './Members/Members';
 
 const App = (): JSX.Element => {
   const dispatch = useDispatch();
+  const handleOpen = (id: string) => {
+    dispatch(setOpen(id, true));
+  };
 
   useEffect(() => {
     dispatch(setUser('firstName', 'vova'));
@@ -31,10 +34,17 @@ const App = (): JSX.Element => {
         <Button variant="contained" disabled>
           Disabled
         </Button>
-        {/* <Switcher /> */}
         <TextField id="standard-basic" label="Standard" />
-        {/* <UploadButton /> */}
-        <PopUp content={<ConnectToLobby />} buttonName="Start New Game" />
+
+        <Button variant="contained" color="primary" onClick={() => handleOpen('ConnectToLobbyPopUp')}>
+          Start New Game
+        </Button>
+        <PopUp content={<ConnectToLobby />} name="ConnectToLobbyPopUp" />
+
+        <Button variant="contained" color="primary" onClick={() => handleOpen('TestPopUp')}>
+          test popUp
+        </Button>
+        <PopUp content={<Members />} name="TestPopUp" />
       </main>
       <Footer />
     </div>

@@ -79,7 +79,7 @@ const ConnectToLobby = (): JSX.Element => {
   const handleFormSubmit = (e: FormEvent): void => {
     e.preventDefault();
     if (firstName.length > 0) {
-      dispatch(setOpen('isOpen', false));
+      dispatch(setOpen('ConnectToLobbyPopUp', false));
     } else {
       validateInput('firstName', '');
     }
@@ -87,7 +87,7 @@ const ConnectToLobby = (): JSX.Element => {
 
   const handleCancelButton = (): void => {
     dispatch(setDefaultUser('firstName', ''));
-    dispatch(setOpen('isOpen', false));
+    dispatch(setOpen('ConnectToLobbyPopUp', false));
   };
 
   const blurHandler = (e: SyntheticEvent): void => {

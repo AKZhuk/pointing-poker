@@ -19,14 +19,6 @@ export enum GameRole {
   observer = 'observer',
 }
 
-export interface IState {
-  user: IUser;
-  popUp: IPopUp;
-  memders: IUser[];
-  issues: { title: string; priority: string; link: string }[];
-  gameSettings: IGameSettings;
-}
-
 export interface IUser {
   firstName: string;
   lastName?: string;
@@ -45,13 +37,13 @@ export interface IGameSettings {
   cards: { value: string; name: string }[];
 }
 
-export interface IpopUpProps {
+export interface IPopUpProps {
   content: JSX.Element;
-  buttonName: string;
+  name: string;
 }
 
 export interface IPopUp {
-  isOpen: boolean;
+  [key: string]: boolean;
 }
 
 export interface IUploadButtonProps {
@@ -75,6 +67,7 @@ export interface IIssue {
 export interface IRootState {
   user: IUserState;
   issues: IIssue[];
+  popUp: IPopUp;
   connection: IConnection;
 }
 

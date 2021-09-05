@@ -3,8 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import Modal from '@material-ui/core/Modal';
 import Backdrop from '@material-ui/core/Backdrop';
 import Fade from '@material-ui/core/Fade';
-import { Button } from '@material-ui/core';
-import { IpopUpProps, IState } from '../../types';
+import { IPopUpProps, IRootState } from '../../types';
 import { setOpen } from '../../redux/reducers/popUp/popUpActions';
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -23,25 +22,28 @@ const useStyles = makeStyles((theme: Theme) =>
   }),
 );
 
-const PopUp = (props: IpopUpProps): JSX.Element => {
-  const { content, buttonName } = props;
+const PopUp = (props: IPopUpProps): JSX.Element => {
+  const { content, name } = props;
   const classes = useStyles();
   const dispatch = useDispatch();
-  const { isOpen } = useSelector((state: IState) => state.popUp);
-
-  const handleOpen = () => {
-    dispatch(setOpen('isOpen', true));
+  const popUpState = useSelector((state: IRootState) => state.popUp);
+  const getIsOpen = (): boolean => {
+    const currentKey = Object.keys(popUpState).find(key => {
+      return key === name;
+    });
+    if (currentKey) {
+      return popUpState[currentKey];
+    }
+    return popUpState.isOpen;
   };
+  const isOpen = getIsOpen();
 
   const handleClose = () => {
-    dispatch(setOpen('isOpen', false));
+    dispatch(setOpen(name, false));
   };
 
   return (
     <div>
-      <Button variant="contained" color="primary" onClick={handleOpen}>
-        {buttonName}
-      </Button>
       <Modal
         aria-labelledby="transition-modal-title"
         aria-describedby="transition-modal-description"
