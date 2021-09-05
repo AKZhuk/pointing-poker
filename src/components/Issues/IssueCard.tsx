@@ -5,6 +5,7 @@ import AddIcon from '@material-ui/icons/Add';
 import { useDispatch } from 'react-redux';
 import { IIssue } from '../../types';
 import { removeIssue } from '../../redux/reducers/issues/issuesActions';
+import { setOpen } from '../../redux/reducers/popUp/popUpActions';
 
 const IssueCard = ({ issue = undefined }: { issue?: IIssue | undefined }): JSX.Element => {
   const dispatch = useDispatch();
@@ -18,7 +19,7 @@ const IssueCard = ({ issue = undefined }: { issue?: IIssue | undefined }): JSX.E
   };
 
   const createHandler = () => {
-    console.warn(`create issue`);
+    dispatch(setOpen('CreateIssuePopUp', true));
   };
 
   return (

@@ -5,12 +5,10 @@ export const RESET_USER_DATA = 'RESET_USER_DATA';
 export const SET_MEMBER = 'SET_MEMBER';
 export const REMOVE_MEMBER = 'REMOVE_MEMBER';
 
-
 export const setUser = (title: keyof IUser, value: string): IAction => ({
   type: SET_USER,
   payload: { [title]: value },
 });
-
 
 export const removeMember = (lastName: string): IAction => ({ type: REMOVE_MEMBER, payload: { lastName } });
 

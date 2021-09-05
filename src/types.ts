@@ -5,7 +5,7 @@ export interface IAction {
 
 export interface IIssueAction {
   type: string;
-  payload?: IIssue;
+  payload: IIssue;
 }
 
 export interface IActionPopUp {
@@ -39,12 +39,17 @@ export interface IGameSettings {
 
 export interface IPopUpProps {
   content: JSX.Element;
-  name: string;
+  name: keyof typeof PopUpNames;
+}
+export enum PopUpNames {
+  isOpen = 'isOpen',
+  ConnectToLobbyPopUp = 'ConnectToLobbyPopUp',
+  CreateIssuePopUp = 'CreateIssuePopUp',
 }
 
-export interface IPopUp {
-  [key: string]: boolean;
-}
+export type IPopUp = {
+  [key in PopUpNames]: boolean;
+};
 
 export interface IUploadButtonProps {
   handleUpdateImage(imageURL: string): void;
@@ -60,7 +65,7 @@ export interface IConnection {
 
 export interface IIssue {
   title: string;
-  priority: 'low' | 'high' | 'normal';
+  priority: string;
   link: string;
 }
 

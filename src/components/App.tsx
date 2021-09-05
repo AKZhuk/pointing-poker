@@ -9,12 +9,12 @@ import PopUp from './shared/PopUp';
 import ConnectToLobby from './ConnectToLobby/ConnectToLobby';
 import './App.scss';
 import { setOpen } from '../redux/reducers/popUp/popUpActions';
-import Members from './Members/Members';
+import { PopUpNames } from '../types';
 
 const App = (): JSX.Element => {
   const dispatch = useDispatch();
-  const handleOpen = (id: string) => {
-    dispatch(setOpen(id, true));
+  const handleOpen = (popUpName: keyof typeof PopUpNames) => {
+    dispatch(setOpen(popUpName, true));
   };
 
   useEffect(() => {
@@ -37,14 +37,9 @@ const App = (): JSX.Element => {
         <TextField id="standard-basic" label="Standard" />
 
         <Button variant="contained" color="primary" onClick={() => handleOpen('ConnectToLobbyPopUp')}>
-          Start New Game
+          ConnectToLobbyPopUp
         </Button>
         <PopUp content={<ConnectToLobby />} name="ConnectToLobbyPopUp" />
-
-        <Button variant="contained" color="primary" onClick={() => handleOpen('TestPopUp')}>
-          test popUp
-        </Button>
-        <PopUp content={<Members />} name="TestPopUp" />
       </main>
       <Footer />
     </div>

@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import Modal from '@material-ui/core/Modal';
 import Backdrop from '@material-ui/core/Backdrop';
 import Fade from '@material-ui/core/Fade';
-import { IPopUpProps, IRootState } from '../../types';
+import { IPopUp, IPopUpProps, IRootState, PopUpNames } from '../../types';
 import { setOpen } from '../../redux/reducers/popUp/popUpActions';
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -22,17 +22,18 @@ const useStyles = makeStyles((theme: Theme) =>
   }),
 );
 
-const PopUp = (props: IPopUpProps): JSX.Element => {
-  const { content, name } = props;
+const PopUp = ({ content, name }: IPopUpProps): JSX.Element => {
   const classes = useStyles();
   const dispatch = useDispatch();
-  const popUpState = useSelector((state: IRootState) => state.popUp);
+  const popUpState: IPopUp = useSelector((state: IRootState) => state.popUp);
   const getIsOpen = (): boolean => {
-    const currentKey = Object.keys(popUpState).find(key => {
-      return key === name;
-    });
-    if (currentKey) {
-      return popUpState[currentKey];
+    const popUpStatName = Object.keys(popUpState).find<keyof typeof PopUpNames>(
+      (key): key is keyof typeof PopUpNames => {
+        return key === name;
+      },
+    );
+    if (popUpStatName) {
+      return popUpState[popUpStatName];
     }
     return popUpState.isOpen;
   };

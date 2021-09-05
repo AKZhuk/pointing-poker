@@ -1,5 +1,5 @@
 import { REMOVE_MEMBER, RESET_USER_DATA, SET_USER } from './userActions';
-import { IUser, IUserState, GameRole, IAction } from '../../../types';
+import { IUserState, GameRole, IAction } from '../../../types';
 
 export const defaultUserState: IUserState = {
   user: {
@@ -80,7 +80,7 @@ export const userReducer = (state = defaultUserState, action: IAction): IUserSta
   switch (action.type) {
     case SET_USER:
       return { ...state, user: { ...state.user, ...action.payload } };
-      
+
     case RESET_USER_DATA:
       return { ...state, user: defaultUserState.user };
 
