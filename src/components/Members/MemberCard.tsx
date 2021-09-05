@@ -8,7 +8,7 @@ import './Members.scss';
 const MemberCard = ({ member }: { member: IUser }): JSX.Element => {
   const dispatch = useDispatch();
   const kickHandler = () => {
-    dispatch(removeMember(member.lastName as string));
+    dispatch(removeMember(member));
   };
 
   return (

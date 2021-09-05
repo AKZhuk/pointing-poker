@@ -38,7 +38,7 @@ const PopUp = (props: IpopUpProps): JSX.Element => {
   };
 
   return (
-    <div>
+    <>
       <Button variant="contained" color="primary" onClick={handleOpen}>
         {buttonName}
       </Button>
@@ -58,7 +58,7 @@ const PopUp = (props: IpopUpProps): JSX.Element => {
           <div className={classes.paper}>{content}</div>
         </Fade>
       </Modal>
-    </div>
+    </>
   );
 };
 export default PopUp;

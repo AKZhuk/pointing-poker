@@ -11,7 +11,8 @@
 .card-container {
   @include flexbox(normal, normal, row, wrap);
   gap: 20px;
-
+  width: fit-content;
+  max-width: 1000px;
   margin-bottom: 50px;
 }
 

@@ -1,9 +1,11 @@
 import './FirstPage.scss';
-import { Box, Button, Container, TextField, Typography } from '@material-ui/core';
+import { Box, Container, TextField, Typography } from '@material-ui/core';
 import { useDispatch } from 'react-redux';
 import { ChangeEvent } from 'react';
 import { setConnection } from '../../redux/reducers/connection/connectionActions';
 import firstPageLogo from '../../assets/img/MainLogo.svg';
+import PopUp from '../shared/PopUp';
+import ConnectToLobby from '../ConnectToLobby/ConnectToLobby';
 
 const FirstPage = (): JSX.Element => {
   const dispatch = useDispatch();
@@ -25,9 +27,7 @@ const FirstPage = (): JSX.Element => {
           Create session:
         </Typography>
         <Box display="inline" marginLeft={8}>
-          <Button variant="contained" color="primary">
-            Start new game
-          </Button>
+          <PopUp content={<ConnectToLobby />} buttonName="Start New Game" />
         </Box>
       </Container>
       <Box marginTop={10}>
@@ -42,9 +42,7 @@ const FirstPage = (): JSX.Element => {
         <Box marginLeft={5} marginRight={5} display="inline">
           <TextField id="standard-basic" placeholder="Enter URL" onChange={changeHandler} />
         </Box>
-        <Button variant="contained" color="primary">
-          Connect
-        </Button>
+        <PopUp content={<ConnectToLobby />} buttonName="Connect" />
       </Box>
     </div>
   );
