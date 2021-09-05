@@ -1,8 +1,8 @@
-import React from 'react';
+import { ChangeEvent } from 'react';
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
-import IconButton from '@material-ui/core/IconButton';
-import PhotoCamera from '@material-ui/icons/PhotoCamera';
+import CloudUploadIcon from '@material-ui/icons/CloudUpload';
+import { IUploadButtonProps } from '../../types';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -17,22 +17,33 @@ const useStyles = makeStyles((theme: Theme) =>
   }),
 );
 
-const UploadButton = (): JSX.Element => {
+const UploadButton = (props: IUploadButtonProps): JSX.Element => {
+  const { handleUpdateImage } = props;
   const classes = useStyles();
-
+  const handleChange = (e: ChangeEvent<HTMLInputElement>): void => {
+    const file: File = (e.target.files as FileList)[0];
+    const reader = new FileReader();
+    reader.onloadend = () => {
+      handleUpdateImage(reader.result as string);
+    };
+    if (file) {
+      reader.readAsDataURL(file);
+    }
+  };
   return (
     <div className={classes.root}>
       <label htmlFor="contained-button-file">
-        <input accept="image/*" className={classes.input} id="contained-button-file" multiple type="file" />
-        <Button variant="contained" color="primary" component="span">
+        <input
+          accept="image/*"
+          className={classes.input}
+          id="contained-button-file"
+          multiple
+          type="file"
+          onChange={handleChange}
+        />
+        <Button variant="contained" color="primary" component="span" startIcon={<CloudUploadIcon />}>
           Upload
         </Button>
-      </label>
-      <label htmlFor="icon-button-file">
-        <input accept="image/*" className={classes.input} id="icon-button-file" type="file" />
-        <IconButton color="primary" aria-label="upload picture" component="span">
-          <PhotoCamera />
-        </IconButton>
       </label>
     </div>
   );

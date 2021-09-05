@@ -1,23 +1,23 @@
-import React from 'react';
+import { useCallback, useState } from 'react';
 import Switch from '@material-ui/core/Switch';
+import { ISwitcherProps } from '../../types';
 
-const Switcher = (): JSX.Element => {
-  const [state, setState] = React.useState({
-    checkedA: true,
-    checkedB: true,
-  });
+const Switcher = (props: ISwitcherProps): JSX.Element => {
+  const { handleChecked } = props;
+  const [checked, setChecked] = useState(false);
 
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setState({ ...state, [event.target.name]: event.target.checked });
+  const toggleChecked = () => {
+    setChecked(prev => !prev);
+    handleChecked(checked);
   };
 
   return (
     <div>
       <Switch
-        checked={state.checkedB}
-        onChange={handleChange}
+        checked={checked}
+        onChange={toggleChecked}
         color="primary"
-        name="checkedB"
+        name="check"
         inputProps={{ 'aria-label': 'primary checkbox' }}
       />
     </div>

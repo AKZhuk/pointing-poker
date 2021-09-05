@@ -3,13 +3,13 @@ import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import Footer from './Footer/Footer';
 import Header from './Header/Header';
-import './App.scss';
+
 import { setUser } from '../redux/reducers/user/userActions';
-import Switcher from './shared/Switcher';
-import UploadButton from './shared/UploadButton';
 import PopUp from './shared/PopUp';
 import Members from './Members/Members';
 import Issues from './Issues/Issues';
+import ConnectToLobby from './ConnectToLobby/ConnectToLobby';
+import './App.scss';
 
 const App = (): JSX.Element => {
   const dispatch = useDispatch();
@@ -22,9 +22,6 @@ const App = (): JSX.Element => {
     <div className="app">
       <Header />
       <main className="main">
-        <Members />
-        <Issues />
-
         <Button variant="contained" color="primary">
           Primary
         </Button>
@@ -34,10 +31,10 @@ const App = (): JSX.Element => {
         <Button variant="contained" disabled>
           Disabled
         </Button>
-        <Switcher />
+        {/* <Switcher /> */}
         <TextField id="standard-basic" label="Standard" />
-        <UploadButton />
-        <PopUp />
+        {/* <UploadButton /> */}
+        <PopUp content={<ConnectToLobby />} buttonName="Start New Game" />
       </main>
       <Footer />
     </div>
