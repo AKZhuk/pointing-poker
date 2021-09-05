@@ -4,7 +4,7 @@ import { ChangeEvent, FormEvent, SyntheticEvent, useEffect, useState } from 'rea
 import { useDispatch, useSelector } from 'react-redux';
 import { setOpen } from '../../redux/reducers/popUp/popUpActions';
 import { setDefaultUser, setUser } from '../../redux/reducers/user/userActions';
-import { GameRole, IState } from '../../types';
+import { GameRole, IRootState } from '../../types';
 import Switcher from '../shared/Switcher';
 import UploadButton from '../shared/UploadButton';
 
@@ -37,9 +37,8 @@ const useStyles = makeStyles(theme => ({
 const ConnectToLobby = (): JSX.Element => {
   const classes = useStyles();
   const dispatch = useDispatch();
-  const { observer } = GameRole;
-  const { firstName, lastName, jobPostion, urlToImage, role } = useSelector((state: IState) => state.user);
-  const defaultRole = role;
+  const { observer, player } = GameRole;
+  const { firstName, lastName, jobPostion, urlToImage } = useSelector((state: IRootState) => state.user.user);
   const [firstNameDirty, setFirstNameDirty] = useState(false);
   const [firstNameError, setFirstNameError] = useState(' ');
   const [formValid, setFormValid] = useState(false);
@@ -73,7 +72,7 @@ const ConnectToLobby = (): JSX.Element => {
   };
 
   const handleChecked = (isChecked: boolean) => {
-    const userRole = !isChecked ? observer : defaultRole;
+    const userRole = !isChecked ? observer : player;
     dispatch(setUser('role', userRole));
   };
 
