@@ -1,0 +1,52 @@
+@import '../../abstract.scss';
+
+.footer {
+  width: 100%;
+  gap: 20px;
+  padding: 10px;
+  @include flexbox(space-between);
+  &__link {
+    display: block;
+    height: 80%;
+    width: 100px;
+  }
+}
+
+.rss {
+  background-image: url('../../assets/svg/rss-logo.svg');
+  width: 86px;
+  height: 32px;
+  position: relative;
+  background-repeat: no-repeat;
+  background-position: left center;
+  padding-right: 111px;
+  &__year {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    font-size: 21px;
+    letter-spacing: -2px;
+    color: #fff;
+    line-height: 0.9;
+    font-weight: bold;
+    transition: 0.3s;
+  }
+}
+
+.github {
+  @include flexbox(space-between, center);
+  gap: 10px;
+
+  &__links {
+    @include flexbox(normal, normal, column);
+  }
+
+  &-logo {
+    background-image: url('../../assets/svg/github-logo.svg');
+    background-size: 45px;
+    background-repeat: no-repeat;
+    background-position: left center;
+    width: 45px;
+    height: 45px;
+  }
+}
