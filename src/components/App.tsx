@@ -3,10 +3,13 @@ import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import Footer from './Footer/Footer';
 import Header from './Header/Header';
-import './App.scss';
+
 import { setUser } from '../redux/reducers/user/userActions';
 import PopUp from './shared/PopUp';
+import Members from './Members/Members';
+import Issues from './Issues/Issues';
 import ConnectToLobby from './ConnectToLobby/ConnectToLobby';
+import './App.scss';
 
 const App = (): JSX.Element => {
   const dispatch = useDispatch();

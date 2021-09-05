@@ -1,20 +1,91 @@
-import { SET_DEFAULT, SET_USER } from './userActions';
-import { IUser, GameRole, IAction } from '../../../types';
+import { REMOVE_MEMBER, RESET_USER_DATA, SET_USER } from './userActions';
+import { IUser, IUserState, GameRole, IAction } from '../../../types';
 
-export const defaultUserState: IUser = {
-  firstName: '',
-  lastName: '',
-  jobPostion: '',
-  urlToImage: '',
-  role: GameRole.player,
+export const defaultUserState: IUserState = {
+  user: {
+    firstName: '',
+    lastName: '',
+    jobPostion: '',
+    urlToImage: '',
+    role: GameRole.player,
+  },
+  members: [
+    {
+      firstName: 'Aliaksei',
+      lastName: 'Vasin',
+      jobPostion: 'developer',
+      urlToImage: '',
+      role: GameRole.player,
+    },
+    {
+      firstName: 'Ivan',
+      lastName: 'Safonov',
+      jobPostion: 'project manager',
+      urlToImage: '',
+      role: GameRole.player,
+    },
+    {
+      firstName: 'Aliaksei',
+      lastName: 'Shut',
+      jobPostion: 'developer',
+      urlToImage: '',
+      role: GameRole.player,
+    },
+    {
+      firstName: 'Aliaksei',
+      lastName: 'Kamozin',
+      jobPostion: 'developer',
+      urlToImage: '',
+      role: GameRole.player,
+    },
+    {
+      firstName: 'Ivan',
+      lastName: 'Sidorov',
+      jobPostion: 'project manager',
+      urlToImage: '',
+      role: GameRole.player,
+    },
+    {
+      firstName: 'Aliaksei',
+      lastName: 'Zayakin',
+      jobPostion: 'developer',
+      urlToImage: '',
+      role: GameRole.player,
+    },
+    {
+      firstName: 'Aliaksei',
+      lastName: 'Zhukov',
+      jobPostion: 'developer',
+      urlToImage: '',
+      role: GameRole.player,
+    },
+    {
+      firstName: 'Ivan',
+      lastName: 'Ivanov',
+      jobPostion: 'project manager',
+      urlToImage: '',
+      role: GameRole.scrumMaster,
+    },
+    {
+      firstName: 'Aliaksei',
+      lastName: 'Petrov',
+      jobPostion: 'developer',
+      urlToImage: '',
+      role: GameRole.player,
+    },
+  ],
 };
 
-export const userReducer = (state = defaultUserState, action: IAction): IUser => {
+export const userReducer = (state = defaultUserState, action: IAction): IUserState => {
   switch (action.type) {
     case SET_USER:
-      return { ...state, ...action.payload };
-    case SET_DEFAULT:
-      return { ...state, ...defaultUserState };
+      return { ...state, user: { ...state.user, ...action.payload } };
+      
+    case RESET_USER_DATA:
+      return { ...state, user: defaultUserState.user };
+
+    case REMOVE_MEMBER:
+      return { ...state, members: state.members.filter(member => member.lastName !== action.payload.lastName) };
 
     default:
       return state;
