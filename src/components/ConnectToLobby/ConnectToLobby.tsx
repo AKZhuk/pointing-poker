@@ -4,7 +4,7 @@ import { ChangeEvent, FormEvent, SyntheticEvent, useEffect, useState } from 'rea
 import { useDispatch, useSelector } from 'react-redux';
 import { setOpen } from '../../redux/reducers/popUp/popUpActions';
 import { setDefaultUser, setMember, setUser } from '../../redux/reducers/user/userActions';
-import { GameRole, IState, IUser } from '../../types';
+import { GameRole, IRootState, IUser } from '../../types';
 import Switcher from '../shared/Switcher';
 import Title from '../shared/Title';
 import UploadButton from '../shared/UploadButton';
@@ -39,9 +39,8 @@ const ConnectToLobby = (): JSX.Element => {
   const classes = useStyles();
   const dispatch = useDispatch();
   const { observer } = GameRole;
-  const { firstName, lastName, jobPostion, urlToImage } = useSelector((state: IState) => state.user.user);
-  const user = useSelector((state: IState) => state.user.user);
-  console.log(user);
+  const { firstName, lastName, jobPostion, urlToImage } = useSelector((state: IRootState) => state.user.user);
+  const user = useSelector((state: IRootState) => state.user.user);
   const [firstNameDirty, setFirstNameDirty] = useState(false);
   const [firstNameError, setFirstNameError] = useState(' ');
   const [formValid, setFormValid] = useState(false);

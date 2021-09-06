@@ -4,7 +4,7 @@ import Modal from '@material-ui/core/Modal';
 import Backdrop from '@material-ui/core/Backdrop';
 import Fade from '@material-ui/core/Fade';
 import { Button } from '@material-ui/core';
-import { IpopUpProps, IState } from '../../types';
+import { IpopUpProps, IRootState } from '../../types';
 import { setOpen } from '../../redux/reducers/popUp/popUpActions';
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -27,7 +27,7 @@ const PopUp = (props: IpopUpProps): JSX.Element => {
   const { content, buttonName } = props;
   const classes = useStyles();
   const dispatch = useDispatch();
-  const { isOpen } = useSelector((state: IState) => state.popUp);
+  const { isOpen } = useSelector((state: IRootState) => state.popUp);
 
   const handleOpen = () => {
     dispatch(setOpen('isOpen', true));

@@ -2,13 +2,13 @@ import { TextField } from '@material-ui/core';
 import { ChangeEvent } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { setSetting } from '../../redux/reducers/gameSettings/gameSettingsActions';
-import { IGameSettings, IState } from '../../types';
+import { IGameSettings, IRootState } from '../../types';
 import Switcher from '../shared/Switcher';
 import Title from '../shared/Title';
 
 const GameSettings = (): JSX.Element => {
   const dispatch = useDispatch();
-  const settings = useSelector((state: IState) => state.gameSettings);
+  const settings = useSelector((state: IRootState) => state.gameSettings);
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const value = e.target.type === 'checkbox' ? e.target.checked : e.target.value;

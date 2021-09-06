@@ -21,14 +21,6 @@ export enum GameRole {
   observer = 'observer',
 }
 
-export interface IState {
-  user: { user: IUser; members: IUser[] };
-  popUp: IPopUp;
-
-  issues: { title: string; priority: string; link: string }[];
-  gameSettings: IGameSettings;
-}
-
 export interface IUser {
   firstName: string;
   lastName?: string;
@@ -77,9 +69,10 @@ export interface IIssue {
 }
 
 export interface IRootState {
-  user: IUserState;
-  issues: IIssue[];
-  connection: IConnection;
+  user: { user: IUser; members: IUser[] };
+  popUp: IPopUp;
+  issues: { title: string; priority: string; link: string }[];
+  gameSettings: IGameSettings;
 }
 
 export interface IUserState {
