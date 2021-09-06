@@ -1,6 +1,9 @@
 import { useSelector } from 'react-redux';
 import { IIssue, IRootState } from '../../types';
+import CreateIssue from '../CreateIssue/CreateIssue';
+import PopUp from '../shared/PopUp';
 import Title from '../shared/Title';
+
 import IssueCard from './IssueCard';
 
 const Issues = (): JSX.Element => {
@@ -14,6 +17,7 @@ const Issues = (): JSX.Element => {
           <IssueCard key={issue.title} issue={issue} />
         ))}
         <IssueCard />
+        <PopUp content={<CreateIssue />} name="CreateIssuePopUp" />
       </div>
     </div>
   );

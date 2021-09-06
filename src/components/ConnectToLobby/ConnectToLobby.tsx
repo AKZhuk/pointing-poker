@@ -38,7 +38,7 @@ const useStyles = makeStyles(theme => ({
 const ConnectToLobby = (): JSX.Element => {
   const classes = useStyles();
   const dispatch = useDispatch();
-  const { observer } = GameRole;
+  const { observer, player } = GameRole;
   const { firstName, lastName, jobPostion, urlToImage } = useSelector((state: IRootState) => state.user.user);
   const user = useSelector((state: IRootState) => state.user.user);
   const [firstNameDirty, setFirstNameDirty] = useState(false);
@@ -73,15 +73,17 @@ const ConnectToLobby = (): JSX.Element => {
     dispatch(setUser('urlToImage', imageURL));
   };
 
+
   const handleChecked = (e: ChangeEvent<HTMLInputElement>) => {
-    const userRole = e.target.checked ? observer : 'player';
+    const userRole = e.target.checked ? observer : player;
     dispatch(setUser(e.target.name as keyof IUser, userRole));
   };
 
   const handleFormSubmit = (e: FormEvent): void => {
     e.preventDefault();
+
     if (firstName?.length > 0) {
-      dispatch(setOpen('isOpen', false));
+      dispatch(setOpen('ConnectToLobbyPopUp', false));
       dispatch(setMember(user));
     } else {
       validateInput('firstName', '');
@@ -90,7 +92,7 @@ const ConnectToLobby = (): JSX.Element => {
 
   const handleCancelButton = (): void => {
     dispatch(setDefaultUser('firstName', ''));
-    dispatch(setOpen('isOpen', false));
+    dispatch(setOpen('ConnectToLobbyPopUp', false));
   };
 
   const blurHandler = (e: SyntheticEvent): void => {

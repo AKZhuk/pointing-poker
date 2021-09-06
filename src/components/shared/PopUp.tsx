@@ -3,8 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import Modal from '@material-ui/core/Modal';
 import Backdrop from '@material-ui/core/Backdrop';
 import Fade from '@material-ui/core/Fade';
-import { Button } from '@material-ui/core';
-import { IpopUpProps, IRootState } from '../../types';
+import { IPopUp, IPopUpProps, IRootState, PopUpNames } from '../../types';
 import { setOpen } from '../../redux/reducers/popUp/popUpActions';
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -23,25 +22,29 @@ const useStyles = makeStyles((theme: Theme) =>
   }),
 );
 
-const PopUp = (props: IpopUpProps): JSX.Element => {
-  const { content, buttonName } = props;
+const PopUp = ({ content, name }: IPopUpProps): JSX.Element => {
   const classes = useStyles();
   const dispatch = useDispatch();
-  const { isOpen } = useSelector((state: IRootState) => state.popUp);
-
-  const handleOpen = () => {
-    dispatch(setOpen('isOpen', true));
+  const popUpState: IPopUp = useSelector((state: IRootState) => state.popUp);
+  const getIsOpen = (): boolean => {
+    const popUpStatName = Object.keys(popUpState).find<keyof typeof PopUpNames>(
+      (key): key is keyof typeof PopUpNames => {
+        return key === name;
+      },
+    );
+    if (popUpStatName) {
+      return popUpState[popUpStatName];
+    }
+    return popUpState.isOpen;
   };
+  const isOpen = getIsOpen();
 
   const handleClose = () => {
-    dispatch(setOpen('isOpen', false));
+    dispatch(setOpen(name, false));
   };
 
   return (
-    <>
-      <Button variant="contained" color="primary" onClick={handleOpen}>
-        {buttonName}
-      </Button>
+    <div>
       <Modal
         aria-labelledby="transition-modal-title"
         aria-describedby="transition-modal-description"
@@ -58,7 +61,7 @@ const PopUp = (props: IpopUpProps): JSX.Element => {
           <div className={classes.paper}>{content}</div>
         </Fade>
       </Modal>
-    </>
+    </div>
   );
 };
 export default PopUp;
