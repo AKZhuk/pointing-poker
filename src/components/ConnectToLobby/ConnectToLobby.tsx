@@ -3,9 +3,10 @@ import { makeStyles } from '@material-ui/core/styles';
 import { ChangeEvent, FormEvent, SyntheticEvent, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { setOpen } from '../../redux/reducers/popUp/popUpActions';
-import { setDefaultUser, setUser } from '../../redux/reducers/user/userActions';
-import { GameRole, IRootState } from '../../types';
+import { setDefaultUser, setMember, setUser } from '../../redux/reducers/user/userActions';
+import { GameRole, IRootState, IUser } from '../../types';
 import Switcher from '../shared/Switcher';
+import Title from '../shared/Title';
 import UploadButton from '../shared/UploadButton';
 
 const useStyles = makeStyles(theme => ({
@@ -39,6 +40,7 @@ const ConnectToLobby = (): JSX.Element => {
   const dispatch = useDispatch();
   const { observer, player } = GameRole;
   const { firstName, lastName, jobPostion, urlToImage } = useSelector((state: IRootState) => state.user.user);
+  const user = useSelector((state: IRootState) => state.user.user);
   const [firstNameDirty, setFirstNameDirty] = useState(false);
   const [firstNameError, setFirstNameError] = useState(' ');
   const [formValid, setFormValid] = useState(false);
@@ -71,15 +73,18 @@ const ConnectToLobby = (): JSX.Element => {
     dispatch(setUser('urlToImage', imageURL));
   };
 
-  const handleChecked = (isChecked: boolean) => {
-    const userRole = !isChecked ? observer : player;
-    dispatch(setUser('role', userRole));
+
+  const handleChecked = (e: ChangeEvent<HTMLInputElement>) => {
+    const userRole = e.target.checked ? observer : player;
+    dispatch(setUser(e.target.name as keyof IUser, userRole));
   };
 
   const handleFormSubmit = (e: FormEvent): void => {
     e.preventDefault();
-    if (firstName.length > 0) {
+
+    if (firstName?.length > 0) {
       dispatch(setOpen('ConnectToLobbyPopUp', false));
+      dispatch(setMember(user));
     } else {
       validateInput('firstName', '');
     }
@@ -104,9 +109,7 @@ const ConnectToLobby = (): JSX.Element => {
   return (
     <Container component="div" maxWidth="xs">
       <div className={classes.paper}>
-        <Typography variant="h5" gutterBottom>
-          Connect to lobby
-        </Typography>
+        <Title text="Connect to lobby" />
         <form className={classes.form} onSubmit={handleFormSubmit} noValidate>
           <Grid container spacing={2}>
             <Grid item xs={12}>
@@ -114,7 +117,6 @@ const ConnectToLobby = (): JSX.Element => {
                 error={isValidationError}
                 autoComplete="off"
                 name="firstName"
-                id="firstName"
                 label="First Name"
                 helperText={errorMessage}
                 value={firstName}
@@ -128,7 +130,6 @@ const ConnectToLobby = (): JSX.Element => {
             <Grid item xs={12}>
               <TextField
                 fullWidth
-                id="lastName"
                 label="Last Name"
                 name="lastName"
                 autoComplete="off"
@@ -141,7 +142,6 @@ const ConnectToLobby = (): JSX.Element => {
             <Grid item xs={12}>
               <TextField
                 fullWidth
-                id="email"
                 label="Job position"
                 name="jobPostion"
                 autoComplete="off"
@@ -162,10 +162,7 @@ const ConnectToLobby = (): JSX.Element => {
               </Box>
             </Grid>
             <Grid item xs={7}>
-              <div className={classes.wrapper}>
-                <Switcher handleChecked={handleChecked} />
-                <Typography variant="subtitle1">Connect as Observer</Typography>
-              </div>
+              <Switcher label="Connect as observer" name="role" handleChecked={handleChecked} />
             </Grid>
           </Grid>
           <div className={classes.wrapper}>

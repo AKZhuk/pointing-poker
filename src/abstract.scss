@@ -10,3 +10,13 @@ $red: red;
 %transistion {
   transition: all 0.5s ease-in-out;
 }
+
+.row {
+  width: 100%;
+  @include flexbox(space-between, center);
+}
+
+.setting-container {
+  max-width: 500px;
+  padding: 0 20px;
+}
