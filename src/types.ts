@@ -1,6 +1,8 @@
-export interface IAction {
+import { ChangeEvent } from 'react';
+
+export interface IAction<T> {
   type: string;
-  payload: { [key: string]: string };
+  payload: { [key: string]: T };
 }
 
 export interface IIssueAction {
@@ -19,14 +21,6 @@ export enum GameRole {
   observer = 'observer',
 }
 
-export interface IState {
-  user: IUser;
-  popUp: IPopUp;
-  memders: IUser[];
-  issues: { title: string; priority: string; link: string }[];
-  gameSettings: IGameSettings;
-}
-
 export interface IUser {
   firstName: string;
   lastName?: string;
@@ -36,11 +30,11 @@ export interface IUser {
 }
 
 export interface IGameSettings {
-  isScrumMasterAsPlayer: boolean;
+  ScrumMasterAsPlayer: boolean;
   changingCardInRoundEnd: boolean;
   isTimerNeeded: boolean;
   scoreType: string;
-  scorTypeShort: string;
+  scoreTypeShort: string;
   timer?: string;
   cards: { value: string; name: string }[];
 }
@@ -59,7 +53,9 @@ export interface IUploadButtonProps {
 }
 
 export interface ISwitcherProps {
-  handleChecked(isChecked: boolean): void;
+  label: string;
+  name: string;
+  handleChecked(e: ChangeEvent<HTMLInputElement>): void;
 }
 
 export interface IConnection {
@@ -73,9 +69,10 @@ export interface IIssue {
 }
 
 export interface IRootState {
-  user: IUserState;
-  issues: IIssue[];
-  connection: IConnection;
+  user: { user: IUser; members: IUser[] };
+  popUp: IPopUp;
+  issues: { title: string; priority: string; link: string }[];
+  gameSettings: IGameSettings;
 }
 
 export interface IUserState {
