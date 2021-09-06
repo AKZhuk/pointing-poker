@@ -1,15 +1,16 @@
-import { Button, TextField } from '@material-ui/core';
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
+import { setUser } from '../redux/reducers/user/userActions';
 import Footer from './Footer/Footer';
 import Header from './Header/Header';
-
 import { setUser } from '../redux/reducers/user/userActions';
 import PopUp from './shared/PopUp';
 import ConnectToLobby from './ConnectToLobby/ConnectToLobby';
-import './App.scss';
 import { setOpen } from '../redux/reducers/popUp/popUpActions';
 import { PopUpNames } from '../types';
+import Lobby from './Lobby/Lobby';
+import './App.scss';
+import FirstPage from './FirstPage/FirstPage';
 
 const App = (): JSX.Element => {
   const dispatch = useDispatch();
@@ -25,7 +26,16 @@ const App = (): JSX.Element => {
     <div className="app">
       <Header />
       <main className="main">
-        <Button variant="contained" color="primary">
+        <FirstPage />
+        <Lobby />
+      </main>
+      <Footer />
+    </div>
+  );
+};
+export default App;
+
+/* <Button variant="contained" color="primary">
           Primary
         </Button>
         <Button variant="contained" color="secondary">
@@ -43,6 +53,7 @@ const App = (): JSX.Element => {
       </main>
       <Footer />
     </div>
-  );
-};
-export default App;
+        {/* <Switcher />
+        <TextField id="standard-basic" label="Standard" />
+        {/* <UploadButton /> */
+

@@ -4,7 +4,7 @@
 
 main {
   max-width: 100%;
-  margin: 50px auto 0 auto;
+  margin: 40px auto 0 auto;
   min-height: 80vh;
 }
 
@@ -14,4 +14,8 @@ main {
   margin: 0 auto;
   padding: 0 20px;
   @include flexbox(space-between, center);
+}
+
+.title {
+  width: 100%;
 }
