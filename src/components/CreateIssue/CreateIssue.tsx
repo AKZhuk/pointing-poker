@@ -72,7 +72,7 @@ const CreateIssue = (): JSX.Element => {
     validateInput(name, value);
   };
 
-  const handleNo = (): void => {
+  const handleNoButton = (): void => {
     dispatch(setOpen('CreateIssuePopUp', false));
   };
 
@@ -167,7 +167,7 @@ const CreateIssue = (): JSX.Element => {
             </Button>
           </Grid>
           <Grid item xs={2}>
-            <Button variant="contained" color="secondary" onClick={handleNo}>
+            <Button variant="contained" color="secondary" onClick={handleNoButton}>
               No
             </Button>
           </Grid>
