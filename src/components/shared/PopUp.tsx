@@ -27,13 +27,13 @@ const PopUp = ({ content, name }: IPopUpProps): JSX.Element => {
   const dispatch = useDispatch();
   const popUpState: IPopUp = useSelector((state: IRootState) => state.popUp);
   const getIsOpen = (): boolean => {
-    const popUpStatName = Object.keys(popUpState).find<keyof typeof PopUpNames>(
+    const popUpStateName = Object.keys(popUpState).find<keyof typeof PopUpNames>(
       (key): key is keyof typeof PopUpNames => {
         return key === name;
       },
     );
-    if (popUpStatName) {
-      return popUpState[popUpStatName];
+    if (popUpStateName) {
+      return popUpState[popUpStateName];
     }
     return popUpState.isOpen;
   };

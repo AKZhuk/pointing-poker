@@ -6,15 +6,13 @@ import Issues from '../Issues/Issues';
 import Members from '../Members/Members';
 
 const Lobby = (): JSX.Element => {
-  const { isLogin } = useSelector((state: IRootState) => state.connection);
-
+  const room = useSelector((state: IRootState) => state.room);
   return (
     <div className="wrapper">
+      <Switch>{room === null && <Redirect to="/" />}</Switch>
       <Members />
       <Issues />
       <GameSettings />
-
-      <Switch>{!isLogin && <Redirect to="/" />}</Switch>
     </div>
   );
 };
