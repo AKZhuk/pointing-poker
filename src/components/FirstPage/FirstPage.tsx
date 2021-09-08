@@ -7,17 +7,25 @@ import firstPageLogo from '../../assets/img/MainLogo.svg';
 import ConnectToLobby from '../ConnectToLobby/ConnectToLobby';
 import PopUp from '../shared/PopUp';
 import { setOpen } from '../../redux/reducers/popUp/popUpActions';
-import { PopUpNames } from '../../types';
+import { GameRole, PopUpNames } from '../../types';
+import { setUser } from '../../redux/reducers/user/userActions';
 
 const FirstPage = (): JSX.Element => {
   const dispatch = useDispatch();
+  const { ConnectToLobbyPopUp } = PopUpNames;
+  const { scrumMaster, player } = GameRole;
+
+  const changeHandler = (ev: ChangeEvent<HTMLInputElement>): void => {
+    dispatch(setConnection('url', ev.target.value));
+  };
 
   const handleOpen = (popUpName: keyof typeof PopUpNames) => {
     dispatch(setOpen(popUpName, true));
   };
-  function changeHandler(ev: ChangeEvent<HTMLInputElement>): void {
-    dispatch(setConnection('url', ev.target.value));
-  }
+
+  const setUserRole = (userRole: keyof typeof GameRole) => {
+    dispatch(setUser('role', userRole));
+  };
 
   return (
     <>
@@ -33,7 +41,14 @@ const FirstPage = (): JSX.Element => {
             Create session:
           </Typography>
           <Box display="inline" marginLeft={8}>
-            <Button variant="contained" color="primary" onClick={() => handleOpen('ConnectToLobbyPopUp')}>
+            <Button
+              variant="contained"
+              color="primary"
+              onClick={() => {
+                setUserRole(scrumMaster);
+                handleOpen(ConnectToLobbyPopUp);
+              }}
+            >
               Start new game
             </Button>
           </Box>
@@ -50,12 +65,19 @@ const FirstPage = (): JSX.Element => {
           <Box marginLeft={5} marginRight={5} display="inline">
             <TextField id="standard-basic" placeholder="Enter URL" onChange={changeHandler} />
           </Box>
-          <Button variant="contained" color="primary" onClick={() => handleOpen('ConnectToLobbyPopUp')}>
+          <Button
+            variant="contained"
+            color="primary"
+            onClick={() => {
+              setUserRole(player);
+              handleOpen(ConnectToLobbyPopUp);
+            }}
+          >
             Connect
           </Button>
         </Box>
       </div>
-      <PopUp content={<ConnectToLobby />} name="ConnectToLobbyPopUp" />
+      <PopUp content={<ConnectToLobby />} name={ConnectToLobbyPopUp} />
     </>
   );
 };

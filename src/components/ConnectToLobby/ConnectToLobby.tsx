@@ -1,10 +1,11 @@
 import { Avatar, Box, Button, Container, Grid, TextField, Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
+import { useHistory } from 'react-router-dom';
 import { ChangeEvent, FormEvent, SyntheticEvent, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { setOpen } from '../../redux/reducers/popUp/popUpActions';
 import { setDefaultUser, setMember, setUser } from '../../redux/reducers/user/userActions';
-import { GameRole, IRootState, IUser } from '../../types';
+import { GameRole, IRootState, PopUpNames, Routes } from '../../types';
 import Switcher from '../shared/Switcher';
 import Title from '../shared/Title';
 import UploadButton from '../shared/UploadButton';
@@ -38,14 +39,19 @@ const useStyles = makeStyles(theme => ({
 const ConnectToLobby = (): JSX.Element => {
   const classes = useStyles();
   const dispatch = useDispatch();
-  const { observer, player } = GameRole;
+  const { observer } = GameRole;
+  const { ConnectToLobbyPopUp } = PopUpNames;
+  const { lobby } = Routes;
   const { firstName, lastName, jobPostion, urlToImage } = useSelector((state: IRootState) => state.user.user);
   const user = useSelector((state: IRootState) => state.user.user);
+  const { isLogin } = useSelector((state: IRootState) => state.connection);
+  const [isObserver, setIsObserver] = useState(false);
   const [firstNameDirty, setFirstNameDirty] = useState(false);
   const [firstNameError, setFirstNameError] = useState(' ');
   const [formValid, setFormValid] = useState(false);
   const errorMessage = firstNameDirty && firstNameError ? firstNameError : ' ';
   const isValidationError = !!(firstNameDirty && firstNameError.length > 1);
+  const history = useHistory();
 
   useEffect(() => {
     if (!isValidationError) {
@@ -54,6 +60,11 @@ const ConnectToLobby = (): JSX.Element => {
       setFormValid(true);
     }
   }, [firstNameError, isValidationError]);
+
+  const changeRoute = (route: keyof typeof Routes) => {
+    const path = `/${route}`;
+    history.push(path);
+  };
 
   const validateInput = (inputName: string, value: string) => {
     if (inputName === 'firstName' && value.length > 0) {
@@ -73,18 +84,26 @@ const ConnectToLobby = (): JSX.Element => {
     dispatch(setUser('urlToImage', imageURL));
   };
 
+  const handleChecked = () => {
+    setIsObserver(prev => !prev);
+  };
 
-  const handleChecked = (e: ChangeEvent<HTMLInputElement>) => {
-    const userRole = e.target.checked ? observer : player;
-    dispatch(setUser(e.target.name as keyof IUser, userRole));
+  const redirectToLobby = () => {
+    if (isObserver) {
+      dispatch(setUser('role', observer));
+    }
+    if (isLogin) {
+      dispatch(setOpen(ConnectToLobbyPopUp, false));
+      dispatch(setMember(user));
+      changeRoute(lobby);
+    }
   };
 
   const handleFormSubmit = (e: FormEvent): void => {
     e.preventDefault();
 
     if (firstName?.length > 0) {
-      dispatch(setOpen('ConnectToLobbyPopUp', false));
-      dispatch(setMember(user));
+      redirectToLobby();
     } else {
       validateInput('firstName', '');
     }
@@ -92,7 +111,7 @@ const ConnectToLobby = (): JSX.Element => {
 
   const handleCancelButton = (): void => {
     dispatch(setDefaultUser('firstName', ''));
-    dispatch(setOpen('ConnectToLobbyPopUp', false));
+    dispatch(setOpen(ConnectToLobbyPopUp, false));
   };
 
   const blurHandler = (e: SyntheticEvent): void => {

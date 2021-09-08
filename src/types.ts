@@ -10,13 +10,18 @@ export interface IIssueAction {
   payload: IIssue;
 }
 
+export interface IActionConnection {
+  type: string;
+  payload: { [key: string]: boolean | string };
+}
+
 export interface IActionPopUp {
   type: string;
   payload?: { [key: string]: boolean };
 }
 
 export enum GameRole {
-  scrumMaster = 'scrum master',
+  scrumMaster = 'scrumMaster',
   player = 'player',
   observer = 'observer',
 }
@@ -49,6 +54,12 @@ export enum PopUpNames {
   CreateIssuePopUp = 'CreateIssuePopUp',
 }
 
+export enum Routes {
+  lobby = 'lobby',
+  game = 'game',
+  result = 'result',
+}
+
 export type IPopUp = {
   [key in PopUpNames]: boolean;
 };
@@ -65,6 +76,7 @@ export interface ISwitcherProps {
 
 export interface IConnection {
   url: string;
+  isLogin: boolean;
 }
 
 export interface IIssue {
