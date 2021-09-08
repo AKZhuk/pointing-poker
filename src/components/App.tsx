@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react';
+import { useRef } from 'react';
 import { useDispatch } from 'react-redux';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import Footer from './Footer/Footer';
@@ -7,6 +7,7 @@ import Lobby from './Lobby/Lobby';
 import './App.scss';
 import FirstPage from './FirstPage/FirstPage';
 import { setConnection } from '../redux/reducers/connection/connectionActions';
+import NotFound from './shared/NotFound';
 
 const BASE_URL = 'ws://localhost:5000';
 const App = (): JSX.Element => {
@@ -19,8 +20,9 @@ const App = (): JSX.Element => {
       console.log('Тепленькая пошла!');
       dispatch(setConnection('isLogin', true));
     };
-    socket.current.onmessage = () => {
-      console.log('Что-то пришло!');
+    socket.current.onmessage = (event: MessageEvent) => {
+      const message = event.data;
+      console.log(`Что-то пришло!${message}`);
     };
     socket.current.onclose = () => {
       console.log('Наши полномочия, так сказать, всё!');
@@ -42,8 +44,11 @@ const App = (): JSX.Element => {
             </Route>
             <Route path="/game">game</Route>
             <Route path="/result">result</Route>
-            <Route path="/">
+            <Route exact path="/">
               <FirstPage />
+            </Route>
+            <Route path="*">
+              <NotFound />
             </Route>
           </Switch>
         </Router>
