@@ -73,7 +73,6 @@ const ConnectToLobby = (): JSX.Element => {
     dispatch(setUser('urlToImage', imageURL));
   };
 
-
   const handleChecked = (e: ChangeEvent<HTMLInputElement>) => {
     const userRole = e.target.checked ? observer : player;
     dispatch(setUser(e.target.name as keyof IUser, userRole));
