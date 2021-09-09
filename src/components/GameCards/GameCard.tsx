@@ -12,7 +12,7 @@ const GameCard = ({ value = undefined }: { value?: number | undefined }): JSX.El
 
   return (
     <Card className=" game-card">
-      <span>{scoreType}</span>
+      <span>{value && scoreType}</span>
       {value ? (
         <Typography variant="h3" component="h3" align="center" color="primary">
           {value}
@@ -22,7 +22,7 @@ const GameCard = ({ value = undefined }: { value?: number | undefined }): JSX.El
           <AddCircleOutlineIcon fontSize="large" />
         </IconButton>
       )}
-      <span className="rotate">{scoreType}</span>
+      <span className="rotate">{value && scoreType}</span>
     </Card>
   );
 };
