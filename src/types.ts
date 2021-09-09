@@ -91,9 +91,23 @@ export interface IRootState {
   popUp: IPopUp;
   issues: { title: string; priority: string; link: string }[];
   gameSettings: IGameSettings;
+  room: IRoom;
 }
 
 export interface IUserState {
   user: IUser;
   members: IUser[];
+}
+
+export interface IRoom {
+  roomKey: string;
+  scrumMaster: IUser;
+  members: IUser[];
+  issues: IIssue[];
+  gameSettings: IGameSettings;
+}
+
+export interface IRoomAction {
+  type: string;
+  payload: IRoom;
 }

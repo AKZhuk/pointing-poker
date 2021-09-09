@@ -1,7 +1,6 @@
 import { REMOVE_MEMBER, RESET_USER_DATA, SET_MEMBER, SET_USER } from './userActions';
 import { IUserState, GameRole, IAction, IUser } from '../../../types';
 
-
 export const defaultUserState: IUserState = {
   user: {
     firstName: '',
@@ -15,34 +14,6 @@ export const defaultUserState: IUserState = {
       firstName: 'Aliaksei',
       lastName: 'Vasin',
       jobPostion: 'developer',
-      urlToImage: '',
-      role: GameRole.player,
-    },
-    {
-      firstName: 'Ivan',
-      lastName: 'Safonov',
-      jobPostion: 'project manager',
-      urlToImage: '',
-      role: GameRole.player,
-    },
-    {
-      firstName: 'Aliaksei',
-      lastName: 'Shut',
-      jobPostion: 'developer',
-      urlToImage: '',
-      role: GameRole.player,
-    },
-    {
-      firstName: 'Aliaksei',
-      lastName: 'Kamozin',
-      jobPostion: 'developer',
-      urlToImage: '',
-      role: GameRole.player,
-    },
-    {
-      firstName: 'Ivan',
-      lastName: 'Sidorov',
-      jobPostion: 'project manager',
       urlToImage: '',
       role: GameRole.player,
     },

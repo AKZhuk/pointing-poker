@@ -9,6 +9,7 @@ import { GameRole, IRootState, PopUpNames, Routes } from '../../types';
 import Switcher from '../shared/Switcher';
 import Title from '../shared/Title';
 import UploadButton from '../shared/UploadButton';
+import { addRoom } from '../../redux/reducers/room/roomActions';
 
 const useStyles = makeStyles(theme => ({
   paper: {
@@ -42,8 +43,10 @@ const ConnectToLobby = (): JSX.Element => {
   const { observer } = GameRole;
   const { ConnectToLobbyPopUp } = PopUpNames;
   const { lobby } = Routes;
-  const { firstName, lastName, jobPostion, urlToImage } = useSelector((state: IRootState) => state.user.user);
-  const user = useSelector((state: IRootState) => state.user.user);
+  const issues = useSelector((state: IRootState) => state.issues);
+  const gameSettings = useSelector((state: IRootState) => state.gameSettings);
+  const { user, members } = useSelector((state: IRootState) => state.user);
+  const { firstName, lastName, jobPostion, urlToImage } = user;
   const { isLogin } = useSelector((state: IRootState) => state.connection);
   const [isObserver, setIsObserver] = useState(false);
   const [firstNameDirty, setFirstNameDirty] = useState(false);
@@ -99,10 +102,22 @@ const ConnectToLobby = (): JSX.Element => {
     }
   };
 
+  const createRoom = () => {
+    const room = {
+      roomKey: '',
+      scrumMaster: user,
+      members,
+      issues,
+      gameSettings,
+    };
+    dispatch(addRoom(room));
+  };
+
   const handleFormSubmit = (e: FormEvent): void => {
     e.preventDefault();
 
     if (firstName?.length > 0) {
+      createRoom();
       redirectToLobby();
     } else {
       validateInput('firstName', '');
@@ -124,7 +139,6 @@ const ConnectToLobby = (): JSX.Element => {
         setFirstNameDirty(false);
     }
   };
-
   return (
     <Container component="div" maxWidth="xs">
       <div className={classes.paper}>

@@ -7,7 +7,6 @@ import Members from '../Members/Members';
 
 const Lobby = (): JSX.Element => {
   const { isLogin } = useSelector((state: IRootState) => state.connection);
-
   return (
     <div className="wrapper">
       <Members />
