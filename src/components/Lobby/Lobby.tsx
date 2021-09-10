@@ -1,13 +1,22 @@
+import { useSelector } from 'react-redux';
+import { GameRole, IRootState } from '../../types';
 import GameSettings from '../GameSettings/GameSettings';
 import Issues from '../Issues/Issues';
 import Members from '../Members/Members';
+import UserMenu from '../UserMenu/UserMenu';
 
 const Lobby = (): JSX.Element => {
+  const user = useSelector((state: IRootState) => state.user.user);
   return (
     <div className="wrapper">
+      <UserMenu />
       <Members />
-      <Issues />
-      <GameSettings />
+      {user.role === GameRole.scrumMaster ? (
+        <div>
+          <Issues />
+          <GameSettings />
+        </div>
+      ) : null}
     </div>
   );
 };

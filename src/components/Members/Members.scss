@@ -7,6 +7,16 @@
     @include flexbox(space-between, center);
   }
 }
+.card__scrumMaster {
+  width: 300px;
+  .card-content {
+    @include flexbox(space-between, center);
+    h3 { 
+      width: 80%
+    }
+  }
+
+}
 
 .card-container {
   @include flexbox(normal, normal, row, wrap);

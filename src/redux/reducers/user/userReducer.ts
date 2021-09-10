@@ -1,14 +1,13 @@
 import { REMOVE_MEMBER, RESET_USER_DATA, SET_MEMBER, SET_USER } from './userActions';
 import { IUserState, GameRole, IAction, IUser } from '../../../types';
 
-
 export const defaultUserState: IUserState = {
   user: {
     firstName: '',
     lastName: '',
     jobPostion: '',
     urlToImage: '',
-    role: GameRole.player,
+    role: GameRole.scrumMaster,
   },
   members: [
     {

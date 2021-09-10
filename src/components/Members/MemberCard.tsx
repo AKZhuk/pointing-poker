@@ -5,14 +5,14 @@ import { removeMember } from '../../redux/reducers/user/userActions';
 import { IUser } from '../../types';
 import './Members.scss';
 
-const MemberCard = ({ member }: { member: IUser }): JSX.Element => {
+const MemberCard = ({ member, isScrumMaster }: { member: IUser; isScrumMaster?: boolean }): JSX.Element => {
   const dispatch = useDispatch();
   const kickHandler = () => {
     dispatch(removeMember(member));
   };
 
   return (
-    <Card className="card">
+    <Card className={isScrumMaster ? 'card__scrumMaster' : 'card'}>
       <CardContent className="card-content">
         <Avatar alt="Remy Shar.lastNamep" src={member.urlToImage} className="avatar" />
         <Typography variant="h6" component="h3">
@@ -21,9 +21,11 @@ const MemberCard = ({ member }: { member: IUser }): JSX.Element => {
             {member.jobPostion}
           </Typography>
         </Typography>
-        <IconButton onClick={kickHandler}>
-          <BlockIcon fontSize="large" color="error" />
-        </IconButton>
+        {isScrumMaster ? null : (
+          <IconButton onClick={kickHandler}>
+            <BlockIcon fontSize="large" color="error" />
+          </IconButton>
+        )}
       </CardContent>
     </Card>
   );
