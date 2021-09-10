@@ -31,11 +31,13 @@ const Connect = (): void => {
         dispatch(addRoom(res.data));
         break;
       case 'addMember':
-        console.log(res.data);
         dispatch(setRoom('members', res.data));
         break;
+      case 'addIssue':
+        dispatch(setRoom('issues', res.data));
+        break;
       default:
-        dispatch(setRoom(res.method, res.data));
+        console.error(`Неизвестный ивент`);
     }
   };
   socket.onclose = () => {
