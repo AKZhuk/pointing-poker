@@ -17,34 +17,6 @@ export const defaultUserState: IUserState = {
       urlToImage: '',
       role: GameRole.player,
     },
-    {
-      firstName: 'Ivan',
-      lastName: 'Safonov',
-      jobPostion: 'project manager',
-      urlToImage: '',
-      role: GameRole.player,
-    },
-    {
-      firstName: 'Aliaksei',
-      lastName: 'Shut',
-      jobPostion: 'developer',
-      urlToImage: '',
-      role: GameRole.player,
-    },
-    {
-      firstName: 'Aliaksei',
-      lastName: 'Kamozin',
-      jobPostion: 'developer',
-      urlToImage: '',
-      role: GameRole.player,
-    },
-    {
-      firstName: 'Ivan',
-      lastName: 'Sidorov',
-      jobPostion: 'project manager',
-      urlToImage: '',
-      role: GameRole.player,
-    },
   ],
 };
 

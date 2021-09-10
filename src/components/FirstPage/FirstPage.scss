@@ -5,6 +5,8 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  padding-bottom: 4%;
+  .first-page__logo {
   &__logo {
     padding-top: 4%;
     padding-bottom: 4%;
@@ -13,4 +15,5 @@
     width: 280px;
     top: -20px;
   }
+}
 }

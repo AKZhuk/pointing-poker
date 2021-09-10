@@ -1,4 +1,4 @@
-import notFoundImg from '../assets/img/404.png';
+import notFoundImg from '../../assets/img/404.png';
 
 const NotFound = (): JSX.Element => {
   return (

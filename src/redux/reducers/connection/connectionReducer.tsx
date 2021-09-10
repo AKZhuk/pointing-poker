@@ -1,11 +1,13 @@
-import { IAction, IConnection } from '../../../types';
+import { IActionConnection, IConnection } from '../../../types';
 import { SET_CONNECTION } from './connectionActions';
 
 export const defaultConnectionState: IConnection = {
   url: '',
+  isConnected: false,
+  isGotoLobby: false,
 };
 
-export const connectionReducer = (state = defaultConnectionState, action: IAction): IConnection => {
+export const connectionReducer = (state = defaultConnectionState, action: IActionConnection): IConnection => {
   switch (action.type) {
     case SET_CONNECTION:
       return { ...state, ...action.payload };
