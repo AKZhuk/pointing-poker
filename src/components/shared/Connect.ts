@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { setConnection } from '../../redux/reducers/connection/connectionActions';
 import { addRoom, setRoom } from '../../redux/reducers/room/roomActions';

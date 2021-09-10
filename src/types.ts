@@ -118,4 +118,3 @@ export interface IScoreTypes {
   'story point': number[];
   fibonacci: number[];
 }
-
