@@ -1,0 +1,16 @@
+@import '/src/abstract.scss';
+.game-card {
+  border-radius: 67px;
+  width: 100px;
+  height: 160px;
+  padding: 10px;
+  @include flexbox(space-between, normal, column);
+  &_active {
+    background-color: green !important;
+    opacity: 0.5;
+  }
+}
+
+.rotate {
+  transform: rotate(179.72deg);
+}
