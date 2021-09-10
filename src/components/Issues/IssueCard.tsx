@@ -7,7 +7,13 @@ import { IIssue } from '../../types';
 import { removeIssue } from '../../redux/reducers/issues/issuesActions';
 import { setOpen } from '../../redux/reducers/popUp/popUpActions';
 
-const IssueCard = ({ issue = undefined }: { issue?: IIssue | undefined }): JSX.Element => {
+const IssueCard = ({
+  issue = undefined,
+  disabled = false,
+}: {
+  issue?: IIssue | undefined;
+  disabled?: boolean;
+}): JSX.Element => {
   const dispatch = useDispatch();
 
   const editHandler = () => {
@@ -31,7 +37,7 @@ const IssueCard = ({ issue = undefined }: { issue?: IIssue | undefined }): JSX.E
             {issue?.priority}
           </Typography>
         </Typography>
-        {issue ? (
+        {issue && !disabled && (
           <Box>
             <IconButton onClick={editHandler}>
               <EditIcon />
@@ -40,7 +46,8 @@ const IssueCard = ({ issue = undefined }: { issue?: IIssue | undefined }): JSX.E
               <DeleteOutlineIcon color="error" />
             </IconButton>
           </Box>
-        ) : (
+        )}
+        {!disabled && !issue && (
           <IconButton onClick={createHandler}>
             <AddIcon fontSize="large" />
           </IconButton>

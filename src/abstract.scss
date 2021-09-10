@@ -16,6 +16,12 @@ $red: red;
   @include flexbox(space-between, center);
 }
 
+.col-center {
+  margin-top: 25px;
+  @include flexbox(space-between, center, column);
+  gap: 15px;
+}
+
 .setting-container {
   max-width: 500px;
   padding: 0 20px;
