@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { GameRole, IRootState } from '../../types';
 import MemberCard from '../Members/MemberCard';
-import { delay } from '../shared/delay';
+import { delay } from '../helpers/delay';
 import './UserMenu.scss';
 
 const UserMenu = (): JSX.Element => {
