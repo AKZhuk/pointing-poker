@@ -12,10 +12,10 @@ const Lobby = (): JSX.Element => {
       <UserMenu />
       <Members />
       {user.role === GameRole.scrumMaster ? (
-        <div>
+        <>
           <Issues />
           <GameSettings />
-        </div>
+        </>
       ) : null}
     </div>
   );
