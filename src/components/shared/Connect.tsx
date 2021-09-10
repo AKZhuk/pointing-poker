@@ -1,29 +1,42 @@
 import { useEffect, useMemo, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { setConnection } from '../../redux/reducers/connection/connectionActions';
-import { setRoom } from '../../redux/reducers/room/roomActions';
-import { IRootState } from '../../types';
+import { addRoom, setRoom } from '../../redux/reducers/room/roomActions';
+import { GameRole, IRootState } from '../../types';
 
-const BASE_URL = 'ws://localhost:5000';
+const BASE_URL = 'localhost:5000';
 
 const Connect = (): void => {
-  const [isConnected, seIsConnected] = useState(false);
   const dispatch = useDispatch();
+  const { scrumMaster, player, observer } = GameRole;
   const room = useSelector((state: IRootState) => state.room);
-  const socket = useMemo(() => new WebSocket(BASE_URL), []);
+  const { url, isConnected, isGotoLobby } = useSelector((state: IRootState) => state.connection);
+  const { user } = useSelector((state: IRootState) => state.user);
+  const { role } = user;
+  const socket = useMemo(() => new WebSocket(`ws://${BASE_URL}`), []);
 
   socket.onopen = () => {
-    seIsConnected(true);
-    dispatch(setConnection('isLogin', true));
+    dispatch(setConnection('isConnected', true));
     console.log('Connected!');
   };
 
   socket.onmessage = (event: MessageEvent) => {
     const res = JSON.parse(event.data);
-    if (res.method === 'roomKey') {
-      dispatch(setRoom('roomKey', res.roomKey));
+    switch (res.method) {
+      case 'roomKey':
+        dispatch(setRoom('roomKey', res.roomKey));
+        dispatch(setConnection('url', `${res.roomKey}`));
+        break;
+      case 'createRoom':
+        dispatch(addRoom(res.data));
+        break;
+      case 'addMember':
+        console.log(res.data);
+        dispatch(setRoom('members', res.data));
+        break;
+      default:
+        dispatch(setRoom(res.method, res.data));
     }
-    console.log(`Что-то пришло!${res}`);
   };
   socket.onclose = () => {
     console.log('Наши полномочия, так сказать, всё!');
@@ -33,11 +46,23 @@ const Connect = (): void => {
   };
 
   useEffect(() => {
-    const message = { method: 'createRoom', room };
-    if (isConnected && room !== null && room.roomKey === '') {
+    const isCreateRoom = isConnected && room !== null && room.roomKey === '' && role === scrumMaster && isGotoLobby;
+    const isConnectToLobby = isConnected && (role === player || role === observer) && url.length > 10 && isGotoLobby;
+    if (isCreateRoom) {
+      const message = { method: 'createRoom', data: room };
       socket.send(JSON.stringify(message));
+      dispatch(setConnection('isGotoLobby', false));
     }
-  }, [isConnected, room, socket]);
+    if (isConnectToLobby) {
+      const message = {
+        method: 'addMember',
+        roomKey: url,
+        data: user,
+      };
+      socket.send(JSON.stringify(message));
+      dispatch(setConnection('isGotoLobby', false));
+    }
+  }, [dispatch, isGotoLobby, isConnected, observer, player, role, room, scrumMaster, socket, url, url.length, user]);
 };
 
 export default Connect;

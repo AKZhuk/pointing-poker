@@ -76,7 +76,8 @@ export interface ISwitcherProps {
 
 export interface IConnection {
   url: string;
-  isLogin: boolean;
+  isConnected: boolean;
+  isGotoLobby: boolean;
 }
 
 export interface IIssue {

@@ -3,7 +3,8 @@ import { SET_CONNECTION } from './connectionActions';
 
 export const defaultConnectionState: IConnection = {
   url: '',
-  isLogin: false,
+  isConnected: false,
+  isGotoLobby: false,
 };
 
 export const connectionReducer = (state = defaultConnectionState, action: IActionConnection): IConnection => {

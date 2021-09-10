@@ -10,6 +10,7 @@ import Switcher from '../shared/Switcher';
 import Title from '../shared/Title';
 import UploadButton from '../shared/UploadButton';
 import { addRoom } from '../../redux/reducers/room/roomActions';
+import { setConnection } from '../../redux/reducers/connection/connectionActions';
 
 const useStyles = makeStyles(theme => ({
   paper: {
@@ -46,8 +47,9 @@ const ConnectToLobby = (): JSX.Element => {
   const issues = useSelector((state: IRootState) => state.issues);
   const gameSettings = useSelector((state: IRootState) => state.gameSettings);
   const { user, members } = useSelector((state: IRootState) => state.user);
-  const { firstName, lastName, jobPostion, urlToImage } = user;
-  const { isLogin } = useSelector((state: IRootState) => state.connection);
+  const room = useSelector((state: IRootState) => state.room);
+  const { firstName, lastName, jobPostion, urlToImage, role } = user;
+  const { isConnected } = useSelector((state: IRootState) => state.connection);
   const [isObserver, setIsObserver] = useState(false);
   const [firstNameDirty, setFirstNameDirty] = useState(false);
   const [firstNameError, setFirstNameError] = useState(' ');
@@ -95,29 +97,29 @@ const ConnectToLobby = (): JSX.Element => {
     if (isObserver) {
       dispatch(setUser('role', observer));
     }
-    if (isLogin) {
-      dispatch(setOpen(ConnectToLobbyPopUp, false));
+    if (isConnected) {
       dispatch(setMember(user));
       changeRoute(lobby);
+      dispatch(setOpen(ConnectToLobbyPopUp, false));
     }
   };
 
   const createRoom = () => {
-    const room = {
+    const initialRoom = {
       roomKey: '',
       scrumMaster: user,
       members,
       issues,
       gameSettings,
     };
-    dispatch(addRoom(room));
+    dispatch(addRoom(initialRoom));
   };
 
   const handleFormSubmit = (e: FormEvent): void => {
     e.preventDefault();
-
+    createRoom();
     if (firstName?.length > 0) {
-      createRoom();
+      dispatch(setConnection('isGotoLobby', true));
       redirectToLobby();
     } else {
       validateInput('firstName', '');
