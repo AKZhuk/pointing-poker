@@ -7,7 +7,7 @@ export const defaultUserState: IUserState = {
     lastName: '',
     jobPostion: '',
     urlToImage: '',
-    role: GameRole.player,
+    role: GameRole.scrumMaster,
   },
   members: [
     {

@@ -63,7 +63,7 @@ const FirstPage = (): JSX.Element => {
             Connect to lobby by URL:
           </Typography>
           <Box marginLeft={5} marginRight={5} display="inline">
-            <TextField id="standard-basic" placeholder="Enter URL" onChange={changeHandler} />
+            <TextField className="firstPage__link" label="Enter URL" onChange={changeHandler} />
           </Box>
           <Button
             variant="contained"
