@@ -38,10 +38,12 @@ export interface IGameSettings {
   ScrumMasterAsPlayer: boolean;
   changingCardInRoundEnd: boolean;
   isTimerNeeded: boolean;
-  scoreType: string;
+  scoreType: keyof IScoreTypes;
   scoreTypeShort: string;
+  flipCardsWhenAllVoted: boolean;
+  addPlayerWhenGameStarted: boolean;
   timer?: string;
-  cards: { value: string; name: string }[];
+  cards: number;
 }
 
 export interface IPopUpProps {
@@ -99,7 +101,6 @@ export interface IUserState {
   user: IUser;
   members: IUser[];
 }
-
 export interface IRoom {
   roomKey: string;
   scrumMaster: IUser;
@@ -112,3 +113,9 @@ export interface IRoomAction {
   type: string;
   payload: IRoom;
 }
+export interface IScoreTypes {
+  'power of 2': number[];
+  'story point': number[];
+  fibonacci: number[];
+}
+

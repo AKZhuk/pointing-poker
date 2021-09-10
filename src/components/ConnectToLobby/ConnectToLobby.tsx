@@ -47,7 +47,8 @@ const ConnectToLobby = (): JSX.Element => {
   const issues = useSelector((state: IRootState) => state.issues);
   const gameSettings = useSelector((state: IRootState) => state.gameSettings);
   const { user, members } = useSelector((state: IRootState) => state.user);
-  const { firstName, lastName, jobPostion, urlToImage } = user;
+  const room = useSelector((state: IRootState) => state.room);
+  const { firstName, lastName, jobPostion, urlToImage, role } = user;
   const { isConnected } = useSelector((state: IRootState) => state.connection);
   const [isObserver, setIsObserver] = useState(false);
   const [firstNameDirty, setFirstNameDirty] = useState(false);
