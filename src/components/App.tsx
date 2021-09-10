@@ -1,11 +1,13 @@
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import Footer from './Footer/Footer';
 import Header from './Header/Header';
 import Lobby from './Lobby/Lobby';
-import './App.scss';
 import FirstPage from './FirstPage/FirstPage';
 import NotFound from './shared/NotFound';
+import Game from './Game/Game';
+import GameResult from './Game/GameResult';
+import Footer from './Footer/Footer';
 import Connect from './shared/Connect';
+import './App.scss';
 
 const App = (): JSX.Element => {
   Connect();
@@ -15,17 +17,11 @@ const App = (): JSX.Element => {
       <main className="main">
         <Router>
           <Switch>
-            <Route path="/lobby">
-              <Lobby />
-            </Route>
-            <Route path="/game">game</Route>
-            <Route path="/result">result</Route>
-            <Route exact path="/">
-              <FirstPage />
-            </Route>
-            <Route path="*">
-              <NotFound />
-            </Route>
+            <Route path="/lobby" component={Lobby} />
+            <Route path="/game" component={Game} />
+            <Route path="/result" component={GameResult} />
+            <Route exact path="/" component={FirstPage} />
+            <Route path="*" component={NotFound} />
           </Switch>
         </Router>
       </main>
