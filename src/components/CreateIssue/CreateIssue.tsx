@@ -16,6 +16,7 @@ import { ChangeEvent, FormEvent, SyntheticEvent, useEffect, useState } from 'rea
 import { useDispatch } from 'react-redux';
 import { addIssue } from '../../redux/reducers/issues/issuesActions';
 import { setOpen } from '../../redux/reducers/popUp/popUpActions';
+import { idGenerator } from '../helpers/idGenerator';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -44,6 +45,7 @@ const CreateIssue = (): JSX.Element => {
   const errorMessage = titleDirty && titleError ? titleError : ' ';
   const isValidationError = !!(titleDirty && titleError.length > 1);
   const [issue, setIssue] = useState({
+    id: idGenerator(),
     title: '',
     link: '',
     priority: 'Low',
