@@ -9,13 +9,14 @@ import { setOpen } from '../../redux/reducers/popUp/popUpActions';
 
 const IssueCard = ({
   issue = undefined,
-  disabled = false,
+  editable = false,
+  removable = false,
 }: {
   issue?: IIssue | undefined;
-  disabled?: boolean;
+  editable?: boolean;
+  removable?: boolean;
 }): JSX.Element => {
   const dispatch = useDispatch();
-
   const editHandler = () => {
     console.warn(`edit me ${issue?.title}`);
   };
@@ -37,21 +38,23 @@ const IssueCard = ({
             {issue?.priority}
           </Typography>
         </Typography>
-        {issue && !disabled && (
-          <Box>
+        <Box>
+          {editable && (
             <IconButton onClick={editHandler}>
               <EditIcon />
             </IconButton>
+          )}
+          {removable && (
             <IconButton aria-label="delete" color="secondary" onClick={deleteHandler}>
               <DeleteOutlineIcon color="error" />
             </IconButton>
-          </Box>
-        )}
-        {!disabled && !issue && (
-          <IconButton onClick={createHandler}>
-            <AddIcon fontSize="large" />
-          </IconButton>
-        )}
+          )}
+          {!issue && (
+            <IconButton onClick={createHandler}>
+              <AddIcon fontSize="large" />
+            </IconButton>
+          )}
+        </Box>
       </CardContent>
     </Card>
   );

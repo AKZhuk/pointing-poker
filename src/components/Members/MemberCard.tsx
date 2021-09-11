@@ -16,6 +16,11 @@ const MemberCard = ({ member, isScrumMaster }: { member: IUser; isScrumMaster?: 
       <CardContent className="card-content">
         <Avatar alt="Remy Shar.lastNamep" src={member.urlToImage} className="avatar" />
         <Typography variant="h6" component="h3">
+          {isScrumMaster && (
+            <Typography variant="caption" display="block" gutterBottom>
+              Scrum Master
+            </Typography>
+          )}
           {`${member.firstName} ${member.lastName}`}
           <Typography variant="caption" display="block" gutterBottom>
             {member.jobPostion}

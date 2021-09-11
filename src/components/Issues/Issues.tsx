@@ -1,25 +1,36 @@
 import { useSelector } from 'react-redux';
-import { IIssue, IRootState } from '../../types';
+import { GameRole, IIssue, IRootState } from '../../types';
 import CreateIssue from '../CreateIssue/CreateIssue';
 import PopUp from '../shared/PopUp';
-import Title from '../shared/Title';
 
 import IssueCard from './IssueCard';
 
 const Issues = (): JSX.Element => {
-  const issues = useSelector((state: IRootState) => state.issues);
+  const {
+    issues,
+    user: {
+      user: { role },
+    },
+  } = useSelector((state: IRootState) => state);
 
   return (
-    <div className="wrapper">
-      <Title text="Issues:" />
-      <div className="card-container">
-        {issues.map((issue: IIssue) => (
+    <>
+      {issues.map((issue: IIssue) =>
+        role === GameRole.scrumMaster ? (
+          <>
+            <IssueCard key={issue.title} issue={issue} editable removable />
+          </>
+        ) : (
           <IssueCard key={issue.title} issue={issue} />
-        ))}
-        <IssueCard />
-        <PopUp content={<CreateIssue />} name="CreateIssuePopUp" />
-      </div>
-    </div>
+        ),
+      )}
+      {role === 'scrumMaster' && (
+        <>
+          <IssueCard />
+          <PopUp content={<CreateIssue />} name="CreateIssuePopUp" />
+        </>
+      )}
+    </>
   );
 };
 

@@ -2,7 +2,8 @@
 
 .card {
   width: 300px;
-
+  min-height: 100px;
+  margin: 10px;
   &-content {
     @include flexbox(space-between, center);
   }
@@ -11,19 +12,10 @@
   width: 300px;
   .card-content {
     @include flexbox(space-between, center);
-    h3 { 
-      width: 80%
+    h3 {
+      width: 80%;
     }
   }
-
-}
-
-.card-container {
-  @include flexbox(normal, normal, row, wrap);
-  gap: 20px;
-  width: fit-content;
-  max-width: 1000px;
-  margin-bottom: 50px;
 }
 
 .avatar {

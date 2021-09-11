@@ -143,7 +143,7 @@ const ConnectToLobby = (): JSX.Element => {
   return (
     <Container component="div" maxWidth="xs">
       <div className={classes.paper}>
-        <Title text="Connect to lobby" />
+        <Title text="Connect to lobby" variant="h3" align="center" />
         <form className={classes.form} onSubmit={handleFormSubmit} noValidate>
           <Grid container spacing={2}>
             <Grid item xs={12}>

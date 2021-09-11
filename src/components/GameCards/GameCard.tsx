@@ -5,13 +5,19 @@ import { addCard } from '../../redux/reducers/gameSettings/gameSettingsActions';
 import { IRootState } from '../../types';
 import './GameCard.scss';
 
-const GameCard = ({ value = undefined }: { value?: number | undefined }): JSX.Element => {
+const GameCard = ({
+  value = undefined,
+  large = false,
+}: {
+  value?: number | undefined;
+  large?: boolean;
+}): JSX.Element => {
   const dispatch = useDispatch();
   const { scoreType } = useSelector((state: IRootState) => state.gameSettings);
   const handleAddCard = () => dispatch(addCard());
 
   return (
-    <Card className=" game-card">
+    <Card className={large ? 'game-card_large' : 'game-card'}>
       <span>{value && scoreType}</span>
       {value ? (
         <Typography variant="h3" component="h3" align="center" color="primary">

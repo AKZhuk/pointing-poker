@@ -4,7 +4,7 @@ import './Footer.scss';
 const Footer = (): JSX.Element => {
   return (
     <footer className="footer MuiAppBar-colorPrimary">
-      <div className="wrapper">
+      <div className="wrapper row">
         <div className="github ">
           <picture className=" github-logo" />
           <div className="github__links">
