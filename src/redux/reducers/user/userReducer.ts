@@ -3,6 +3,7 @@ import { IUserState, GameRole, IAction, IUser } from '../../../types';
 
 export const defaultUserState: IUserState = {
   user: {
+    id: '',
     firstName: '',
     lastName: '',
     jobPostion: '',
@@ -11,6 +12,7 @@ export const defaultUserState: IUserState = {
   },
   members: [
     {
+      id: '',
       firstName: 'Aliaksei',
       lastName: 'Vasin',
       jobPostion: 'developer',

@@ -11,6 +11,7 @@ import Title from '../shared/Title';
 import UploadButton from '../shared/UploadButton';
 import { addRoom } from '../../redux/reducers/room/roomActions';
 import { setConnection } from '../../redux/reducers/connection/connectionActions';
+import { idGenerator } from '../helpers/idGenerator';
 
 const useStyles = makeStyles(theme => ({
   paper: {
@@ -118,6 +119,7 @@ const ConnectToLobby = (): JSX.Element => {
     e.preventDefault();
     createRoom();
     if (firstName?.length > 0) {
+      dispatch(setUser('id', idGenerator()));
       dispatch(setConnection('isGotoLobby', true));
       redirectToLobby();
     } else {

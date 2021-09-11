@@ -8,7 +8,8 @@ import './UserMenu.scss';
 
 const UserMenu = (): JSX.Element => {
   const user = useSelector((state: IRootState) => state.user.user);
-  const url = 'http://localhost:8080/1631203284759';
+  const scramMaster = useSelector((state: IRootState) => state.room.scrumMaster);
+  const url = useSelector((state: IRootState) => state.connection.url);
   const [copy, setCopy] = useState(false);
   async function copyURL(): Promise<void> {
     navigator.clipboard.writeText(url);
@@ -22,7 +23,7 @@ const UserMenu = (): JSX.Element => {
         <Typography variant="overline" display="block" gutterBottom>
           Scram Master:
         </Typography>
-        <MemberCard member={user} isScrumMaster />
+        <MemberCard member={scramMaster} isScrumMaster />
       </Box>
       {user.role === GameRole.scrumMaster ? (
         <div className="menu__scramMaster">
@@ -31,7 +32,7 @@ const UserMenu = (): JSX.Element => {
           </Typography>
           <div className="menu__linkBox">
             <Paper className="menu__link" variant="outlined" id="url">
-              {url}
+              {`${window.location.host}/${url}`}
             </Paper>
             {copy ? (
               <Button variant="contained" disabled>
