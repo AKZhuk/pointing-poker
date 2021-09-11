@@ -1,6 +1,6 @@
 import { useSelector } from 'react-redux';
+import { IRootState, IScoreTypes } from '../../../types';
 import GameCard from './GameCard';
-import { IRootState, IScoreTypes } from '../../types';
 
 export const scoreTypes: IScoreTypes = {
   'power of 2': [1, 2, 4, 8, 16, 32, 64, 128, 256, 512],

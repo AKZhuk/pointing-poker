@@ -1,4 +1,4 @@
-@import '../../abstract.scss';
+@import '../../../abstract.scss';
 
 .footer {
   width: 100%;
@@ -13,7 +13,7 @@
 }
 
 .rss {
-  background-image: url('../../assets/svg/rss-logo.svg');
+  background-image: url('../../../assets/svg/rss-logo.svg');
   width: 86px;
   height: 32px;
   position: relative;
@@ -42,7 +42,7 @@
   }
 
   &-logo {
-    background-image: url('../../assets/svg/github-logo.svg');
+    background-image: url('../../../assets/svg/github-logo.svg');
     background-size: 45px;
     background-repeat: no-repeat;
     background-position: left center;

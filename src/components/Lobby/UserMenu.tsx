@@ -1,24 +1,19 @@
-import { Box, Button, Paper, Typography } from '@material-ui/core';
+import { Button, Paper, Typography } from '@material-ui/core';
 import { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { delay } from '../../helpers/delay';
 import { GameRole, IRootState } from '../../types';
-import MemberCard from '../Members/MemberCard';
-import './UserMenu.scss';
+import MemberCard from '../shared/Members/MemberCard';
 
 const UserMenu = (): JSX.Element => {
-
   const history = useHistory();
 
   const [copy, setCopy] = useState(false);
-  const url = 'http://localhost:8080/1631203284759';
   const {
-    connection:{url}
+    connection: { url },
     room: { scrumMaster },
-    user: {
-      user: { role },
-    },
+    user: { role },
   } = useSelector((state: IRootState) => state);
 
   async function copyURL(): Promise<void> {
@@ -34,7 +29,6 @@ const UserMenu = (): JSX.Element => {
 
   return (
     <div className="menu">
-
       <MemberCard member={scrumMaster} isScrumMaster />
       {role === GameRole.scrumMaster ? (
         <div className="menu__scramMaster">

@@ -4,14 +4,14 @@ import { useHistory } from 'react-router-dom';
 import { ChangeEvent, FormEvent, SyntheticEvent, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { setOpen } from '../../redux/reducers/popUp/popUpActions';
-import { setDefaultUser, setMember, setUser } from '../../redux/reducers/user/userActions';
+import { setDefaultUser, setUser } from '../../redux/reducers/user/userActions';
 import { GameRole, IRootState, PopUpNames, Routes } from '../../types';
 import Switcher from '../shared/Switcher';
 import Title from '../shared/Title';
 import UploadButton from '../shared/UploadButton';
 import { addRoom } from '../../redux/reducers/room/roomActions';
 import { setConnection } from '../../redux/reducers/connection/connectionActions';
-import { idGenerator } from '../helpers/idGenerator';
+import { idGenerator } from '../../helpers/idGenerator';
 
 const useStyles = makeStyles(theme => ({
   paper: {
@@ -41,22 +41,24 @@ const useStyles = makeStyles(theme => ({
 
 const ConnectToLobby = (): JSX.Element => {
   const classes = useStyles();
+  const history = useHistory();
   const dispatch = useDispatch();
   const { observer } = GameRole;
   const { ConnectToLobbyPopUp } = PopUpNames;
   const { lobby } = Routes;
-  const issues = useSelector((state: IRootState) => state.issues);
-  const gameSettings = useSelector((state: IRootState) => state.gameSettings);
-  const { user, members } = useSelector((state: IRootState) => state.user);
-  const { firstName, lastName, jobPostion, urlToImage } = user;
-  const { isConnected } = useSelector((state: IRootState) => state.connection);
+  const {
+    issues,
+    gameSettings,
+    user,
+    user: { firstName, lastName, jobPostion, urlToImage },
+    connection: { isConnected },
+  } = useSelector((state: IRootState) => state);
   const [isObserver, setIsObserver] = useState(false);
   const [firstNameDirty, setFirstNameDirty] = useState(false);
   const [firstNameError, setFirstNameError] = useState(' ');
   const [formValid, setFormValid] = useState(false);
   const errorMessage = firstNameDirty && firstNameError ? firstNameError : ' ';
   const isValidationError = !!(firstNameDirty && firstNameError.length > 1);
-  const history = useHistory();
 
   useEffect(() => {
     if (!isValidationError) {
@@ -98,7 +100,7 @@ const ConnectToLobby = (): JSX.Element => {
       dispatch(setUser('role', observer));
     }
     if (isConnected) {
-      dispatch(setMember(user));
+      // dispatch(setMember(user));
       changeRoute(lobby);
       dispatch(setOpen(ConnectToLobbyPopUp, false));
     }
@@ -108,7 +110,7 @@ const ConnectToLobby = (): JSX.Element => {
     const initialRoom = {
       roomKey: '',
       scrumMaster: user,
-      members,
+      members: [],
       issues,
       gameSettings,
     };

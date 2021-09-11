@@ -1,15 +1,12 @@
 import { Card, CardContent, Typography, Avatar, IconButton } from '@material-ui/core';
 import BlockIcon from '@material-ui/icons/Block';
 import { useDispatch } from 'react-redux';
-import { removeMember } from '../../redux/reducers/user/userActions';
-import { IUser } from '../../types';
+import { IUser } from '../../../types';
 import './Members.scss';
 
 const MemberCard = ({ member, isScrumMaster }: { member: IUser; isScrumMaster?: boolean }): JSX.Element => {
   const dispatch = useDispatch();
-  const kickHandler = () => {
-    dispatch(removeMember(member));
-  };
+  const kickHandler = () => {};
 
   return (
     <Card className={isScrumMaster ? 'card__scrumMaster' : 'card'}>

@@ -1,0 +1,27 @@
+@import '../../abstract.scss';
+.menu {
+  @include flexbox(space-between, left, column);
+  width: 100%;
+  margin: 0 auto;
+  padding: 0 20px;
+  &__linkBox {
+    width: 30%;
+    @include flexbox(space-between, center);
+    margin-bottom: 30px;
+  }
+  &__scramMaster {
+    max-height: 150px;
+  }
+  &__link {
+    max-width: 300px;
+    padding: 5px;
+  }
+  &__masterButtons {
+    width: 30%;
+    @include flexbox(space-between, center);
+  }
+  &__memberButtons {
+    margin-top: 20px;
+  }
+  margin-bottom: 30px;
+}

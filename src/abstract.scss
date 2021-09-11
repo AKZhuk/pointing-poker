@@ -34,6 +34,7 @@ $red: red;
 .card-container {
   width: fit-content;
   max-width: 1000px;
+  min-height: 100px;
   margin-bottom: 50px;
   @include flexbox(normal, normal, row, wrap);
 }

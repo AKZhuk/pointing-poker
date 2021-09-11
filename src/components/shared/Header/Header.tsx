@@ -3,7 +3,7 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import './Header.scss';
-import logo from '../../assets/img/logo.png';
+import logo from '../../../assets/img/logo.png';
 
 const Header = (): JSX.Element => {
   return (

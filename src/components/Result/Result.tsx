@@ -1,6 +1,6 @@
 import { useSelector } from 'react-redux';
 import { IRootState } from '../../types';
-import IssueCard from '../Issues/IssueCard';
+import IssueCard from '../shared/Issues/IssueCard';
 import Statistics from '../shared/Statistics';
 import Title from '../shared/Title';
 

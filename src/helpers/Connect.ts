@@ -1,4 +1,77 @@
-/* 
+import { useEffect, useMemo } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { setConnection } from '../redux/reducers/connection/connectionActions';
+import { addRoom, setRoom } from '../redux/reducers/room/roomActions';
+import { GameRole, IRootState } from '../types';
+
+const BASE_URL = 'localhost:5000';
+
+const Connect = (): void => {
+  const dispatch = useDispatch();
+  const { scrumMaster, player, observer } = GameRole;
+  const room = useSelector((state: IRootState) => state.room);
+  const {
+    connection: { url, isConnected, isGotoLobby },
+    user: { role },
+    user,
+  } = useSelector((state: IRootState) => state);
+  const socket = useMemo(() => new WebSocket(`ws://${BASE_URL}`), []);
+
+  socket.onopen = () => {
+    dispatch(setConnection('isConnected', true));
+    console.log('Connected!');
+  };
+
+  socket.onmessage = (event: MessageEvent) => {
+    const res = JSON.parse(event.data);
+    switch (res.method) {
+      case 'roomKey':
+        dispatch(setRoom('roomKey', res.roomKey));
+        dispatch(setConnection('url', `${res.roomKey}`));
+        break;
+      case 'createRoom':
+        dispatch(addRoom(res.data));
+        break;
+      case 'addMember':
+        dispatch(setRoom('members', res.data));
+        break;
+      case 'addIssue':
+        dispatch(setRoom('issues', res.data));
+        break;
+      default:
+        console.error(`Неизвестный ивент`);
+    }
+  };
+  socket.onclose = () => {
+    console.log('Наши полномочия, так сказать, всё!');
+  };
+  socket.onerror = () => {
+    console.log('Что-то пошло не так!');
+  };
+
+  useEffect(() => {
+    const isCreateRoom = isConnected && room !== null && room.roomKey === '' && role === scrumMaster && isGotoLobby;
+    const isConnectToLobby = isConnected && (role === player || role === observer) && url.length > 10 && isGotoLobby;
+    if (isCreateRoom) {
+      const message = { method: 'createRoom', data: room };
+      socket.send(JSON.stringify(message));
+      dispatch(setConnection('isGotoLobby', false));
+    }
+    if (isConnectToLobby) {
+      const message = {
+        method: 'addMember',
+        roomKey: url,
+        data: user,
+      };
+      socket.send(JSON.stringify(message));
+      dispatch(setConnection('isGotoLobby', false));
+    }
+  }, [dispatch, isGotoLobby, isConnected, observer, player, role, room, scrumMaster, socket, url, url.length, user]);
+};
+
+export default Connect;
+
+/*
 import Footer from './Footer/Footer';
 import Header from './Header/Header';
 import Lobby from './Lobby/Lobby';
@@ -38,10 +111,10 @@ const App = (): JSX.Element => {
         case 'addIssue':{
           console.log(message.data)
           dispatch(addIssues(message.data))
-        } 
+        }
           break;
       }
-      
+
     }
     socket.onerror = (err) => {
       console.log(err)
@@ -72,7 +145,7 @@ const App = (): JSX.Element => {
           scoreTypeShort: '',
           timer: '02:00',
           cards: { sequence:'fibonacci',
-           count: 3 
+           count: 3
           }
         }
       }
@@ -93,7 +166,7 @@ const App = (): JSX.Element => {
       }
     }
     socket.send(JSON.stringify(message))
-    
+
   }
 
 
@@ -143,22 +216,22 @@ export default App;
     issues: IIssue[];
     gameSettings: IGameSettings;
   }
-  
+
   export interface IMesssage {
     method: keyof typeof WSMethods;
     roomKey: string;
   }
-  
+
   export interface IErrorMessage {
     method: 'error';
     data: string;
   }
-  
+
   export interface ICreateRoomMessage {
     method: keyof typeof WSMethods;
     data: IRoom;
   }
-  
+
   export interface IAddMemberToRoomMessage extends IMesssage {
     data: IUser;
   }
