@@ -8,10 +8,13 @@ import MemberCard from '../Members/MemberCard';
 import './UserMenu.scss';
 
 const UserMenu = (): JSX.Element => {
+
   const history = useHistory();
+
   const [copy, setCopy] = useState(false);
   const url = 'http://localhost:8080/1631203284759';
   const {
+    connection:{url}
     room: { scrumMaster },
     user: {
       user: { role },
@@ -31,6 +34,7 @@ const UserMenu = (): JSX.Element => {
 
   return (
     <div className="menu">
+
       <MemberCard member={scrumMaster} isScrumMaster />
       {role === GameRole.scrumMaster ? (
         <div className="menu__scramMaster">
@@ -39,7 +43,7 @@ const UserMenu = (): JSX.Element => {
           </Typography>
           <div className="menu__linkBox">
             <Paper className="menu__link" variant="outlined" id="url">
-              {url}
+              {`${window.location.host}/${url}`}
             </Paper>
             {copy ? (
               <Button variant="contained" disabled>

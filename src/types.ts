@@ -27,6 +27,7 @@ export enum GameRole {
 }
 
 export interface IUser {
+  id: string;
   firstName: string;
   lastName?: string;
   jobPostion?: string;
@@ -83,6 +84,7 @@ export interface IConnection {
 }
 
 export interface IIssue {
+  id: string;
   title: string;
   priority: string;
   link: string;
@@ -92,7 +94,7 @@ export interface IRootState {
   connection: IConnection;
   user: { user: IUser; members: IUser[] };
   popUp: IPopUp;
-  issues: { title: string; priority: string; link: string }[];
+  issues: IIssue[];
   gameSettings: IGameSettings;
   room: IRoom;
 }

@@ -30,7 +30,7 @@ const FirstPage = (): JSX.Element => {
   return (
     <>
       <div className="firstPage" data-testid="FirstPage-test">
-        <img className="first-page__logo" src={firstPageLogo} alt="logo-404" />
+        <img className="firstPage__logo" src={firstPageLogo} alt="logo-404" />
         <Container>
           <Box marginBottom={4}>
             <Typography variant="h2" gutterBottom>
