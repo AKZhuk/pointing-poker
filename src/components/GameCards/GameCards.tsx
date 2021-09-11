@@ -14,9 +14,9 @@ const GameCards = ({ isGame = false }: { isGame?: boolean }): JSX.Element => {
   return (
     <div className="card-container">
       {scoreTypes[scoreType].slice(0, cards).map(elem => (
-        <GameCard key={elem} value={elem} />
+        <GameCard key={elem} value={elem} large />
       ))}
-      {!isGame && <GameCard />}
+      {!isGame && <GameCard large />}
     </div>
   );
 };

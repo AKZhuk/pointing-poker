@@ -8,7 +8,7 @@ const Members = (): JSX.Element => {
 
   return (
     <div className="wrapper">
-      <Title text="Members:" />
+      <Title text="Members:" variant="h5" align="left" />
       <div className="card-container">
         {room?.members.map((member: IUser) => (
           <MemberCard key={member.lastName} member={member} />

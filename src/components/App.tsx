@@ -1,31 +1,33 @@
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import Footer from './Footer/Footer';
 import Header from './Header/Header';
 import Lobby from './Lobby/Lobby';
-import './App.scss';
 import FirstPage from './FirstPage/FirstPage';
 import NotFound from './shared/NotFound';
+import Game from './Game/Game';
+import Result from './Result/Result';
+import Footer from './Footer/Footer';
 import Connect from './shared/Connect';
+import './App.scss';
 
 const App = (): JSX.Element => {
   Connect();
+
   return (
     <div className="app">
       <Header />
       <main className="main">
         <Router>
           <Switch>
-            <Route path="/lobby">
-              <Lobby />
-            </Route>
-            <Route path="/game">game</Route>
-            <Route path="/result">result</Route>
+            <Route path="/lobby" component={Lobby} />
+            <Route path="/game" component={Game} />
+            <Route path="/result" component={Result} />
             <Route exact path="/">
               <FirstPage />
+              {/* <Lobby /> */}
+              {/* <Game /> */}
+              {/* <Result /> */}
             </Route>
-            <Route path="*">
-              <NotFound />
-            </Route>
+            <Route path="*" component={NotFound} />
           </Switch>
         </Router>
       </main>

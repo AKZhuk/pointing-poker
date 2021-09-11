@@ -1,0 +1,17 @@
+@import '/src/abstract.scss';
+
+.game {
+  &__wrapper {
+    @include flexbox(space-between, normal, row, wrap);
+  }
+  &__main {
+    width: 65%;
+    padding-right: 60px;
+    min-height: 80vh;
+    @include flexbox(space-between, normal, column, nowrap);
+  }
+  &__aside {
+    border-left: 2px black solid;
+    width: 35%;
+  }
+}

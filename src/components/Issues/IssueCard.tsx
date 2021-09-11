@@ -7,9 +7,16 @@ import { IIssue } from '../../types';
 import { removeIssue } from '../../redux/reducers/issues/issuesActions';
 import { setOpen } from '../../redux/reducers/popUp/popUpActions';
 
-const IssueCard = ({ issue = undefined }: { issue?: IIssue | undefined }): JSX.Element => {
+const IssueCard = ({
+  issue = undefined,
+  editable = false,
+  removable = false,
+}: {
+  issue?: IIssue | undefined;
+  editable?: boolean;
+  removable?: boolean;
+}): JSX.Element => {
   const dispatch = useDispatch();
-
   const editHandler = () => {
     console.warn(`edit me ${issue?.title}`);
   };
@@ -31,20 +38,23 @@ const IssueCard = ({ issue = undefined }: { issue?: IIssue | undefined }): JSX.E
             {issue?.priority}
           </Typography>
         </Typography>
-        {issue ? (
-          <Box>
+        <Box>
+          {editable && (
             <IconButton onClick={editHandler}>
               <EditIcon />
             </IconButton>
+          )}
+          {removable && (
             <IconButton aria-label="delete" color="secondary" onClick={deleteHandler}>
               <DeleteOutlineIcon color="error" />
             </IconButton>
-          </Box>
-        ) : (
-          <IconButton onClick={createHandler}>
-            <AddIcon fontSize="large" />
-          </IconButton>
-        )}
+          )}
+          {!issue && (
+            <IconButton onClick={createHandler}>
+              <AddIcon fontSize="large" />
+            </IconButton>
+          )}
+        </Box>
       </CardContent>
     </Card>
   );

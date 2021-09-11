@@ -1,14 +1,22 @@
 @import '/src/abstract.scss';
-.game-card {
+.game-card,
+.game-card_large {
   border-radius: 67px;
   width: 100px;
   height: 160px;
   padding: 10px;
+  margin: 10px;
   @include flexbox(space-between, normal, column);
+
   &_active {
     background-color: green !important;
     opacity: 0.5;
   }
+}
+
+.game-card_large {
+  width: 130px;
+  height: 211px;
 }
 
 .rotate {

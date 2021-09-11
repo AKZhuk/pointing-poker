@@ -16,7 +16,24 @@ $red: red;
   @include flexbox(space-between, center);
 }
 
+.col-center {
+  margin-top: 25px;
+  @include flexbox(space-between, center, column);
+  gap: 15px;
+}
+
+.center {
+  @include flexbox(center);
+}
 .setting-container {
   max-width: 500px;
   padding: 0 20px;
+  margin-bottom: 20px;
+}
+
+.card-container {
+  width: fit-content;
+  max-width: 1000px;
+  margin-bottom: 50px;
+  @include flexbox(normal, normal, row, wrap);
 }

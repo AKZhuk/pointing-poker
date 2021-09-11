@@ -1,31 +1,42 @@
 import { Box, Button, Paper, Typography } from '@material-ui/core';
 import { useState } from 'react';
 import { useSelector } from 'react-redux';
+import { useHistory } from 'react-router-dom';
+import { delay } from '../../helpers/delay';
 import { GameRole, IRootState } from '../../types';
 import MemberCard from '../Members/MemberCard';
-import { delay } from '../helpers/delay';
 import './UserMenu.scss';
 
 const UserMenu = (): JSX.Element => {
-  const user = useSelector((state: IRootState) => state.user.user);
-  const scramMaster = useSelector((state: IRootState) => state.room.scrumMaster);
-  const url = useSelector((state: IRootState) => state.connection.url);
+
+  const history = useHistory();
+
   const [copy, setCopy] = useState(false);
+  const url = 'http://localhost:8080/1631203284759';
+  const {
+    connection:{url}
+    room: { scrumMaster },
+    user: {
+      user: { role },
+    },
+  } = useSelector((state: IRootState) => state);
+
   async function copyURL(): Promise<void> {
     navigator.clipboard.writeText(url);
     setCopy(true);
     await delay(1.5);
     setCopy(false);
   }
+
+  const handleStartGame = () => {
+    history.push('/game');
+  };
+
   return (
     <div className="menu">
-      <Box marginBottom={3}>
-        <Typography variant="overline" display="block" gutterBottom>
-          Scram Master:
-        </Typography>
-        <MemberCard member={scramMaster} isScrumMaster />
-      </Box>
-      {user.role === GameRole.scrumMaster ? (
+
+      <MemberCard member={scrumMaster} isScrumMaster />
+      {role === GameRole.scrumMaster ? (
         <div className="menu__scramMaster">
           <Typography variant="overline" display="block" gutterBottom>
             Link to lobby:
@@ -45,7 +56,7 @@ const UserMenu = (): JSX.Element => {
             )}
           </div>
           <div className="menu__masterButtons">
-            <Button variant="contained" color="primary">
+            <Button variant="contained" color="primary" onClick={handleStartGame}>
               Start game
             </Button>
             <Button variant="contained" color="secondary">
