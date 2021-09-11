@@ -2,15 +2,13 @@ import { Box, Button, Typography } from '@material-ui/core';
 import React from 'react';
 import { useSelector } from 'react-redux';
 import { GameRole, IRootState } from '../../types';
-import MemberCard from '../Members/MemberCard';
+import MemberCard from '../shared/Members/MemberCard';
 import Timer from '../shared/Timer';
 
 const GameControl = (): JSX.Element => {
   const {
     room: { scrumMaster },
-    user: {
-      user: { role },
-    },
+    user: { role },
   } = useSelector((state: IRootState) => state);
 
   const handleStopGame = () => {

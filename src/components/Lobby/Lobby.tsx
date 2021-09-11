@@ -1,17 +1,15 @@
 import { useSelector } from 'react-redux';
 import { Redirect, Switch } from 'react-router-dom';
 import { GameRole, IRootState } from '../../types';
-import GameSettings from '../GameSettings/GameSettings';
-import Issues from '../Issues/Issues';
-import Members from '../Members/Members';
+import Issues from '../shared/Issues/Issues';
+import Members from '../shared/Members/Members';
 import Title from '../shared/Title';
-import UserMenu from '../UserMenu/UserMenu';
+import GameSettings from './GameSettings';
+import UserMenu from './UserMenu';
+import './Lobby.scss';
 
 const Lobby = (): JSX.Element => {
-  const {
-    room,
-    user: { user },
-  } = useSelector((state: IRootState) => state);
+  const { room, user } = useSelector((state: IRootState) => state);
 
   return (
     <div className="wrapper">

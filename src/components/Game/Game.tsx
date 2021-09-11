@@ -1,22 +1,19 @@
 import { Button, Card, CardContent, Typography } from '@material-ui/core';
-import React from 'react';
 import { useSelector } from 'react-redux';
 import { GameRole, IRootState, IUser } from '../../types';
-import GameCards from '../GameCards/GameCards';
-import Issues from '../Issues/Issues';
-import MemberCard from '../Members/MemberCard';
 import Statistics from '../shared/Statistics';
 import Title from '../shared/Title';
 import GameControl from './GameControl';
-import './Game.scss';
+import Issues from '../shared/Issues/Issues';
 import Timer from '../shared/Timer';
+import MemberCard from '../shared/Members/MemberCard';
+import './Game.scss';
+import GameCards from '../shared/GameCards/GameCards';
 
 const Game = (): JSX.Element => {
   const {
     room: { members },
-    user: {
-      user: { role },
-    },
+    user: { role },
   } = useSelector((state: IRootState) => state);
 
   return (

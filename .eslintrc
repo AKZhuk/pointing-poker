@@ -22,7 +22,7 @@
   "rules": {
     "no-control-regex": 0,
     "react/react-in-jsx-scope": "off",
-    "@typescript-eslint/no-explicit-any": "error",
+    "@typescript-eslint/no-explicit-any": "warn",
     "no-plusplus": "off",
     "no-console": "warn",
     "max-len": [
@@ -49,7 +49,7 @@
     "import/extensions": "off",
     "import/prefer-default-export": "off",
     "func-names": "off",
-    "react/require-default-props": "off", // Отключил временно, потом верну))
+    "react/require-default-props": "off",
     "no-param-reassign": [
       "error",
       {

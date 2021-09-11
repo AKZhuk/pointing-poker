@@ -3,9 +3,9 @@ import { ChangeEvent } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { setSetting } from '../../redux/reducers/gameSettings/gameSettingsActions';
 import { IGameSettings, IRootState } from '../../types';
+import GameCards from '../shared/GameCards/GameCards';
 import Switcher from '../shared/Switcher';
 import Title from '../shared/Title';
-import GameCards from '../GameCards/GameCards';
 
 const GameSettings = (): JSX.Element => {
   const dispatch = useDispatch();

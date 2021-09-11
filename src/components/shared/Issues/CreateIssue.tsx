@@ -14,9 +14,9 @@ import {
 } from '@material-ui/core';
 import { ChangeEvent, FormEvent, SyntheticEvent, useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { addIssue } from '../../redux/reducers/issues/issuesActions';
-import { setOpen } from '../../redux/reducers/popUp/popUpActions';
-import { idGenerator } from '../helpers/idGenerator';
+import { idGenerator } from '../../../helpers/idGenerator';
+import { addIssue } from '../../../redux/reducers/issues/issuesActions';
+import { setOpen } from '../../../redux/reducers/popUp/popUpActions';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({

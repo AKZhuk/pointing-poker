@@ -1,14 +1,14 @@
-import './FirstPage.scss';
 import { Box, Button, Container, TextField, Typography } from '@material-ui/core';
 import { useDispatch } from 'react-redux';
 import { ChangeEvent } from 'react';
 import { setConnection } from '../../redux/reducers/connection/connectionActions';
 import firstPageLogo from '../../assets/img/MainLogo.svg';
-import ConnectToLobby from '../ConnectToLobby/ConnectToLobby';
 import PopUp from '../shared/PopUp';
 import { setOpen } from '../../redux/reducers/popUp/popUpActions';
 import { GameRole, PopUpNames } from '../../types';
 import { setUser } from '../../redux/reducers/user/userActions';
+import './FirstPage.scss';
+import ConnectToLobby from '../Lobby/ConnectToLobby';
 
 const FirstPage = (): JSX.Element => {
   const dispatch = useDispatch();

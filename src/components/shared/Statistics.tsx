@@ -1,7 +1,7 @@
 import { useSelector } from 'react-redux';
 import { IRootState } from '../../types';
-import GameCard from '../GameCards/GameCard';
-import { scoreTypes } from '../GameCards/GameCards';
+import GameCard from './GameCards/GameCard';
+import { scoreTypes } from './GameCards/GameCards';
 import Title from './Title';
 
 const Statistics = (): JSX.Element => {

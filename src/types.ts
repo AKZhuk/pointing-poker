@@ -15,6 +15,11 @@ export interface IActionConnection {
   payload: { [key: string]: boolean | string };
 }
 
+export interface IRoomAction {
+  type: string;
+  payload: IRoom;
+}
+
 export interface IActionPopUp {
   type: string;
   payload?: { [key: string]: boolean };
@@ -26,6 +31,11 @@ export enum GameRole {
   observer = 'observer',
 }
 
+export enum Routes {
+  lobby = 'lobby',
+  game = 'game',
+  result = 'result',
+}
 export interface IUser {
   id: string;
   firstName: string;
@@ -57,12 +67,6 @@ export enum PopUpNames {
   CreateIssuePopUp = 'CreateIssuePopUp',
 }
 
-export enum Routes {
-  lobby = 'lobby',
-  game = 'game',
-  result = 'result',
-}
-
 export type IPopUp = {
   [key in PopUpNames]: boolean;
 };
@@ -92,17 +96,13 @@ export interface IIssue {
 
 export interface IRootState {
   connection: IConnection;
-  user: { user: IUser; members: IUser[] };
+  user: IUser;
   popUp: IPopUp;
   issues: IIssue[];
   gameSettings: IGameSettings;
   room: IRoom;
 }
 
-export interface IUserState {
-  user: IUser;
-  members: IUser[];
-}
 export interface IRoom {
   roomKey: string;
   scrumMaster: IUser;
@@ -111,10 +111,6 @@ export interface IRoom {
   gameSettings: IGameSettings;
 }
 
-export interface IRoomAction {
-  type: string;
-  payload: IRoom;
-}
 export interface IScoreTypes {
   'power of 2': number[];
   'story point': number[];

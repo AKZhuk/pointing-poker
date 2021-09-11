@@ -3,9 +3,9 @@ import EditIcon from '@material-ui/icons/Edit';
 import DeleteOutlineIcon from '@material-ui/icons/DeleteOutline';
 import AddIcon from '@material-ui/icons/Add';
 import { useDispatch } from 'react-redux';
-import { IIssue } from '../../types';
-import { removeIssue } from '../../redux/reducers/issues/issuesActions';
-import { setOpen } from '../../redux/reducers/popUp/popUpActions';
+import { removeIssue } from '../../../redux/reducers/issues/issuesActions';
+import { setOpen } from '../../../redux/reducers/popUp/popUpActions';
+import { IIssue } from '../../../types';
 
 const IssueCard = ({
   issue = undefined,

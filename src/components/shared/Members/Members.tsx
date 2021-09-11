@@ -1,7 +1,7 @@
 import { useSelector } from 'react-redux';
 import MemberCard from './MemberCard';
-import { IRootState, IUser } from '../../types';
-import Title from '../shared/Title';
+import { IRootState, IUser } from '../../../types';
+import Title from '../Title';
 
 const Members = (): JSX.Element => {
   const room = useSelector((state: IRootState) => state.room);
