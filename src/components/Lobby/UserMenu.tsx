@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { delay } from '../../helpers/delay';
+import { SendWSMessage } from '../../helpers/WebSocketApi';
 import { GameRole, IRootState } from '../../types';
 import MemberCard from '../shared/Members/MemberCard';
 
@@ -11,13 +12,15 @@ const UserMenu = (): JSX.Element => {
 
   const [copy, setCopy] = useState(false);
   const {
-    connection: { url },
-    room: { scrumMaster },
+    gameSettings,
+    connection: { socket, url },
+    room: { roomKey, scrumMaster },
     user: { role },
   } = useSelector((state: IRootState) => state);
+  const fullUrl = `${window.location.host}/${url}`;
 
   async function copyURL(): Promise<void> {
-    navigator.clipboard.writeText(url);
+    navigator.clipboard.writeText(fullUrl);
     setCopy(true);
     await delay(1.5);
     setCopy(false);
@@ -25,6 +28,7 @@ const UserMenu = (): JSX.Element => {
 
   const handleStartGame = () => {
     history.push('/game');
+    SendWSMessage('changeSettings', roomKey, gameSettings);
   };
 
   return (
@@ -37,7 +41,7 @@ const UserMenu = (): JSX.Element => {
           </Typography>
           <div className="menu__linkBox">
             <Paper className="menu__link" variant="outlined" id="url">
-              {`${window.location.host}/${url}`}
+              {fullUrl}
             </Paper>
             {copy ? (
               <Button variant="contained" disabled>
@@ -53,7 +57,13 @@ const UserMenu = (): JSX.Element => {
             <Button variant="contained" color="primary" onClick={handleStartGame}>
               Start game
             </Button>
-            <Button variant="contained" color="secondary">
+            <Button
+              variant="contained"
+              color="secondary"
+              onClick={() => {
+                SendWSMessage('removeRoom', roomKey, {});
+              }}
+            >
               Cancel game
             </Button>
           </div>

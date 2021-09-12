@@ -8,7 +8,7 @@ export const addRoom = (value: IRoom): IRoomAction => ({
   payload: value,
 });
 
-export const setRoom = (title: keyof IRoom, value: string): IAction<string> => ({
+export const setRoom = <T>(title: keyof IRoom, value: T): IAction<T> => ({
   type: SET_ROOM,
   payload: { [title]: value },
 });

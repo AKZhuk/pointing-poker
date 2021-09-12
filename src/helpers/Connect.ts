@@ -1,22 +1,23 @@
-import { useEffect, useMemo } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { setConnection } from '../redux/reducers/connection/connectionActions';
+import { useHistory } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { WSMethods } from './constants';
 import { addRoom, setRoom } from '../redux/reducers/room/roomActions';
-import { GameRole, IRootState } from '../types';
+import { setConnection } from '../redux/reducers/connection/connectionActions';
+import { defaultRoomState } from '../redux/reducers/room/roomReducer';
 
 const BASE_URL = 'localhost:5000';
 
-const Connect = (): void => {
+export const socket = new WebSocket(`ws://${BASE_URL}`);
+export const Connect = (): void => {
   const dispatch = useDispatch();
-  const { scrumMaster, player, observer } = GameRole;
+  /* const { scrumMaster, player, observer } = GameRole;
   const room = useSelector((state: IRootState) => state.room);
   const {
     connection: { url, isConnected, isGotoLobby },
     user: { role },
     user,
-  } = useSelector((state: IRootState) => state);
-  const socket = useMemo(() => new WebSocket(`ws://${BASE_URL}`), []);
-
+  } = useSelector((state: IRootState) => state); */ /* 
+  dispatch(setConnection('socket', socket)) */
   socket.onopen = () => {
     dispatch(setConnection('isConnected', true));
     console.log('Connected!');
@@ -25,18 +26,26 @@ const Connect = (): void => {
   socket.onmessage = (event: MessageEvent) => {
     const res = JSON.parse(event.data);
     switch (res.method) {
-      case 'roomKey':
+      case WSMethods.roomKey:
         dispatch(setRoom('roomKey', res.roomKey));
         dispatch(setConnection('url', `${res.roomKey}`));
         break;
-      case 'createRoom':
+      case WSMethods.createRoom:
         dispatch(addRoom(res.data));
         break;
-      case 'addMember':
+      case WSMethods.addMember:
         dispatch(setRoom('members', res.data));
         break;
-      case 'addIssue':
+      case WSMethods.addIssue:
         dispatch(setRoom('issues', res.data));
+        break;
+      case WSMethods.removeRoom:
+        dispatch(addRoom(defaultRoomState));
+        // переадресация на first page
+        break;
+      case WSMethods.changeRoute:
+        dispatch(setRoom('route', res.data));
+        // переадресация на науказанный роут
         break;
       default:
         console.error(`Неизвестный ивент`);
@@ -49,7 +58,7 @@ const Connect = (): void => {
     console.log('Что-то пошло не так!');
   };
 
-  useEffect(() => {
+  /* useEffect(() => {
     const isCreateRoom = isConnected && room !== null && room.roomKey === '' && role === scrumMaster && isGotoLobby;
     const isConnectToLobby = isConnected && (role === player || role === observer) && url.length > 10 && isGotoLobby;
     if (isCreateRoom) {
@@ -66,10 +75,8 @@ const Connect = (): void => {
       socket.send(JSON.stringify(message));
       dispatch(setConnection('isGotoLobby', false));
     }
-  }, [dispatch, isGotoLobby, isConnected, observer, player, role, room, scrumMaster, socket, url, url.length, user]);
+  }, [dispatch, isGotoLobby, isConnected, observer, player, role, room, scrumMaster, socket, url, url.length, user]); */
 };
-
-export default Connect;
 
 /*
 import Footer from './Footer/Footer';

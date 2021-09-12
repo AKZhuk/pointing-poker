@@ -9,9 +9,9 @@ import { GameRole, IRootState, PopUpNames, Routes } from '../../types';
 import Switcher from '../shared/Switcher';
 import Title from '../shared/Title';
 import UploadButton from '../shared/UploadButton';
-import { addRoom } from '../../redux/reducers/room/roomActions';
 import { setConnection } from '../../redux/reducers/connection/connectionActions';
-import { idGenerator } from '../../helpers/idGenerator';
+import { setRoom } from '../../redux/reducers/room/roomActions';
+import { CreateRoom, SendWSMessage } from '../../helpers/WebSocketApi';
 
 const useStyles = makeStyles(theme => ({
   paper: {
@@ -47,11 +47,10 @@ const ConnectToLobby = (): JSX.Element => {
   const { ConnectToLobbyPopUp } = PopUpNames;
   const { lobby } = Routes;
   const {
-    issues,
-    gameSettings,
     user,
     user: { firstName, lastName, jobPostion, urlToImage },
-    connection: { isConnected },
+    connection: { url, isConnected },
+    room,
   } = useSelector((state: IRootState) => state);
   const [isObserver, setIsObserver] = useState(false);
   const [firstNameDirty, setFirstNameDirty] = useState(false);
@@ -106,22 +105,17 @@ const ConnectToLobby = (): JSX.Element => {
     }
   };
 
-  const createRoom = () => {
-    const initialRoom = {
-      roomKey: '',
-      scrumMaster: user,
-      members: [],
-      issues,
-      gameSettings,
-    };
-    dispatch(addRoom(initialRoom));
-  };
-
   const handleFormSubmit = (e: FormEvent): void => {
     e.preventDefault();
-    createRoom();
     if (firstName?.length > 0) {
-      dispatch(setUser('id', idGenerator()));
+      if (user.role === GameRole.scrumMaster) {
+        room.scrumMaster = user;
+        console.log(room);
+        CreateRoom(room);
+        dispatch(setRoom('scrumMaster', user));
+      } else {
+        SendWSMessage('addMember', url, user);
+      }
       dispatch(setConnection('isGotoLobby', true));
       redirectToLobby();
     } else {

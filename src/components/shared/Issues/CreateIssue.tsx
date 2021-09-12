@@ -13,10 +13,12 @@ import {
   Typography,
 } from '@material-ui/core';
 import { ChangeEvent, FormEvent, SyntheticEvent, useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { idGenerator } from '../../../helpers/idGenerator';
+import { SendWSMessage } from '../../../helpers/WebSocketApi';
 import { addIssue } from '../../../redux/reducers/issues/issuesActions';
 import { setOpen } from '../../../redux/reducers/popUp/popUpActions';
+import { IRootState } from '../../../types';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -39,6 +41,10 @@ const useStyles = makeStyles((theme: Theme) =>
 const CreateIssue = (): JSX.Element => {
   const classes = useStyles();
   const dispatch = useDispatch();
+  const {
+    connection: { socket },
+    room: { roomKey },
+  } = useSelector((state: IRootState) => state);
   const [titleDirty, setTitleDirty] = useState(false);
   const [titleError, setTitleError] = useState(' ');
   const [formValid, setFormValid] = useState(false);
@@ -82,6 +88,7 @@ const CreateIssue = (): JSX.Element => {
     e.preventDefault();
     if (issue.title.length > 0) {
       dispatch(addIssue(issue));
+      SendWSMessage('addIssue', roomKey, issue);
       dispatch(setOpen('CreateIssuePopUp', false));
     } else {
       validateInput('title', '');
