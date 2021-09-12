@@ -1,4 +1,4 @@
-import { GameRole, GameStatus, IRoom, IRoomAction } from '../../../types';
+import { GameRole, IRoom, IRoomAction, Routes } from '../../../types';
 import { ADD_ROOM, SET_ROOM } from './roomActions';
 
 export const defaultRoomState: IRoom = {
@@ -24,7 +24,7 @@ export const defaultRoomState: IRoom = {
     addPlayerWhenGameStarted: false,
     cards: 1,
   },
-  gameStatus: GameStatus.pending,
+  route: Routes.lobby,
 };
 
 export const roomReducer = (state: IRoom = defaultRoomState, action: IRoomAction): IRoom => {

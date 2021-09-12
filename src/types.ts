@@ -36,11 +36,6 @@ export enum Routes {
   game = 'game',
   result = 'result',
 }
-export enum GameStatus {
-  pending = 'pending',
-  active = 'active',
-  finished = 'finished',
-}
 export interface IUser {
   id: string;
   firstName: string;
