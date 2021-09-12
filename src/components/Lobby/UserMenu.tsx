@@ -1,21 +1,19 @@
 import { Button, Paper, Typography } from '@material-ui/core';
 import { useState } from 'react';
 import { useSelector } from 'react-redux';
-import { useHistory } from 'react-router-dom';
 import { delay } from '../../helpers/delay';
 import { SendWSMessage } from '../../helpers/WebSocketApi';
-import { GameRole, IRootState } from '../../types';
+import { GameRole, IRootState, Routes } from '../../types';
 import MemberCard from '../shared/Members/MemberCard';
 
 const UserMenu = (): JSX.Element => {
-  const history = useHistory();
-
   const [copy, setCopy] = useState(false);
   const {
     gameSettings,
-    connection: { socket, url },
+    connection: { url },
     room: { roomKey, scrumMaster },
     user: { role },
+    user,
   } = useSelector((state: IRootState) => state);
   const fullUrl = `${window.location.host}/${url}`;
 
@@ -27,8 +25,8 @@ const UserMenu = (): JSX.Element => {
   }
 
   const handleStartGame = () => {
-    history.push('/game');
     SendWSMessage('changeSettings', roomKey, gameSettings);
+    SendWSMessage('changeRoute', roomKey, Routes.game);
   };
 
   return (
@@ -70,7 +68,7 @@ const UserMenu = (): JSX.Element => {
         </div>
       ) : (
         <div className="menu__memberButtons">
-          <Button variant="contained" color="primary">
+          <Button variant="contained" color="primary" onClick={() => SendWSMessage('removeMember', roomKey, user)}>
             Exit
           </Button>
         </div>

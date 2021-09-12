@@ -1,12 +1,14 @@
 import { Card, CardContent, Typography, Avatar, IconButton } from '@material-ui/core';
 import BlockIcon from '@material-ui/icons/Block';
-import { useDispatch } from 'react-redux';
-import { IUser } from '../../../types';
+import { useSelector } from 'react-redux';
+import { SendWSMessage } from '../../../helpers/WebSocketApi';
+import { IRootState, IUser } from '../../../types';
 import './Members.scss';
 
 const MemberCard = ({ member, isScrumMaster }: { member: IUser; isScrumMaster?: boolean }): JSX.Element => {
-  const dispatch = useDispatch();
-  const kickHandler = () => {};
+  const {
+    room: { roomKey },
+  } = useSelector((state: IRootState) => state);
 
   return (
     <Card className={isScrumMaster ? 'card__scrumMaster' : 'card'}>
@@ -24,7 +26,11 @@ const MemberCard = ({ member, isScrumMaster }: { member: IUser; isScrumMaster?: 
           </Typography>
         </Typography>
         {isScrumMaster ? null : (
-          <IconButton onClick={kickHandler}>
+          <IconButton
+            onClick={() => {
+              SendWSMessage('removeMember', roomKey, member);
+            }}
+          >
             <BlockIcon fontSize="large" color="error" />
           </IconButton>
         )}

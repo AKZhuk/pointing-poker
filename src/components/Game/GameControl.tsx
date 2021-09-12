@@ -1,22 +1,23 @@
 import { Box, Button, Typography } from '@material-ui/core';
-import React from 'react';
 import { useSelector } from 'react-redux';
-import { GameRole, IRootState } from '../../types';
+import { SendWSMessage } from '../../helpers/WebSocketApi';
+import { GameRole, IRootState, Routes } from '../../types';
 import MemberCard from '../shared/Members/MemberCard';
 import Timer from '../shared/Timer';
 
 const GameControl = (): JSX.Element => {
   const {
-    room: { scrumMaster },
+    room: { scrumMaster, roomKey },
     user: { role },
+    user,
   } = useSelector((state: IRootState) => state);
 
   const handleStopGame = () => {
-    console.log('stop game');
+    SendWSMessage('changeRoute', roomKey, Routes.result);
   };
 
   const handleExit = () => {
-    console.log('exit');
+    SendWSMessage('removeMember', roomKey, user);
   };
 
   return (

@@ -1,23 +1,19 @@
 import { useHistory } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { WSMethods } from './constants';
 import { addRoom, setRoom } from '../redux/reducers/room/roomActions';
 import { setConnection } from '../redux/reducers/connection/connectionActions';
 import { defaultRoomState } from '../redux/reducers/room/roomReducer';
+import { IRootState } from '../types';
 
 const BASE_URL = 'localhost:5000';
 
 export const socket = new WebSocket(`ws://${BASE_URL}`);
 export const Connect = (): void => {
   const dispatch = useDispatch();
-  /* const { scrumMaster, player, observer } = GameRole;
-  const room = useSelector((state: IRootState) => state.room);
-  const {
-    connection: { url, isConnected, isGotoLobby },
-    user: { role },
-    user,
-  } = useSelector((state: IRootState) => state); */ /* 
-  dispatch(setConnection('socket', socket)) */
+  const history = useHistory();
+  const user = useSelector((state: IRootState) => state.user);
+
   socket.onopen = () => {
     dispatch(setConnection('isConnected', true));
     console.log('Connected!');
@@ -41,11 +37,17 @@ export const Connect = (): void => {
         break;
       case WSMethods.removeRoom:
         dispatch(addRoom(defaultRoomState));
-        // переадресация на first page
+        history.push('/');
         break;
       case WSMethods.changeRoute:
         dispatch(setRoom('route', res.data));
-        // переадресация на науказанный роут
+        history.push(`/${res.data}`);
+        break;
+      case WSMethods.removeMember:
+        if (user.id === res.data) {
+          dispatch(addRoom(defaultRoomState));
+          history.push('/');
+        }
         break;
       default:
         console.error(`Неизвестный ивент`);
@@ -68,6 +70,15 @@ export const Connect = (): void => {
     }
     if (isConnectToLobby) {
       const message = {
+        console.log("🚀 ~ file: Connect.ts ~ line 74 ~ Connect ~ history", history)
+        console.log("🚀 ~ file: Connect.ts ~ line 74 ~ Connect ~ history", history)
+        console.log("🚀 ~ file: Connect.ts ~ line 74 ~ Connect ~ history", history)
+        console.log("🚀 ~ file: Connect.ts ~ line 74 ~ Connect ~ history", history)
+        console.log("🚀 ~ file: Connect.ts ~ line 74 ~ Connect ~ history", history)
+        console.log("🚀 ~ file: Connect.ts ~ line 74 ~ Connect ~ history", history)
+        console.log("🚀 ~ file: Connect.ts ~ line 74 ~ Connect ~ history", history)
+        console.log("🚀 ~ file: Connect.ts ~ line 74 ~ Connect ~ history", history)
+        console.log("🚀 ~ file: Connect.ts ~ line 74 ~ Connect ~ history", history)
         method: 'addMember',
         roomKey: url,
         data: user,

@@ -3,7 +3,6 @@ import EditIcon from '@material-ui/icons/Edit';
 import DeleteOutlineIcon from '@material-ui/icons/DeleteOutline';
 import AddIcon from '@material-ui/icons/Add';
 import { useDispatch, useSelector } from 'react-redux';
-import { removeIssue } from '../../../redux/reducers/issues/issuesActions';
 import { setOpen } from '../../../redux/reducers/popUp/popUpActions';
 import { IIssue, IRootState } from '../../../types';
 import { SendWSMessage } from '../../../helpers/WebSocketApi';
@@ -25,15 +24,6 @@ const IssueCard = ({
     console.warn(`edit me ${issue?.title}`);
   };
 
-  const deleteHandler = () => {
-    dispatch(removeIssue(issue as IIssue));
-    SendWSMessage('removeIssue', roomKey, issue);
-  };
-
-  const createHandler = () => {
-    dispatch(setOpen('CreateIssuePopUp', true));
-  };
-
   return (
     <Card className="card">
       <CardContent className="card-content">
@@ -50,12 +40,16 @@ const IssueCard = ({
             </IconButton>
           )}
           {removable && (
-            <IconButton aria-label="delete" color="secondary" onClick={deleteHandler}>
+            <IconButton
+              aria-label="delete"
+              color="secondary"
+              onClick={() => SendWSMessage('removeIssue', roomKey, issue)}
+            >
               <DeleteOutlineIcon color="error" />
             </IconButton>
           )}
           {!issue && (
-            <IconButton onClick={createHandler}>
+            <IconButton onClick={() => dispatch(setOpen('CreateIssuePopUp', true))}>
               <AddIcon fontSize="large" />
             </IconButton>
           )}

@@ -5,13 +5,11 @@ import Lobby from './Lobby/Lobby';
 import Game from './Game/Game';
 import Result from './Result/Result';
 import NotFound from './shared/NotFound';
-import './App.scss';
 import Header from './shared/Header/Header';
 import Footer from './shared/Footer/Footer';
-import { Connect } from '../helpers/Connect';
+import './App.scss';
 
 const App = (): JSX.Element => {
-  Connect();
   return (
     <div className="app">
       <Header />
