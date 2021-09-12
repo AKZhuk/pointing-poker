@@ -42,7 +42,7 @@ export interface IUser {
   lastName?: string;
   jobPostion?: string;
   urlToImage?: string;
-  role: string;
+  role: keyof typeof GameRole;
 }
 
 export interface IGameSettings {
@@ -83,6 +83,7 @@ export interface ISwitcherProps {
 
 export interface IConnection {
   url: string;
+  socket: null | WebSocket;
   isConnected: boolean;
   isGotoLobby: boolean;
 }
@@ -109,6 +110,7 @@ export interface IRoom {
   members: IUser[];
   issues: IIssue[];
   gameSettings: IGameSettings;
+  route: keyof typeof Routes;
 }
 
 export interface IScoreTypes {

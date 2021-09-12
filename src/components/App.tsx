@@ -1,5 +1,4 @@
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import Connect from '../helpers/Connect';
 
 import FirstPage from './FirstPage/FirstPage';
 import Lobby from './Lobby/Lobby';
@@ -9,10 +8,10 @@ import NotFound from './shared/NotFound';
 import './App.scss';
 import Header from './shared/Header/Header';
 import Footer from './shared/Footer/Footer';
+import { Connect } from '../helpers/Connect';
 
 const App = (): JSX.Element => {
   Connect();
-
   return (
     <div className="app">
       <Header />
