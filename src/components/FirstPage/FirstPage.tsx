@@ -22,7 +22,7 @@ const FirstPage = (): JSX.Element => {
   const isValidationError = !!(urlDirty && errorMessage.length > 1);
 
   useEffect(() => {
-    const url = getRoomKeyFromURL() !== '' ? creatLinkFromKey(getRoomKeyFromURL()) : '';
+    const url = getRoomKeyFromURL() !== '' ? window.location.href : '';
     setUrl(url);
   }, []);
 

@@ -25,14 +25,3 @@ export function delay(seconds: number): Promise<void> {
     setTimeout(resolve, seconds * 1000);
   });
 }
-
-export function saveLoginInfo(user: IUser, room: IRoom): void {
-  if (room.roomKey.length > 10) {
-    const loginInfo = {
-      user: user.id,
-      room: room.roomKey,
-    };
-    sessionStorage.removeItem('LoginInfo');
-    sessionStorage.setItem('LoginInfo', JSON.stringify(loginInfo));
-  }
-}

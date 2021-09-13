@@ -7,11 +7,9 @@ import Title from '../shared/Title';
 import GameSettings from './GameSettings';
 import UserMenu from './UserMenu';
 import './Lobby.scss';
-import { saveLoginInfo } from '../../helpers/helpers';
 
 const Lobby = (): JSX.Element => {
   const { room, user } = useSelector((state: IRootState) => state);
-  saveLoginInfo(user, room);
   return (
     <div className="wrapper">
       <Title text="Lobby" variant="h3" align="center" />
