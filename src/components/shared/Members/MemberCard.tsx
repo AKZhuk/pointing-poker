@@ -1,16 +1,34 @@
 import { Card, CardContent, Typography, Avatar, IconButton } from '@material-ui/core';
 import BlockIcon from '@material-ui/icons/Block';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { SendWSMessage } from '../../../helpers/WebSocketApi';
-import { IRootState, IUser } from '../../../types';
+import { setOpen } from '../../../redux/reducers/popUp/popUpActions';
+import { IRootState, IUser, PopUpNames } from '../../../types';
 import './Members.scss';
 
-const MemberCard = ({ member, isScrumMaster }: { member: IUser; isScrumMaster?: boolean }): JSX.Element => {
+const MemberCard = ({
+  member,
+  isScrumMaster,
+  onKickMember,
+}: {
+  member: IUser;
+  isScrumMaster?: boolean;
+  onKickMember?: (firstName: string, lastName: string | undefined, id: string) => void;
+}): JSX.Element => {
+  const dispatch = useDispatch();
+  const { deleteMemberPopUp } = PopUpNames;
   const {
     user: { id },
     room: { roomKey },
   } = useSelector((state: IRootState) => state);
 
+  const handleClick = () => {
+    // SendWSMessage('removeMember', roomKey, member);
+    if (onKickMember) {
+      onKickMember(member.firstName, member.lastName, member.id);
+    }
+    dispatch(setOpen(deleteMemberPopUp, true));
+  };
   return (
     <Card className="card">
       <CardContent className="card-content">
@@ -25,13 +43,9 @@ const MemberCard = ({ member, isScrumMaster }: { member: IUser; isScrumMaster?: 
           </Typography>
         </Typography>
         {isScrumMaster ? (
-          <div></div>
+          <div>master</div>
         ) : (
-          <IconButton
-            onClick={() => {
-              SendWSMessage('removeMember', roomKey, member);
-            }}
-          >
+          <IconButton onClick={handleClick}>
             <BlockIcon fontSize="large" color="error" />
           </IconButton>
         )}

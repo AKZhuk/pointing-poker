@@ -65,6 +65,7 @@ export enum PopUpNames {
   isOpen = 'isOpen',
   ConnectToLobbyPopUp = 'ConnectToLobbyPopUp',
   CreateIssuePopUp = 'CreateIssuePopUp',
+  deleteMemberPopUp = 'deleteMemberPopUp',
 }
 
 export type IPopUp = {
@@ -117,4 +118,9 @@ export interface IScoreTypes {
   'power of 2': number[];
   'story point': number[];
   fibonacci: number[];
+}
+
+export interface KickMemberProps {
+  firstName: string;
+  lastName?: string | undefined;
 }
