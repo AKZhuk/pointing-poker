@@ -1,5 +1,3 @@
-import { IRoom, IUser } from '../types';
-
 // тут будут вспомогательные функции
 export function getRoomKeyFromURL(url = window.location.search): string {
   const arr = url.split('?');
