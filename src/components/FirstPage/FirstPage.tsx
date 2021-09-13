@@ -1,6 +1,6 @@
 import { Box, Button, Container, TextField, Typography } from '@material-ui/core';
 import { useDispatch } from 'react-redux';
-import { ChangeEvent, useState } from 'react';
+import { ChangeEvent, SyntheticEvent, useEffect, useState } from 'react';
 import { setConnection } from '../../redux/reducers/connection/connectionActions';
 import firstPageLogo from '../../assets/img/MainLogo.svg';
 import PopUp from '../shared/PopUp';
@@ -8,7 +8,7 @@ import { setOpen } from '../../redux/reducers/popUp/popUpActions';
 import { GameRole, PopUpNames } from '../../types';
 import { setUser } from '../../redux/reducers/user/userActions';
 import ConnectToLobby from '../Lobby/ConnectToLobby';
-import { idGenerator, getIdFromUrl } from '../../helpers/helpers';
+import { getRoomKeyFromURL, creatLinkFromKey, idGenerator } from '../../helpers/helpers';
 
 import './FirstPage.scss';
 
@@ -17,9 +17,24 @@ const FirstPage = (): JSX.Element => {
   const { ConnectToLobbyPopUp } = PopUpNames;
   const { scrumMaster, player } = GameRole;
   const [Url, setUrl] = useState('');
+  const [urlDirty, setUrlDirty] = useState(false);
+  const [errorMessage, setErrorMessage] = useState(' ');
+  const isValidationError = !!(urlDirty && errorMessage.length > 1);
+
+  useEffect(() => {
+    const url = getRoomKeyFromURL() !== '' ? creatLinkFromKey(getRoomKeyFromURL()) : '';
+    setUrl(url);
+  }, []);
+
+  const validateInput = (value: string) => {
+    if (value.length > 0) {
+      setErrorMessage(' ');
+    }
+  };
 
   const changeHandler = (ev: ChangeEvent<HTMLInputElement>): void => {
     setUrl(ev.target.value);
+    validateInput(ev.target.value);
   };
 
   const handleOpen = (popUpName: keyof typeof PopUpNames) => {
@@ -29,6 +44,17 @@ const FirstPage = (): JSX.Element => {
   const setUserRole = (userRole: keyof typeof GameRole) => {
     dispatch(setUser('id', idGenerator()));
     dispatch(setUser('role', userRole));
+  };
+
+  const connectButtonHandler = () => {
+    setUserRole(player);
+    const isValidURL = getRoomKeyFromURL(Url) !== '';
+    if (isValidURL) {
+      handleOpen(ConnectToLobbyPopUp);
+      dispatch(setConnection('url', Url));
+    } else {
+      setErrorMessage('Не верный формат URL');
+    }
   };
 
   return (
@@ -67,17 +93,18 @@ const FirstPage = (): JSX.Element => {
             Connect to lobby by URL:
           </Typography>
           <Box marginLeft={5} marginRight={5} display="inline">
-            <TextField className="firstPage__link" label="Enter URL" onChange={changeHandler} />
+            <TextField
+              name="connect"
+              error={isValidationError}
+              className="firstPage__link"
+              label="Enter URL"
+              value={Url}
+              onChange={changeHandler}
+              onBlur={() => setUrlDirty(true)}
+              helperText={errorMessage}
+            />
           </Box>
-          <Button
-            variant="contained"
-            color="primary"
-            onClick={() => {
-              setUserRole(player);
-              handleOpen(ConnectToLobbyPopUp);
-              dispatch(setConnection('url', getIdFromUrl(Url)));
-            }}
-          >
+          <Button variant="contained" color="primary" onClick={connectButtonHandler}>
             Connect
           </Button>
         </Box>

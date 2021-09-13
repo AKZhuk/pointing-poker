@@ -5,8 +5,10 @@ import { addRoom, setRoom } from '../redux/reducers/room/roomActions';
 import { setConnection } from '../redux/reducers/connection/connectionActions';
 import { defaultRoomState } from '../redux/reducers/room/roomReducer';
 import { IRootState } from '../types';
+import { creatLinkFromKey } from './helpers';
 
 const BASE_URL = 'localhost:5000';
+const RECONNECT_TIMEOUT = 1000;
 
 export const socket = new WebSocket(`ws://${BASE_URL}`);
 export const Connect = (): void => {
@@ -24,7 +26,7 @@ export const Connect = (): void => {
     switch (res.method) {
       case WSMethods.roomKey:
         dispatch(setRoom('roomKey', res.roomKey));
-        dispatch(setConnection('url', `${res.roomKey}`));
+        dispatch(setConnection('url', creatLinkFromKey(res.roomKey)));
         break;
       case WSMethods.createRoom:
         dispatch(addRoom(res.data));
@@ -54,7 +56,7 @@ export const Connect = (): void => {
     }
   };
   socket.onclose = () => {
-    console.log('Наши полномочия, так сказать, всё!');
+    setInterval(() => Connect(), RECONNECT_TIMEOUT);
   };
   socket.onerror = () => {
     console.log('Что-то пошло не так!');
