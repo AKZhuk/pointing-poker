@@ -17,7 +17,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { idGenerator } from '../../../helpers/helpers';
 import { SendWSMessage } from '../../../helpers/WebSocketApi';
 import { setOpen } from '../../../redux/reducers/popUp/popUpActions';
-import { IRootState } from '../../../types';
+import { IIssue, IRootState } from '../../../types';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -37,7 +37,7 @@ const useStyles = makeStyles((theme: Theme) =>
   }),
 );
 
-const CreateIssue = (): JSX.Element => {
+const CreateIssue = ({ oldIssue }: { oldIssue?: IIssue }): JSX.Element => {
   const classes = useStyles();
   const dispatch = useDispatch();
   const {
@@ -49,12 +49,11 @@ const CreateIssue = (): JSX.Element => {
   const errorMessage = titleDirty && titleError ? titleError : ' ';
   const isValidationError = !!(titleDirty && titleError.length > 1);
   const [issue, setIssue] = useState({
-    id: idGenerator(),
-    title: '',
-    link: '',
-    priority: 'Low',
+    id: oldIssue ? oldIssue.id : idGenerator(),
+    title: oldIssue ? oldIssue.title : '',
+    link: oldIssue ? oldIssue.link : '',
+    priority: oldIssue ? oldIssue.priority : 'Low',
   });
-
   useEffect(() => {
     if (!isValidationError) {
       setFormValid(false);
@@ -79,14 +78,20 @@ const CreateIssue = (): JSX.Element => {
   };
 
   const handleNoButton = (): void => {
-    dispatch(setOpen('CreateIssuePopUp', false));
+    if (oldIssue) dispatch(setOpen('ChangeIssuePopUp', false));
+    else dispatch(setOpen('CreateIssuePopUp', false));
   };
 
   const handleFormSubmit = (e: FormEvent): void => {
     e.preventDefault();
     if (issue.title.length > 0) {
-      SendWSMessage('addIssue', roomKey, issue);
-      dispatch(setOpen('CreateIssuePopUp', false));
+      if (oldIssue) {
+        SendWSMessage('changeIssue', roomKey, { issue, id: oldIssue.id });
+        dispatch(setOpen('ChangeIssuePopUp', false));
+      } else {
+        SendWSMessage('addIssue', roomKey, issue);
+        dispatch(setOpen('CreateIssuePopUp', false));
+      }
     } else {
       validateInput('title', '');
     }
@@ -106,7 +111,7 @@ const CreateIssue = (): JSX.Element => {
   return (
     <Container component="div" maxWidth="xs">
       <Typography variant="h5" gutterBottom>
-        Create Issue
+        {oldIssue ? `Change Issue` : `Create Issue`}
       </Typography>
       <form className={classes.form} onSubmit={handleFormSubmit} noValidate>
         <Grid container spacing={5}>

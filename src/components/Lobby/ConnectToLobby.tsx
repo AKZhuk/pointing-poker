@@ -110,7 +110,6 @@ const ConnectToLobby = (): JSX.Element => {
     if (firstName?.length > 0) {
       if (user.role === GameRole.scrumMaster) {
         room.scrumMaster = user;
-        console.log(room);
         CreateRoom(room);
         dispatch(setRoom('scrumMaster', user));
       } else {

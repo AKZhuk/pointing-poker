@@ -6,6 +6,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { setOpen } from '../../../redux/reducers/popUp/popUpActions';
 import { IIssue, IRootState } from '../../../types';
 import { SendWSMessage } from '../../../helpers/WebSocketApi';
+import PopUp from '../PopUp';
+import CreateIssue from './CreateIssue';
 
 const IssueCard = ({
   issue = undefined,
@@ -21,9 +23,8 @@ const IssueCard = ({
     room: { roomKey },
   } = useSelector((state: IRootState) => state);
   const editHandler = () => {
-    console.warn(`edit me ${issue?.title}`);
+    dispatch(setOpen('ChangeIssuePopUp', true));
   };
-
   return (
     <Card className="card">
       <CardContent className="card-content">
@@ -35,9 +36,12 @@ const IssueCard = ({
         </Typography>
         <Box>
           {editable && (
-            <IconButton onClick={editHandler}>
-              <EditIcon />
-            </IconButton>
+            <>
+              <IconButton onClick={editHandler}>
+                <EditIcon />
+              </IconButton>
+              <PopUp content={<CreateIssue oldIssue={issue} />} name="ChangeIssuePopUp" />
+            </>
           )}
           {removable && (
             <IconButton

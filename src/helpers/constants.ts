@@ -5,6 +5,7 @@ export const WSMethods = {
   addMember: 'addMember',
   removeMember: 'removeMember',
   addIssue: 'addIssue',
+  changeIssue: 'changeIssue',
   removeIssue: 'removeIssue',
   changeSettings: 'changeSettings',
   roomKey: 'roomKey',
