@@ -5,7 +5,10 @@ import IssueCard from './IssueCard';
 import PopUp from '../PopUp';
 
 const Issues = (): JSX.Element => {
-  const { issues, user } = useSelector((state: IRootState) => state);
+  const {
+    room: { issues },
+    user,
+  } = useSelector((state: IRootState) => state);
 
   return (
     <>

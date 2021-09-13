@@ -4,17 +4,12 @@
   width: 300px;
   min-height: 100px;
   margin: 10px;
+  display: flex;
+  align-items: center;
   &-content {
-    @include flexbox(space-between, center);
-  }
-}
-.card__scrumMaster {
-  width: 300px;
-  .card-content {
-    @include flexbox(space-between, center);
-    h3 {
-      width: 80%;
-    }
+    width: 100%;
+    @include flexbox(space-between, center, row, nowrap);
+    padding: 8px 15px !important;
   }
 }
 

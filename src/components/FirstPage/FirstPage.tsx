@@ -1,22 +1,21 @@
 import { Box, Button, Container, TextField, Typography } from '@material-ui/core';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { ChangeEvent, useState } from 'react';
 import { setConnection } from '../../redux/reducers/connection/connectionActions';
 import firstPageLogo from '../../assets/img/MainLogo.svg';
 import PopUp from '../shared/PopUp';
 import { setOpen } from '../../redux/reducers/popUp/popUpActions';
-import { GameRole, IRootState, PopUpNames } from '../../types';
+import { GameRole, PopUpNames } from '../../types';
 import { setUser } from '../../redux/reducers/user/userActions';
-import './FirstPage.scss';
 import ConnectToLobby from '../Lobby/ConnectToLobby';
-import { idGenerator } from '../../helpers/idGenerator';
-import { getIdFromUrl } from '../../helpers/helpers';
+import { idGenerator, getIdFromUrl } from '../../helpers/helpers';
+
+import './FirstPage.scss';
 
 const FirstPage = (): JSX.Element => {
   const dispatch = useDispatch();
   const { ConnectToLobbyPopUp } = PopUpNames;
   const { scrumMaster, player } = GameRole;
-  const user = useSelector((state: IRootState) => state.user);
   const [Url, setUrl] = useState('');
 
   const changeHandler = (ev: ChangeEvent<HTMLInputElement>): void => {
