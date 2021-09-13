@@ -11,7 +11,6 @@ import { Connect } from '../helpers/Connect';
 
 const App = (): JSX.Element => {
   Connect();
-
   return (
     <div className="app">
       <Header />

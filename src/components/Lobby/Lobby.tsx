@@ -10,7 +10,6 @@ import './Lobby.scss';
 
 const Lobby = (): JSX.Element => {
   const { room, user } = useSelector((state: IRootState) => state);
-
   return (
     <div className="wrapper">
       <Title text="Lobby" variant="h3" align="center" />
