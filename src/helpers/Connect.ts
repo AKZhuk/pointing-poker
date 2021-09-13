@@ -55,9 +55,7 @@ export const Connect = (): void => {
         console.error(`Неизвестный ивент`);
     }
   };
-  socket.onclose = () => {
-    setInterval(() => Connect(), RECONNECT_TIMEOUT);
-  };
+  socket.onclose = () => {};
   socket.onerror = () => {
     console.log('Что-то пошло не так!');
   };

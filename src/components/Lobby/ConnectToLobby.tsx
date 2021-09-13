@@ -12,6 +12,7 @@ import UploadButton from '../shared/UploadButton';
 import { setConnection } from '../../redux/reducers/connection/connectionActions';
 import { setRoom } from '../../redux/reducers/room/roomActions';
 import { CreateRoom, SendWSMessage } from '../../helpers/WebSocketApi';
+import { getRoomKeyFromURL } from '../../helpers/helpers';
 
 const useStyles = makeStyles(theme => ({
   paper: {
@@ -110,11 +111,10 @@ const ConnectToLobby = (): JSX.Element => {
     if (firstName?.length > 0) {
       if (user.role === GameRole.scrumMaster) {
         room.scrumMaster = user;
-        console.log(room);
         CreateRoom(room);
         dispatch(setRoom('scrumMaster', user));
       } else {
-        SendWSMessage('addMember', url, user);
+        SendWSMessage('addMember', getRoomKeyFromURL(url), user);
       }
       dispatch(setConnection('isGotoLobby', true));
       redirectToLobby();
