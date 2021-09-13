@@ -1,7 +1,7 @@
 import { Button, Paper, Typography } from '@material-ui/core';
 import { useState } from 'react';
 import { useSelector } from 'react-redux';
-import { delay } from '../../helpers/delay';
+import { delay } from '../../helpers/helpers';
 import { SendWSMessage } from '../../helpers/WebSocketApi';
 import { GameRole, IRootState, Routes } from '../../types';
 import MemberCard from '../shared/Members/MemberCard';

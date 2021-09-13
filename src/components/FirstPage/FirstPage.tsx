@@ -8,9 +8,8 @@ import { setOpen } from '../../redux/reducers/popUp/popUpActions';
 import { GameRole, PopUpNames } from '../../types';
 import { setUser } from '../../redux/reducers/user/userActions';
 import ConnectToLobby from '../Lobby/ConnectToLobby';
-import { idGenerator } from '../../helpers/idGenerator';
-import { getIdFromUrl } from '../../helpers/helpers';
-import { Connect } from '../../helpers/Connect';
+import { idGenerator, getIdFromUrl } from '../../helpers/helpers';
+
 import './FirstPage.scss';
 
 const FirstPage = (): JSX.Element => {
@@ -18,7 +17,6 @@ const FirstPage = (): JSX.Element => {
   const { ConnectToLobbyPopUp } = PopUpNames;
   const { scrumMaster, player } = GameRole;
   const [Url, setUrl] = useState('');
-  Connect();
 
   const changeHandler = (ev: ChangeEvent<HTMLInputElement>): void => {
     setUrl(ev.target.value);

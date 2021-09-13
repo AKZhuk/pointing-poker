@@ -14,7 +14,7 @@ import {
 } from '@material-ui/core';
 import { ChangeEvent, FormEvent, SyntheticEvent, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { idGenerator } from '../../../helpers/idGenerator';
+import { idGenerator } from '../../../helpers/helpers';
 import { SendWSMessage } from '../../../helpers/WebSocketApi';
 import { setOpen } from '../../../redux/reducers/popUp/popUpActions';
 import { IRootState } from '../../../types';
