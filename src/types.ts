@@ -65,10 +65,11 @@ export enum PopUpNames {
   isOpen = 'isOpen',
   ConnectToLobbyPopUp = 'ConnectToLobbyPopUp',
   CreateIssuePopUp = 'CreateIssuePopUp',
+  ChangeIssuePopUp = 'ChangeIssuePopUp',
 }
 
 export type IPopUp = {
-  [key in PopUpNames]: boolean;
+  [key in PopUpNames]?: boolean;
 };
 
 export interface IUploadButtonProps {

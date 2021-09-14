@@ -25,7 +25,7 @@ const MemberCard = ({ member, isScrumMaster }: { member: IUser; isScrumMaster?: 
           </Typography>
         </Typography>
         {isScrumMaster ? (
-          <div></div>
+          <div />
         ) : (
           <IconButton
             onClick={() => {
