@@ -9,18 +9,10 @@ import PopUp from '../PopUp';
 const Members = (): JSX.Element => {
   const { deleteMemberPopUp } = PopUpNames;
   const room = useSelector((state: IRootState) => state.room);
-  const [user, setUser] = useState<{ firstName: string; lastName: string | undefined; id: string }>({
-    firstName: '',
-    lastName: 'sd',
-    id: '',
-  });
+  const [user, setUser] = useState<IUser | null>(null);
 
-  const handleUser = (firstName: string, lastName: string | undefined, id: string) => {
-    setUser({
-      firstName,
-      lastName,
-      id,
-    });
+  const handleUser = (member: IUser) => {
+    setUser(member);
   };
 
   return (
@@ -31,7 +23,7 @@ const Members = (): JSX.Element => {
           <MemberCard key={member.lastName} member={member} onKickMember={handleUser} />
         ))}
       </div>
-      <PopUp content={<KickMember firstName={user.firstName} lastName={user.lastName} />} name={deleteMemberPopUp} />
+      <PopUp content={<KickMember member={user} popUpName={deleteMemberPopUp} />} name={deleteMemberPopUp} />
     </div>
   );
 };

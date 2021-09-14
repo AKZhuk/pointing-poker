@@ -10,4 +10,6 @@ export const WSMethods = {
   roomKey: 'roomKey',
   error: 'error',
   changeRoute: 'changeRoute',
+  kickVoting: 'kickVoting',
+  resetVoting: 'resetVoting',
 };

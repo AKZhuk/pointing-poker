@@ -6,6 +6,7 @@ import { popUpReducer } from './reducers/popUp/popUpReducer';
 import { connectionReducer } from './reducers/connection/connectionReducer';
 import { userReducer } from './reducers/user/userReducer';
 import { gameSettingsReducer } from './reducers/gameSettings/gameSettingsReducer';
+import { votingReducer } from './reducers/voting/votingReducer';
 
 const rootReducer = combineReducers({
   user: userReducer,
@@ -13,6 +14,7 @@ const rootReducer = combineReducers({
   connection: connectionReducer,
   gameSettings: gameSettingsReducer,
   room: roomReducer,
+  vote: votingReducer,
 });
 
 export const store = createStore(rootReducer, composeWithDevTools(applyMiddleware(thunk)));

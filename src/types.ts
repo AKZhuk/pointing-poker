@@ -66,6 +66,7 @@ export enum PopUpNames {
   ConnectToLobbyPopUp = 'ConnectToLobbyPopUp',
   CreateIssuePopUp = 'CreateIssuePopUp',
   deleteMemberPopUp = 'deleteMemberPopUp',
+  kickVoting = 'kickVoting',
 }
 
 export type IPopUp = {
@@ -86,7 +87,7 @@ export interface IConnection {
   url: string;
   socket: null | WebSocket;
   isConnected: boolean;
-  isGotoLobby: boolean;
+  isGoToLobby: boolean;
 }
 
 export interface IIssue {
@@ -103,6 +104,7 @@ export interface IRootState {
   issues: IIssue[];
   gameSettings: IGameSettings;
   room: IRoom;
+  vote: IVoting;
 }
 
 export interface IRoom {
@@ -121,6 +123,10 @@ export interface IScoreTypes {
 }
 
 export interface KickMemberProps {
-  firstName: string;
-  lastName?: string | undefined;
+  member: IUser | null;
+  popUpName: keyof typeof PopUpNames;
+}
+export interface IVoting {
+  isVoted: boolean;
+  kickMember: IUser | null;
 }

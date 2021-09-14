@@ -6,6 +6,7 @@ import { setConnection } from '../redux/reducers/connection/connectionActions';
 import { defaultRoomState } from '../redux/reducers/room/roomReducer';
 import { IRootState } from '../types';
 import { creatLinkFromKey } from './helpers';
+import { addKickMember, resetVoting } from '../redux/reducers/voting/votingActions';
 
 const BASE_URL = 'localhost:5000';
 const RECONNECT_TIMEOUT = 1000;
@@ -15,6 +16,7 @@ export const Connect = (): void => {
   const dispatch = useDispatch();
   const history = useHistory();
   const user = useSelector((state: IRootState) => state.user);
+  const { isVoted } = useSelector((state: IRootState) => state.vote);
 
   socket.onopen = () => {
     dispatch(setConnection('isConnected', true));
@@ -51,12 +53,22 @@ export const Connect = (): void => {
           history.push('/');
         }
         break;
+      case WSMethods.kickVoting:
+        if (!isVoted) {
+          dispatch(addKickMember('kickMember', res.data));
+        }
+        break;
+      case WSMethods.resetVoting:
+        if (isVoted) {
+          dispatch(resetVoting(null));
+        }
+        break;
       default:
         console.error(`Неизвестный ивент`);
     }
   };
   socket.onclose = () => {
-    setInterval(() => Connect(), RECONNECT_TIMEOUT);
+    setInterval(() => socket.OPEN, RECONNECT_TIMEOUT);
   };
   socket.onerror = () => {
     console.log('Что-то пошло не так!');
