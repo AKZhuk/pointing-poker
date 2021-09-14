@@ -15,18 +15,10 @@ import PopUp from '../shared/PopUp';
 
 const Game = (): JSX.Element => {
   const { deleteMemberPopUp } = PopUpNames;
-  const [user, setUser] = useState<{ firstName: string; lastName: string | undefined; id: string }>({
-    firstName: '',
-    lastName: 'sd',
-    id: '',
-  });
+  const [user, setUser] = useState<IUser | null>(null);
 
-  const handleUser = (firstName: string, lastName: string | undefined, id: string) => {
-    setUser({
-      firstName,
-      lastName,
-      id,
-    });
+  const handleUser = (member: IUser) => {
+    setUser(member);
   };
 
   const {
@@ -82,7 +74,7 @@ const Game = (): JSX.Element => {
           ))}
         </aside>
       </div>
-      <PopUp content={<KickMember firstName={user.firstName} lastName={user.lastName} />} name={deleteMemberPopUp} />
+      <PopUp content={<KickMember member={user} popUpName={deleteMemberPopUp} />} name={deleteMemberPopUp} />
     </>
   );
 };
