@@ -16,7 +16,19 @@
 
 .card_active {
   background-color: #60dabf !important;
+.button-wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
+  
+.member-name {
+  font-weight: 600;
+}
+.kick-text {
+  font-size: 18px;
+}
+  
 .avatar {
   background-color: #ff5722 !important;
 }

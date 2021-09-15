@@ -1,6 +1,7 @@
 import { Button, ButtonBase, Card, CardContent, Typography } from '@material-ui/core';
 import { useSelector } from 'react-redux';
-import { GameRole, IRootState, IUser } from '../../types';
+import { useState } from 'react';
+import { GameRole, IRootState, IUser, PopUpNames } from '../../types';
 import Statistics from '../shared/Statistics';
 import Title from '../shared/Title';
 import GameControl from './GameControl';
@@ -11,8 +12,18 @@ import { scoreTypes } from '../shared/GameCards/GameCards';
 import { SendWSMessage } from '../../helpers/WebSocketApi';
 import GameCard from '../shared/GameCards/GameCard';
 import './Game.scss';
+import GameCards from '../shared/GameCards/GameCards';
+import KickMember from '../shared/Members/KickMember';
+import PopUp from '../shared/PopUp';
 
 const Game = (): JSX.Element => {
+  const { deleteMemberPopUp } = PopUpNames;
+  const [user, setUser] = useState<IUser | null>(null);
+
+  const handleUser = (member: IUser) => {
+    setUser(member);
+  };
+
   const {
     room: {
       members,
@@ -94,11 +105,12 @@ const Game = (): JSX.Element => {
                   </Typography>
                 </CardContent>
               </Card>
-              <MemberCard member={member} />
+              <MemberCard member={member} onKickMember={handleUser} />
             </div>
           ))}
         </aside>
       </div>
+      <PopUp content={<KickMember member={user} popUpName={deleteMemberPopUp} />} name={deleteMemberPopUp} />
     </>
   );
 };

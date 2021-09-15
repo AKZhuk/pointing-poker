@@ -15,7 +15,7 @@ const UserMenu = (): JSX.Element => {
     user: { role },
     user,
   } = useSelector((state: IRootState) => state);
-  const fullUrl = `${window.location.host}/${url}`;
+  const fullUrl = `${url}`;
 
   async function copyURL(): Promise<void> {
     navigator.clipboard.writeText(fullUrl);

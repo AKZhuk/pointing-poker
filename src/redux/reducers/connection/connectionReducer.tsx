@@ -7,7 +7,7 @@ export const defaultConnectionState: IConnection = {
   url: '',
   socket: new WebSocket(`ws://${BASE_URL}`),
   isConnected: false,
-  isGotoLobby: false,
+  isGoToLobby: false,
 };
 
 export const connectionReducer = (state = defaultConnectionState, action: IActionConnection): IConnection => {

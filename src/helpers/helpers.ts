@@ -1,7 +1,15 @@
 // тут будут вспомогательные функции
-export function getIdFromUrl(url: string): string {
-  const arr = url.split('/');
-  return arr[arr.length - 1];
+export function getRoomKeyFromURL(url = window.location.search): string {
+  const arr = url.split('?');
+  const customURL = arr[arr.length - 1];
+  const urlParams = new URLSearchParams(`?${customURL}`);
+  const roomKey = urlParams.has('room') ? `${urlParams.get('room')}` : '';
+  return roomKey;
+}
+
+export function creatLinkFromKey(id: string): string {
+  const URL = `${window.location.origin}/?room=${id}`;
+  return URL;
 }
 
 export function idGenerator(): string {

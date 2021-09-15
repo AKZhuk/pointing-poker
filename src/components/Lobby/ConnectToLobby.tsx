@@ -12,6 +12,7 @@ import UploadButton from '../shared/UploadButton';
 import { setConnection } from '../../redux/reducers/connection/connectionActions';
 import { setRoom } from '../../redux/reducers/room/roomActions';
 import { CreateRoom, SendWSMessage } from '../../helpers/WebSocketApi';
+import { getRoomKeyFromURL } from '../../helpers/helpers';
 
 const useStyles = makeStyles(theme => ({
   paper: {
@@ -112,7 +113,7 @@ const ConnectToLobby = (): JSX.Element => {
         CreateRoom(room);
         dispatch(setRoom('scrumMaster', user));
       } else {
-        SendWSMessage('addMember', url, user);
+        SendWSMessage('addMember', getRoomKeyFromURL(url), user);
       }
       dispatch(setConnection('isGotoLobby', true));
       redirectToLobby();
