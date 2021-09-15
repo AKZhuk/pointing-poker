@@ -11,6 +11,7 @@ import ConnectToLobby from '../Lobby/ConnectToLobby';
 import { getRoomKeyFromURL, idGenerator } from '../../helpers/helpers';
 
 import './FirstPage.scss';
+import { checkRoom } from '../../helpers/HttpServerApi';
 
 const FirstPage = (): JSX.Element => {
   const dispatch = useDispatch();
@@ -46,12 +47,15 @@ const FirstPage = (): JSX.Element => {
     dispatch(setUser('role', userRole));
   };
 
-  const connectButtonHandler = () => {
+  const connectButtonHandler = async () => {
     setUserRole(player);
     const isValidURL = getRoomKeyFromURL(Url) !== '';
     if (isValidURL) {
-      handleOpen(ConnectToLobbyPopUp);
-      dispatch(setConnection('url', Url));
+      const result = await checkRoom(getRoomKeyFromURL(Url));
+      if (result) {
+        handleOpen(ConnectToLobbyPopUp);
+        dispatch(setConnection('url', Url));
+      } else setErrorMessage('Указанная комната не существует');
     } else {
       setErrorMessage('Не верный формат URL');
     }

@@ -5,7 +5,7 @@
   margin: 0 auto;
   padding: 0 20px;
   &__linkBox {
-    width: 30%;
+    width: 400px;
     @include flexbox(space-between, center);
     margin-bottom: 30px;
   }
@@ -13,7 +13,7 @@
     max-height: 150px;
   }
   &__link {
-    max-width: 300px;
+    max-width: 350px;
     padding: 5px;
   }
   &__masterButtons {
