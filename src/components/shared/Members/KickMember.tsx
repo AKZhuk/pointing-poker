@@ -12,29 +12,43 @@ const KickMember = ({ member, popUpName }: KickMemberProps): JSX.Element => {
   const { scrumMaster, player } = GameRole;
   const {
     user: { role },
-    room: { roomKey },
+    room: { roomKey, members },
   } = useSelector((state: IRootState) => state);
   const handleNoButton = () => {
     dispatch(setOpen(popUpName, false));
   };
+  const membersCountOK = members.length > 3;
   const handleYesButton = () => {
     if (role === scrumMaster) {
       SendWSMessage('removeMember', roomKey, member);
       dispatch(setOpen(popUpName, false));
     }
     if (role === player) {
-      dispatch(setVote('isVoted', true));
-      SendWSMessage('kickVoting', roomKey, member);
       dispatch(setOpen(popUpName, false));
+
+      if (membersCountOK) {
+        dispatch(setVote('isVoted', true));
+        SendWSMessage('kickVoting', roomKey, member);
+      }
     }
   };
+
+  const kickMessage = (
+    <>
+      Do you want to remove player
+      <span className="member-name">{` ${member?.firstName} ${member?.lastName}`}</span> from session?
+    </>
+  );
+  const errorMessage = (
+    <>
+      You cannot kick
+      <span className="member-name">{` ${member?.firstName} ${member?.lastName}`}</span> from session. Too few users.
+    </>
+  );
   return (
     <>
-      <Title text="Kick player?" variant="h3" align="center" />
-      <p className="kick-text">
-        Do you want to remove player
-        <span className="member-name">{` ${member?.firstName} ${member?.lastName}`}</span> from session?
-      </p>
+      <Title text={membersCountOK ? 'Kick player?' : "Can't kick player"} variant="h3" align="center" />
+      <p className="kick-text">{membersCountOK ? kickMessage : errorMessage}</p>
       <div className="button-wrapper">
         <Button variant="contained" color="primary" onClick={handleYesButton}>
           Yes

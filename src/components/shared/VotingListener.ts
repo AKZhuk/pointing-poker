@@ -5,20 +5,18 @@ import { IRootState, PopUpNames, GameRole } from '../../types';
 
 const VotingListener = (): void => {
   const { kickVoting } = PopUpNames;
-  const { observer, player } = GameRole;
+  const { player } = GameRole;
   const dispatch = useDispatch();
   const {
     vote,
-    room: { gameSettings },
     user: { role },
   } = useSelector((state: IRootState) => state);
 
-  const isAllowedToVote = gameSettings.ScrumMasterAsPlayer ? role !== observer : role === player;
   useEffect(() => {
-    if (vote.kickMember && isAllowedToVote) {
+    if (vote.kickMember && role === player && !vote.isVoted) {
       dispatch(setOpen(kickVoting, true));
     }
-  }, [dispatch, kickVoting, role, isAllowedToVote, vote]);
+  }, [dispatch, kickVoting, player, role, vote]);
 };
 
 export default VotingListener;
