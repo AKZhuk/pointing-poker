@@ -11,4 +11,6 @@ export const WSMethods = {
   roomKey: 'roomKey',
   error: 'error',
   changeRoute: 'changeRoute',
+  startKickUserVoting: 'startKickUserVoting',
+  resetKickUserVoting: 'resetKickUserVoting',
 };
