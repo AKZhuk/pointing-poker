@@ -40,7 +40,6 @@ const MemberCard = ({
           </Typography>
         </Typography>
         {isScrumMaster ? (
-          <div>master</div>
         ) : (
           <IconButton onClick={handleClick}>
             <BlockIcon fontSize="large" color="error" />

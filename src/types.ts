@@ -67,10 +67,11 @@ export enum PopUpNames {
   CreateIssuePopUp = 'CreateIssuePopUp',
   deleteMemberPopUp = 'deleteMemberPopUp',
   kickVoting = 'kickVoting',
+  ChangeIssuePopUp = 'ChangeIssuePopUp',
 }
 
 export type IPopUp = {
-  [key in PopUpNames]: boolean;
+  [key in PopUpNames]?: boolean;
 };
 
 export interface IUploadButtonProps {
