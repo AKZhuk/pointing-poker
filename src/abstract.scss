@@ -38,3 +38,7 @@ $red: red;
   margin-bottom: 50px;
   @include flexbox(normal, normal, row, wrap);
 }
+
+.active {
+  background-color: #60dabf !important;
+}
