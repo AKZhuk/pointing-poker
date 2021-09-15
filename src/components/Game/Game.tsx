@@ -11,10 +11,9 @@ import MemberCard from '../shared/Members/MemberCard';
 import { scoreTypes } from '../shared/GameCards/GameCards';
 import { SendWSMessage } from '../../helpers/WebSocketApi';
 import GameCard from '../shared/GameCards/GameCard';
-import './Game.scss';
-import GameCards from '../shared/GameCards/GameCards';
 import KickMember from '../shared/Members/KickMember';
 import PopUp from '../shared/PopUp';
+import './Game.scss';
 
 const Game = (): JSX.Element => {
   const { deleteMemberPopUp } = PopUpNames;

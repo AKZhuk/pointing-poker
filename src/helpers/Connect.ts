@@ -57,6 +57,7 @@ export const Connect = (): void => {
         break;
       case WSMethods.updateGame:
         dispatch(setRoom('game', res.data));
+        break;
       case WSMethods.startKickUserVoting:
         if (!isVoted) {
           dispatch(addKickMember('kickMember', res.data));
