@@ -13,7 +13,7 @@ const GameCard = ({
   large?: boolean;
 }): JSX.Element => {
   const dispatch = useDispatch();
-  const { scoreType } = useSelector((state: IRootState) => state.gameSettings);
+  const { scoreType } = useSelector((state: IRootState) => state.room.gameSettings);
   const handleAddCard = () => dispatch(addCard());
 
   return (

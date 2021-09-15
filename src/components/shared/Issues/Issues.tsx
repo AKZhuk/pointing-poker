@@ -15,10 +15,10 @@ const Issues = (): JSX.Element => {
       {issues.map((issue: IIssue) =>
         user.role === GameRole.scrumMaster ? (
           <>
-            <IssueCard key={issue.title} issue={issue} editable removable />
+            <IssueCard key={issue.id} issue={issue} editable removable />
           </>
         ) : (
-          <IssueCard key={issue.title} issue={issue} />
+          <IssueCard key={issue.id} issue={issue} />
         ),
       )}
       {user.role === 'scrumMaster' && (

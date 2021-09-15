@@ -25,6 +25,10 @@ export const defaultRoomState: IRoom = {
     cards: 1,
   },
   route: Routes.lobby,
+  game: {
+    activeIssueId: '',
+    vote: {},
+  },
 };
 
 export const roomReducer = (state: IRoom = defaultRoomState, action: IRoomAction): IRoom => {

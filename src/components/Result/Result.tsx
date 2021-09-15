@@ -5,15 +5,17 @@ import Statistics from '../shared/Statistics';
 import Title from '../shared/Title';
 
 const Result = (): JSX.Element => {
-  const { issues } = useSelector((state: IRootState) => state);
+  const {
+    room: { issues },
+  } = useSelector((state: IRootState) => state);
 
   return (
     <div className="wrapper">
       <Title text="Result" variant="h3" align="center" />
       {issues.map(issue => (
-        <div className="game-result" key={issue.title}>
+        <div className="game-result" key={issue.id}>
           <IssueCard issue={issue} />
-          <Statistics />
+          <Statistics issueId={issue.id} />
         </div>
       ))}
     </div>

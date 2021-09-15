@@ -99,7 +99,6 @@ const ConnectToLobby = (): JSX.Element => {
       dispatch(setUser('role', observer));
     }
     if (isConnected) {
-      // dispatch(setMember(user));
       changeRoute(lobby);
       dispatch(setOpen(ConnectToLobbyPopUp, false));
     }
@@ -110,7 +109,6 @@ const ConnectToLobby = (): JSX.Element => {
     if (firstName?.length > 0) {
       if (user.role === GameRole.scrumMaster) {
         room.scrumMaster = user;
-        console.log(room);
         CreateRoom(room);
         dispatch(setRoom('scrumMaster', user));
       } else {

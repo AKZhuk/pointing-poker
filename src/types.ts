@@ -99,7 +99,6 @@ export interface IRootState {
   connection: IConnection;
   user: IUser;
   popUp: IPopUp;
-  issues: IIssue[];
   gameSettings: IGameSettings;
   room: IRoom;
 }
@@ -111,6 +110,10 @@ export interface IRoom {
   issues: IIssue[];
   gameSettings: IGameSettings;
   route: keyof typeof Routes;
+  game: {
+    activeIssueId: string;
+    vote: { [key: string]: { userId: string; voice: number }[] };
+  };
 }
 
 export interface IScoreTypes {
