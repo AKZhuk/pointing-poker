@@ -1,4 +1,6 @@
+import { ButtonBase } from '@material-ui/core';
 import { useSelector } from 'react-redux';
+import { SendWSMessage } from '../../../helpers/WebSocketApi';
 import { IRootState, IScoreTypes } from '../../../types';
 import GameCard from './GameCard';
 
@@ -9,13 +11,31 @@ export const scoreTypes: IScoreTypes = {
 };
 
 const GameCards = ({ isGame = false }: { isGame?: boolean }): JSX.Element => {
-  const { cards, scoreType } = useSelector((state: IRootState) => state.gameSettings);
+  const {
+    gameSettings: { cards, scoreType },
+    user,
+    room: {
+      game: { activeIssueId },
+      roomKey,
+    },
+  } = useSelector((state: IRootState) => state);
 
   return (
     <div className="card-container">
-      {scoreTypes[scoreType].slice(0, cards).map(elem => (
-        <GameCard key={elem} value={elem} large />
-      ))}
+      {scoreTypes[scoreType].slice(0, cards).map(elem =>
+        isGame ? (
+          <ButtonBase
+            key={elem}
+            onClick={() => {
+              SendWSMessage('setVoice', roomKey, { issueId: activeIssueId, userId: user.id, voice: elem });
+            }}
+          >
+            <GameCard value={elem} large />
+          </ButtonBase>
+        ) : (
+          <GameCard key={elem} value={elem} large />
+        ),
+      )}
       {!isGame && <GameCard large />}
     </div>
   );

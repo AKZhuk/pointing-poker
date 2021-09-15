@@ -27,6 +27,7 @@ const UserMenu = (): JSX.Element => {
   const handleStartGame = () => {
     SendWSMessage('changeSettings', roomKey, gameSettings);
     SendWSMessage('changeRoute', roomKey, Routes.game);
+    SendWSMessage('setActiveIssue', roomKey, {});
   };
 
   return (

@@ -20,13 +20,16 @@ const IssueCard = ({
 }): JSX.Element => {
   const dispatch = useDispatch();
   const {
-    room: { roomKey },
+    room: {
+      roomKey,
+      game: { activeIssueId },
+    },
   } = useSelector((state: IRootState) => state);
   const editHandler = () => {
     dispatch(setOpen('ChangeIssuePopUp', true));
   };
   return (
-    <Card className="card">
+    <Card className={activeIssueId === issue?.id ? 'card_active' : 'card'}>
       <CardContent className="card-content">
         <Typography variant="h6" component="h3">
           {issue ? issue.title : 'Create issue'}

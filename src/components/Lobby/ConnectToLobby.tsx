@@ -100,7 +100,6 @@ const ConnectToLobby = (): JSX.Element => {
       dispatch(setUser('role', observer));
     }
     if (isConnected) {
-      // dispatch(setMember(user));
       changeRoute(lobby);
       dispatch(setOpen(ConnectToLobbyPopUp, false));
     }

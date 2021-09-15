@@ -4,10 +4,19 @@ import GameCard from './GameCards/GameCard';
 import { scoreTypes } from './GameCards/GameCards';
 import Title from './Title';
 
-const Statistics = (): JSX.Element => {
+const Statistics = ({ issueId }: { issueId: string }): JSX.Element => {
   const {
-    gameSettings: { scoreType, cards },
+    room: {
+      members,
+      gameSettings: { scoreType, cards },
+      game: { vote },
+    },
   } = useSelector((state: IRootState) => state);
+
+  const calculateIssueStat = (cardValue: number) => {
+    const stat = (vote[issueId]?.filter(data => data.voice === cardValue)?.length / members.length) * 100;
+    return stat ? `${stat.toFixed(2)}%` : '0%';
+  };
 
   return (
     <div>
@@ -16,7 +25,7 @@ const Statistics = (): JSX.Element => {
         {scoreTypes[scoreType].slice(0, cards).map(elem => (
           <div key={elem}>
             <GameCard value={elem} />
-            <Title text="35%" variant="h5" align="center" />
+            <Title text={calculateIssueStat(elem)} variant="h5" align="center" />
           </div>
         ))}
       </div>
