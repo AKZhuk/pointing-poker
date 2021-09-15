@@ -14,7 +14,7 @@ const rootReducer = combineReducers({
   connection: connectionReducer,
   gameSettings: gameSettingsReducer,
   room: roomReducer,
-  vote: votingReducer,
+  kickVote: votingReducer,
 });
 
 export const store = createStore(rootReducer, composeWithDevTools(applyMiddleware(thunk)));

@@ -104,7 +104,7 @@ export interface IRootState {
   issues: IIssue[];
   gameSettings: IGameSettings;
   room: IRoom;
-  vote: IVoting;
+  kickVote: IVoting;
 }
 
 export interface IRoom {

@@ -28,7 +28,7 @@ const KickMember = ({ member, popUpName }: KickMemberProps): JSX.Element => {
 
       if (membersCountOK) {
         dispatch(setVote('isVoted', true));
-        SendWSMessage('kickVoting', roomKey, member);
+        SendWSMessage('startKickUserVoting', roomKey, member);
       }
     }
   };

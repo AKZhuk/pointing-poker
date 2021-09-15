@@ -17,7 +17,7 @@ import VotingListener from './shared/VotingListener';
 
 const App = (): JSX.Element => {
   const { kickVoting } = PopUpNames;
-  const vote = useSelector((state: IRootState) => state.vote);
+  const vote = useSelector((state: IRootState) => state.kickVote);
   Connect();
   VotingListener();
 

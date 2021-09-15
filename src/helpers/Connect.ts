@@ -18,7 +18,7 @@ export const Connect = (): void => {
   const history = useHistory();
   const { kickVoting } = PopUpNames;
   const user = useSelector((state: IRootState) => state.user);
-  const { isVoted } = useSelector((state: IRootState) => state.vote);
+  const { isVoted } = useSelector((state: IRootState) => state.kickVote);
 
   socket.onopen = () => {
     dispatch(setConnection('isConnected', true));
@@ -55,12 +55,12 @@ export const Connect = (): void => {
           history.push('/');
         }
         break;
-      case WSMethods.kickVoting:
+      case WSMethods.startKickUserVoting:
         if (!isVoted) {
           dispatch(addKickMember('kickMember', res.data));
         }
         break;
-      case WSMethods.resetVoting:
+      case WSMethods.resetKickUserVoting:
         dispatch(resetVoting(null));
         dispatch(setOpen(kickVoting, false));
         break;
