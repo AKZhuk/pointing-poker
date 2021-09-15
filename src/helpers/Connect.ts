@@ -9,7 +9,7 @@ import { creatLinkFromKey } from './helpers';
 import { addKickMember, resetVoting } from '../redux/reducers/voting/votingActions';
 import { setOpen } from '../redux/reducers/popUp/popUpActions';
 
-const BASE_URL = 'localhost:5000';
+export const BASE_URL = 'localhost:5000';
 const RECONNECT_TIMEOUT = 1000;
 
 export const socket = new WebSocket(`ws://${BASE_URL}`);
