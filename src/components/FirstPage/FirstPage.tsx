@@ -20,9 +20,10 @@ const FirstPage = (): JSX.Element => {
   const [urlDirty, setUrlDirty] = useState(false);
   const [errorMessage, setErrorMessage] = useState(' ');
   const isValidationError = !!(urlDirty && errorMessage.length > 1);
+  const validateURL = (url?: string) => getRoomKeyFromURL(url) !== '';
 
   useEffect(() => {
-    const url = getRoomKeyFromURL() !== '' ? window.location.href : '';
+    const url = validateURL() ? window.location.href : '';
     setUrl(url);
   }, []);
 
@@ -48,8 +49,7 @@ const FirstPage = (): JSX.Element => {
 
   const connectButtonHandler = () => {
     setUserRole(player);
-    const isValidURL = getRoomKeyFromURL(Url) !== '';
-    if (isValidURL) {
+    if (validateURL(Url)) {
       handleOpen(ConnectToLobbyPopUp);
       dispatch(setConnection('url', Url));
     } else {

@@ -1,3 +1,4 @@
+import { useSelector } from 'react-redux';
 import { Route, Switch } from 'react-router-dom';
 import FirstPage from './FirstPage/FirstPage';
 import Lobby from './Lobby/Lobby';
@@ -9,8 +10,17 @@ import Footer from './shared/Footer/Footer';
 import './App.scss';
 import { Connect } from '../helpers/Connect';
 
+import PopUp from './shared/PopUp';
+import { IRootState, PopUpNames } from '../types';
+import KickMember from './shared/Members/KickMember';
+import VotingListener from './shared/VotingListener';
+
 const App = (): JSX.Element => {
+  const { kickVoting } = PopUpNames;
+  const vote = useSelector((state: IRootState) => state.kickVote);
   Connect();
+  VotingListener();
+
   return (
     <div className="app">
       <Header />
@@ -24,6 +34,7 @@ const App = (): JSX.Element => {
         </Switch>
       </main>
       <Footer />
+      <PopUp content={<KickMember member={vote.kickMember} popUpName={kickVoting} />} name={kickVoting} />
     </div>
   );
 };
