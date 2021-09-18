@@ -80,7 +80,10 @@ module.exports = ({ development }) => ({
   },
 
   plugins: [
-    new Dotenv(),
+    new Dotenv({
+      path: './.env',
+      safe: true,
+    }),
     new HtmlWebpackPlugin({
       title: 'React Components',
       template: './src/index.html',
