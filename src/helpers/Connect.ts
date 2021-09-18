@@ -9,7 +9,7 @@ import { addKickMember, resetVoting } from '../redux/reducers/voting/votingActio
 import { creatLinkFromKey } from './helpers';
 import { IRootState, PopUpNames } from '../types';
 
-export const socket = new WebSocket(`wss://${process.env.URL}`);
+export const socket = new WebSocket(`wss://${process.env.BASE_URL}`);
 
 export const Connect = (): void => {
   const dispatch = useDispatch();

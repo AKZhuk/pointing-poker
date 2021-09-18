@@ -8,7 +8,8 @@
     "dev": "webpack serve --env development --open --hot",
     "lint": "eslint src --fix",
     "prettier": "prettier",
-    "test": "npx jest "
+    "test": "npx jest ",
+    "report": "npm run build --withReport true"
   },
   "keywords": [],
   "author": "Aliaksei Zhuk",
