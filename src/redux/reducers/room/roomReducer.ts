@@ -29,6 +29,7 @@ export const defaultRoomState: IRoom = {
     activeIssueId: '',
     vote: {},
   },
+  chatMessages: [],
 };
 
 export const roomReducer = (state: IRoom = defaultRoomState, action: IRoomAction): IRoom => {

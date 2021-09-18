@@ -25,6 +25,11 @@ export function delay(seconds: number): Promise<void> {
   });
 }
 
+export function getTimeFromDate(date: Date): string {
+  const timeArr = date.toLocaleTimeString().split(':');
+  timeArr.pop();
+  return timeArr.join(':');
+}
 export const parseDataFromExcel = (bufferArray: ArrayBuffer): unknown[] => {
   const wb = XLSX.read(bufferArray, { type: 'buffer' });
   const wsname = wb.SheetNames[0];
