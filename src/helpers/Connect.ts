@@ -4,9 +4,9 @@ import { WSMethods } from './constants';
 import { addRoom, setRoom } from '../redux/reducers/room/roomActions';
 import { setConnection } from '../redux/reducers/connection/connectionActions';
 import { defaultRoomState } from '../redux/reducers/room/roomReducer';
-import { IRootState, PopUpNames } from '../types';
+import { IRootState, PopUpNames, Routes, GameRole } from '../types';
 import { creatLinkFromKey } from './helpers';
-import { addKickMember, resetVoting } from '../redux/reducers/voting/votingActions';
+import { addKickMember, addMemberToRoom, resetVoting } from '../redux/reducers/features/featuresActions';
 import { setOpen } from '../redux/reducers/popUp/popUpActions';
 
 export const BASE_URL = 'localhost:5000';
@@ -16,9 +16,14 @@ export const socket = new WebSocket(`ws://${BASE_URL}`);
 export const Connect = (): void => {
   const dispatch = useDispatch();
   const history = useHistory();
-  const { kickVoting } = PopUpNames;
-  const user = useSelector((state: IRootState) => state.user);
-  const { isVoted } = useSelector((state: IRootState) => state.kickVote);
+  const { kickVoting, askForJoinMemberPopUp } = PopUpNames;
+  const { user, room } = useSelector((state: IRootState) => state);
+  const { isVoted } = useSelector((state: IRootState) => state.features);
+
+  const changeRoute = (route: keyof typeof Routes) => {
+    const path = `/${route}`;
+    history.push(path);
+  };
 
   socket.onopen = () => {
     dispatch(setConnection('isConnected', true));
@@ -28,6 +33,14 @@ export const Connect = (): void => {
   socket.onmessage = (event: MessageEvent) => {
     const res = JSON.parse(event.data);
     switch (res.method) {
+      case WSMethods.login:
+        dispatch(setOpen('ConnectToLobbyPopUp', false));
+        if (res.roomKey) {
+          changeRoute(room.route);
+        } else {
+          dispatch(setOpen('LoginDeniedPopUp', true));
+        }
+        break;
       case WSMethods.roomKey:
         dispatch(setRoom('roomKey', res.roomKey));
         dispatch(setConnection('url', creatLinkFromKey(res.roomKey)));
@@ -66,6 +79,12 @@ export const Connect = (): void => {
       case WSMethods.resetKickUserVoting:
         dispatch(resetVoting(null));
         dispatch(setOpen(kickVoting, false));
+        break;
+      case WSMethods.attachmentMemberRequest:
+        if (user.role === GameRole.scrumMaster) {
+          dispatch(addMemberToRoom('candidate', res.data));
+          dispatch(setOpen(askForJoinMemberPopUp, true));
+        }
         break;
       default:
         console.error(`Неизвестный ивент`);

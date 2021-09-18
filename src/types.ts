@@ -68,6 +68,8 @@ export enum PopUpNames {
   deleteMemberPopUp = 'deleteMemberPopUp',
   kickVoting = 'kickVoting',
   ChangeIssuePopUp = 'ChangeIssuePopUp',
+  askForJoinMemberPopUp = 'askForJoinMemberPopUp',
+  LoginDeniedPopUp = 'LoginDeniedPopUp',
 }
 
 export type IPopUp = {
@@ -104,7 +106,7 @@ export interface IRootState {
   popUp: IPopUp;
   gameSettings: IGameSettings;
   room: IRoom;
-  kickVote: IVoting;
+  features: IFeatures;
 }
 
 export interface IRoom {
@@ -130,7 +132,8 @@ export interface KickMemberProps {
   member: IUser | null;
   popUpName: keyof typeof PopUpNames;
 }
-export interface IVoting {
+export interface IFeatures {
   isVoted: boolean;
   kickMember: IUser | null;
+  candidate: IUser | null;
 }

@@ -9,10 +9,11 @@ import { GameRole, IRootState, PopUpNames, Routes } from '../../types';
 import Switcher from '../shared/Switcher';
 import Title from '../shared/Title';
 import UploadButton from '../shared/UploadButton';
-import { setConnection } from '../../redux/reducers/connection/connectionActions';
 import { setRoom } from '../../redux/reducers/room/roomActions';
 import { CreateRoom, SendWSMessage } from '../../helpers/WebSocketApi';
 import { getRoomKeyFromURL } from '../../helpers/helpers';
+import { socket } from '../../helpers/Connect';
+import { WSMethods } from '../../helpers/constants';
 
 const useStyles = makeStyles(theme => ({
   paper: {
@@ -42,7 +43,6 @@ const useStyles = makeStyles(theme => ({
 
 const ConnectToLobby = (): JSX.Element => {
   const classes = useStyles();
-  const history = useHistory();
   const dispatch = useDispatch();
   const { observer } = GameRole;
   const { ConnectToLobbyPopUp } = PopUpNames;
@@ -50,7 +50,7 @@ const ConnectToLobby = (): JSX.Element => {
   const {
     user,
     user: { firstName, lastName, jobPostion, urlToImage },
-    connection: { url, isConnected },
+    connection: { url },
     room,
   } = useSelector((state: IRootState) => state);
   const [isObserver, setIsObserver] = useState(false);
@@ -67,11 +67,6 @@ const ConnectToLobby = (): JSX.Element => {
       setFormValid(true);
     }
   }, [firstNameError, isValidationError]);
-
-  const changeRoute = (route: keyof typeof Routes) => {
-    const path = `/${route}`;
-    history.push(path);
-  };
 
   const validateInput = (inputName: string, value: string) => {
     if (inputName === 'firstName' && value.length > 0) {
@@ -95,28 +90,19 @@ const ConnectToLobby = (): JSX.Element => {
     setIsObserver(prev => !prev);
   };
 
-  const redirectToLobby = () => {
+  const handleFormSubmit = (e: FormEvent): void => {
+    e.preventDefault();
     if (isObserver) {
       dispatch(setUser('role', observer));
     }
-    if (isConnected) {
-      changeRoute(lobby);
-      dispatch(setOpen(ConnectToLobbyPopUp, false));
-    }
-  };
-
-  const handleFormSubmit = (e: FormEvent): void => {
-    e.preventDefault();
     if (firstName?.length > 0) {
       if (user.role === GameRole.scrumMaster) {
         room.scrumMaster = user;
         CreateRoom(room);
         dispatch(setRoom('scrumMaster', user));
       } else {
-        SendWSMessage('addMember', getRoomKeyFromURL(url), user);
+        SendWSMessage('connectToRoom', getRoomKeyFromURL(url), user);
       }
-      dispatch(setConnection('isGotoLobby', true));
-      redirectToLobby();
     } else {
       validateInput('firstName', '');
     }

@@ -17,4 +17,8 @@ export const WSMethods = {
   updateGame: 'updateGame',
   startKickUserVoting: 'startKickUserVoting',
   resetKickUserVoting: 'resetKickUserVoting',
+  login: 'login',
+  rejectLogin: 'rejectLogin',
+  attachmentMemberRequest: 'attachmentMemberRequest',
+  connectToRoom: 'connectToRoom',
 };
