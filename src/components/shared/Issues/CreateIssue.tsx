@@ -47,9 +47,7 @@ const useStyles = makeStyles((theme: Theme) =>
 const CreateIssue = ({ oldIssue }: { oldIssue?: IIssue }): JSX.Element => {
   const classes = useStyles();
   const dispatch = useDispatch();
-  const {
-    room: { issues },
-  } = useSelector((state: IRootState) => state);
+
   const {
     room: { roomKey },
   } = useSelector((state: IRootState) => state);

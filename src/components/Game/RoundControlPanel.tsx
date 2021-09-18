@@ -4,13 +4,12 @@ import { SendWSMessage } from '../../helpers/WebSocketApi';
 import { IRootState } from '../../types';
 import Timer from '../shared/Timer';
 
-const RoundControlPanel = () => {
+const RoundControlPanel = (): JSX.Element => {
   const {
     room: {
       roomKey,
       game: { activeIssueId },
     },
-    user: { role, id },
   } = useSelector((state: IRootState) => state);
   return (
     <div>

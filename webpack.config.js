@@ -3,9 +3,10 @@ const Dotenv = require('dotenv-webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
-const ESLintPlugin = require('eslint-webpack-plugin');
 const CopyPlugin = require('copy-webpack-plugin');
 const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+const ESLintPlugin = require('eslint-webpack-plugin');
 const TerserWebpackPlugin = require('terser-webpack-plugin');
 
 const esLintPlugin = isDev => (isDev ? [] : [new ESLintPlugin({ extensions: ['ts', 'js', 'tsx', 'jsx'] })]);
@@ -77,6 +78,7 @@ module.exports = ({ development }) => ({
   },
 
   plugins: [
+    new BundleAnalyzerPlugin(),
     new Dotenv(),
     new HtmlWebpackPlugin({
       title: 'React Components',
