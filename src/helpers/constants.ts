@@ -18,3 +18,5 @@ export const WSMethods = {
   startKickUserVoting: 'startKickUserVoting',
   resetKickUserVoting: 'resetKickUserVoting',
 };
+
+export const RECONNECT_TIMEOUT = 1000;

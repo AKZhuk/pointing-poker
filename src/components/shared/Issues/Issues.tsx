@@ -4,19 +4,19 @@ import CreateIssue from './CreateIssue';
 import IssueCard from './IssueCard';
 import PopUp from '../PopUp';
 
-const Issues = (): JSX.Element => {
+const Issues = ({ className }: { className?: string }): JSX.Element => {
   const {
     room: { issues },
     user,
   } = useSelector((state: IRootState) => state);
 
   return (
-    <>
+    <section className={className}>
       {issues.map((issue: IIssue) =>
         user.role === GameRole.scrumMaster ? (
-          <>
+          <section>
             <IssueCard key={issue.id} issue={issue} editable removable />
-          </>
+          </section>
         ) : (
           <IssueCard key={issue.id} issue={issue} />
         ),
@@ -27,7 +27,7 @@ const Issues = (): JSX.Element => {
           <PopUp content={<CreateIssue />} name="CreateIssuePopUp" />
         </>
       )}
-    </>
+    </section>
   );
 };
 
