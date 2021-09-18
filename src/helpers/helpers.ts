@@ -23,3 +23,9 @@ export function delay(seconds: number): Promise<void> {
     setTimeout(resolve, seconds * 1000);
   });
 }
+
+export function getTimeFromDate(date: Date): string {
+  const timeArr = date.toLocaleTimeString().split(':');
+  timeArr.pop();
+  return timeArr.join(':');
+}

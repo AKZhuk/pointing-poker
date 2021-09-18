@@ -118,6 +118,7 @@ export interface IRoom {
     activeIssueId: string;
     vote: { [key: string]: { userId: string; voice: number }[] };
   };
+  chatMessages: IChatMessage[];
 }
 
 export interface IScoreTypes {
@@ -133,4 +134,10 @@ export interface KickMemberProps {
 export interface IVoting {
   isVoted: boolean;
   kickMember: IUser | null;
+}
+
+export interface IChatMessage {
+  user: IUser;
+  message: string;
+  date: number;
 }

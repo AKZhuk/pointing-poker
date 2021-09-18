@@ -6,25 +6,31 @@ import Members from '../shared/Members/Members';
 import Title from '../shared/Title';
 import GameSettings from './GameSettings';
 import UserMenu from './UserMenu';
+import Chat from './Chat';
 import './Lobby.scss';
 
 const Lobby = (): JSX.Element => {
   const { room, user } = useSelector((state: IRootState) => state);
   return (
-    <div className="wrapper">
-      <Title text="Lobby" variant="h3" align="center" />
-      <Switch>{room === null && <Redirect to="/" />}</Switch>
-      <UserMenu />
-      <Members />
-      {user.role === GameRole.scrumMaster && (
-        <>
-          <Title text="Issues:" variant="h5" align="left" />
-          <div className="card-container">
-            <Issues />
-          </div>
-          <GameSettings />
-        </>
-      )}
+    <div className="lobby">
+      <div className="wrapper lobby__main">
+        <Title text="Lobby" variant="h3" align="center" />
+        <Switch>{room === null && <Redirect to="/" />}</Switch>
+        <UserMenu />
+        <Members />
+        {user.role === GameRole.scrumMaster && (
+          <>
+            <Title text="Issues:" variant="h5" align="left" />
+            <div className="card-container">
+              <Issues />
+            </div>
+            <GameSettings />
+          </>
+        )}
+      </div>
+      <div className="wrapper lobby__chat">
+        <Chat />
+      </div>
     </div>
   );
 };

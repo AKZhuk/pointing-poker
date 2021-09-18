@@ -45,6 +45,9 @@ export const Connect = (): void => {
         dispatch(addRoom(defaultRoomState));
         history.push('/');
         break;
+      case WSMethods.addChatMessage:
+        dispatch(setRoom('chatMessages', res.data));
+        break;
       case WSMethods.changeRoute:
         dispatch(setRoom('route', res.data));
         history.push(`/${res.data}`);
