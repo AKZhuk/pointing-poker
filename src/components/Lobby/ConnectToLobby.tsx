@@ -4,7 +4,7 @@ import { ChangeEvent, FormEvent, SyntheticEvent, useEffect, useState } from 'rea
 import { useDispatch, useSelector } from 'react-redux';
 import { setOpen } from '../../redux/reducers/popUp/popUpActions';
 import { setDefaultUser, setUser } from '../../redux/reducers/user/userActions';
-import { GameRole, IRootState, PopUpNames, Routes } from '../../types';
+import { GameRole, IRootState, PopUpNames } from '../../types';
 import Switcher from '../shared/Switcher';
 import Title from '../shared/Title';
 import UploadButton from '../shared/UploadButton';
@@ -43,7 +43,6 @@ const ConnectToLobby = (): JSX.Element => {
   const dispatch = useDispatch();
   const { observer } = GameRole;
   const { ConnectToLobbyPopUp } = PopUpNames;
-  const { lobby } = Routes;
   const {
     user,
     user: { firstName, lastName, jobPostion, urlToImage },
@@ -79,8 +78,8 @@ const ConnectToLobby = (): JSX.Element => {
     validateInput(e.target.name, e.target.value);
   };
 
-  const handleUpdateImage = (imageURL: string): void => {
-    dispatch(setUser('urlToImage', imageURL));
+  const handleUpdateImage = (imageURL: unknown): void => {
+    dispatch(setUser('urlToImage', `${imageURL}`));
   };
 
   const handleChecked = () => {
