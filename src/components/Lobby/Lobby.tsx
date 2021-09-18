@@ -15,7 +15,7 @@ const Lobby = (): JSX.Element => {
     <div className="lobby">
       <div className="wrapper lobby__main">
         <Title text="Lobby" variant="h3" align="center" />
-        <Switch>{room === null && <Redirect to="/" />}</Switch>
+        <Switch>{room.roomKey === '' && <Redirect to="/" />}</Switch>
         <UserMenu />
         <Members />
         {user.role === GameRole.scrumMaster && (
