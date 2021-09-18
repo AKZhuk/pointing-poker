@@ -19,3 +19,5 @@ export const WSMethods = {
   resetKickUserVoting: 'resetKickUserVoting',
   addChatMessage: 'addChatMessage',
 };
+
+export const RECONNECT_TIMEOUT = 1000;

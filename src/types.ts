@@ -75,7 +75,8 @@ export type IPopUp = {
 };
 
 export interface IUploadButtonProps {
-  handleUpdateImage(imageURL: string): void;
+  fileHandler: (data: unknown) => void;
+  accept: 'image/*' | '.xlsx';
 }
 
 export interface ISwitcherProps {

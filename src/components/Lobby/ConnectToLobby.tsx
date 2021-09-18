@@ -115,7 +115,7 @@ const ConnectToLobby = (): JSX.Element => {
       } else {
         SendWSMessage('addMember', getRoomKeyFromURL(url), user);
       }
-      dispatch(setConnection('isGotoLobby', true));
+      dispatch(setConnection('isGoToLobby', true));
       redirectToLobby();
     } else {
       validateInput('firstName', '');
@@ -188,7 +188,7 @@ const ConnectToLobby = (): JSX.Element => {
                 </Typography>
                 <div className={classes.wrapper}>
                   <Avatar alt={firstName} src={urlToImage} className={classes.avatar} />
-                  <UploadButton handleUpdateImage={handleUpdateImage} />
+                  <UploadButton fileHandler={handleUpdateImage} accept={'image/*'} />
                 </div>
               </Box>
             </Grid>

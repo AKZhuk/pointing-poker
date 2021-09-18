@@ -1,4 +1,4 @@
-import { Button, ButtonBase, Card, CardContent, Typography } from '@material-ui/core';
+import { ButtonBase, Card, CardContent, Typography } from '@material-ui/core';
 import { useSelector } from 'react-redux';
 import { useState } from 'react';
 import { GameRole, IRootState, IUser, PopUpNames } from '../../types';
@@ -6,13 +6,13 @@ import Statistics from '../shared/Statistics';
 import Title from '../shared/Title';
 import GameControl from './GameControl';
 import Issues from '../shared/Issues/Issues';
-import Timer from '../shared/Timer';
 import MemberCard from '../shared/Members/MemberCard';
 import { scoreTypes } from '../shared/GameCards/GameCards';
 import { SendWSMessage } from '../../helpers/WebSocketApi';
 import GameCard from '../shared/GameCards/GameCard';
 import KickMember from '../shared/Members/KickMember';
 import PopUp from '../shared/PopUp';
+import RoundControlPanel from './RoundControlPanel';
 import './Game.scss';
 
 const Game = (): JSX.Element => {
@@ -54,32 +54,8 @@ const Game = (): JSX.Element => {
           <Title text="Game" variant="h3" align="center" />
           <GameControl />
           <div className="row">
-            <div>
-              <Issues />
-            </div>
-            {role === GameRole.scrumMaster ? (
-              <div>
-                <Timer />
-                <Button
-                  variant="contained"
-                  color="secondary"
-                  onClick={() => SendWSMessage('resetRound', roomKey, { issueId: activeIssueId })}
-                >
-                  Reset Round
-                </Button>
-                <Button
-                  variant="contained"
-                  color="primary"
-                  onClick={() => {
-                    SendWSMessage('setActiveIssue', roomKey, {});
-                  }}
-                >
-                  Next issue
-                </Button>
-              </div>
-            ) : (
-              <Statistics issueId={activeIssueId} />
-            )}
+            <Issues />
+            {role === GameRole.scrumMaster ? <RoundControlPanel /> : <Statistics issueId={activeIssueId} />}
           </div>
           {role === GameRole.scrumMaster ? (
             <Statistics issueId={activeIssueId} />
