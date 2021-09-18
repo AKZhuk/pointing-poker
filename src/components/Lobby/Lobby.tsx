@@ -19,9 +19,7 @@ const Lobby = (): JSX.Element => {
       {user.role === GameRole.scrumMaster && (
         <>
           <Title text="Issues:" variant="h5" align="left" />
-          <div className="card-container">
-            <Issues />
-          </div>
+          <Issues className={'card-container'} />
           <GameSettings />
         </>
       )}

@@ -17,24 +17,28 @@ const useStyles = makeStyles((theme: Theme) =>
   }),
 );
 
-const UploadButton = (props: IUploadButtonProps): JSX.Element => {
-  const { handleUpdateImage } = props;
+const UploadButton = ({ fileHandler, accept }: IUploadButtonProps): JSX.Element => {
   const classes = useStyles();
   const handleChange = (e: ChangeEvent<HTMLInputElement>): void => {
     const file: File = (e.target.files as FileList)[0];
     const reader = new FileReader();
     reader.onloadend = () => {
-      handleUpdateImage(reader.result as string);
+      fileHandler(reader.result);
     };
     if (file) {
-      reader.readAsDataURL(file);
+      if (accept === 'image/*') {
+        reader.readAsDataURL(file);
+      } else {
+        reader.readAsArrayBuffer(file);
+      }
     }
   };
+
   return (
     <div className={classes.root}>
       <label htmlFor="contained-button-file">
         <input
-          accept="image/*"
+          accept={accept}
           className={classes.input}
           id="contained-button-file"
           multiple
