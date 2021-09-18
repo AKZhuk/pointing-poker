@@ -1,5 +1,5 @@
 export async function checkRoom(roomKey: string): Promise<boolean> {
-  const resp = await fetch(`http://${process.env.URL}/checkRoom`, {
+  const resp = await fetch(`http://${process.env.BASE_URL}/checkRoom`, {
     method: 'POST',
     body: JSON.stringify({ roomKey }),
     headers: {
