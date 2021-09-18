@@ -11,6 +11,8 @@ const TerserWebpackPlugin = require('terser-webpack-plugin');
 
 const esLintPlugin = isDev => (isDev ? [] : [new ESLintPlugin({ extensions: ['ts', 'js', 'tsx', 'jsx'] })]);
 
+const withReport = () => (process.env.npm_config_withReport ? [new BundleAnalyzerPlugin()] : []);
+
 const devServer = isDev =>
   !isDev
     ? {}
@@ -78,7 +80,6 @@ module.exports = ({ development }) => ({
   },
 
   plugins: [
-    new BundleAnalyzerPlugin(),
     new Dotenv(),
     new HtmlWebpackPlugin({
       title: 'React Components',
@@ -89,6 +90,7 @@ module.exports = ({ development }) => ({
     }),
     new MiniCssExtractPlugin({ filename: '[name].[contenthash].css' }),
     new CleanWebpackPlugin({ cleanStaleWebpackAssets: false }),
+    ...withReport(),
     ...esLintPlugin(development),
   ],
   ...devServer(development),
