@@ -28,9 +28,9 @@ const Lobby = (): JSX.Element => {
           </>
         )}
       </div>
-      <div className="wrapper lobby__chat">
+      <aside className="wrapper lobby__chat">
         <Chat />
-      </div>
+      </aside>
     </div>
   );
 };

@@ -14,8 +14,8 @@ const Chat = (): JSX.Element => {
     user,
   } = useSelector((state: IRootState) => state);
   const [msg, setMsg] = useState('');
-  const submitHandler = (ev: FormEvent) => {
-    ev.preventDefault();
+  const submitHandler = (e: FormEvent) => {
+    e.preventDefault();
     if (msg) {
       SendWSMessage('addChatMessage', roomKey, { user, message: msg, date: Date.now() });
       setMsg('');
@@ -45,7 +45,7 @@ const Chat = (): JSX.Element => {
           variant="outlined"
           margin="dense"
           value={msg}
-          onChange={(ev: ChangeEvent<HTMLInputElement>) => setMsg(ev.target.value)}
+          onChange={(e: ChangeEvent<HTMLInputElement>) => setMsg(e.target.value)}
           fullWidth
           InputProps={{
             endAdornment: (

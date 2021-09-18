@@ -5,7 +5,6 @@ const BASE_URL = 'localhost:5000';
 
 export const defaultConnectionState: IConnection = {
   url: '',
-  socket: new WebSocket(`ws://${BASE_URL}`),
   isConnected: false,
   isGoToLobby: false,
 };

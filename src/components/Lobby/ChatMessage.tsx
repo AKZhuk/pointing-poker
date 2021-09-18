@@ -7,7 +7,7 @@ import './ChatMessage.scss';
 const ChatMessage = ({ user, message, date }: { user: IUser; message: string; date: number }): JSX.Element => {
   const currentUser: IUser = useSelector((state: IRootState) => state.user);
   return (
-    <div className={`chatMessage ${currentUser.id === user.id ? 'yourMessage' : ''}  `}>
+    <div className={`chatMessage ${currentUser.id === user.id ? 'ownMessage' : ''}  `}>
       <div className="chatMessage__user">
         <Avatar alt="avatar" src={user.urlToImage} />
         <p>{`${user.firstName} :`}</p>
