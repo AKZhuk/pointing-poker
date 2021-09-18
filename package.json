@@ -8,7 +8,8 @@
     "dev": "webpack serve --env development --open --hot",
     "lint": "eslint src --fix",
     "prettier": "prettier",
-    "test": "npx jest "
+    "test": "npx jest ",
+    "report": "npm run build --withReport true"
   },
   "keywords": [],
   "author": "Aliaksei Zhuk",
@@ -26,7 +27,8 @@
     "react-transition-group": "^4.3.0",
     "redux": "^4.1.1",
     "redux-devtools-extension": "^2.13.9",
-    "redux-thunk": "^2.3.0"
+    "redux-thunk": "^2.3.0",
+    "xlsx": "^0.17.1"
   },
   "devDependencies": {
     "@babel/core": "^7.15.0",
@@ -72,7 +74,9 @@
     "terser-webpack-plugin": "^5.2.0",
     "typescript": "^4.2.4",
     "webpack": "^5.36.2",
+    "webpack-bundle-analyzer": "^4.4.2",
     "webpack-cli": "^4.7.0",
-    "webpack-dev-server": "^3.11.2"
+    "webpack-dev-server": "^3.11.2",
+    "webpack-xlsx-loader": "^1.0.0"
   }
 }

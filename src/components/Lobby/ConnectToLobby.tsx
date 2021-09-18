@@ -1,6 +1,5 @@
 import { Avatar, Box, Button, Container, Grid, TextField, Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
-import { useHistory } from 'react-router-dom';
 import { ChangeEvent, FormEvent, SyntheticEvent, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { setOpen } from '../../redux/reducers/popUp/popUpActions';
@@ -12,8 +11,6 @@ import UploadButton from '../shared/UploadButton';
 import { setRoom } from '../../redux/reducers/room/roomActions';
 import { CreateRoom, SendWSMessage } from '../../helpers/WebSocketApi';
 import { getRoomKeyFromURL } from '../../helpers/helpers';
-import { socket } from '../../helpers/Connect';
-import { WSMethods } from '../../helpers/constants';
 
 const useStyles = makeStyles(theme => ({
   paper: {
@@ -174,7 +171,7 @@ const ConnectToLobby = (): JSX.Element => {
                 </Typography>
                 <div className={classes.wrapper}>
                   <Avatar alt={firstName} src={urlToImage} className={classes.avatar} />
-                  <UploadButton handleUpdateImage={handleUpdateImage} />
+                  <UploadButton fileHandler={handleUpdateImage} accept={'image/*'} />
                 </div>
               </Box>
             </Grid>

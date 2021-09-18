@@ -1,4 +1,5 @@
-// тут будут вспомогательные функции
+import * as XLSX from 'xlsx';
+
 export function getRoomKeyFromURL(url = window.location.search): string {
   const arr = url.split('?');
   const customURL = arr[arr.length - 1];
@@ -23,3 +24,22 @@ export function delay(seconds: number): Promise<void> {
     setTimeout(resolve, seconds * 1000);
   });
 }
+
+export function getTimeFromDate(date: Date): string {
+  const timeArr = date.toLocaleTimeString().split(':');
+  timeArr.pop();
+  return timeArr.join(':');
+}
+export const parseDataFromExcel = (bufferArray: ArrayBuffer): unknown[] => {
+  const wb = XLSX.read(bufferArray, { type: 'buffer' });
+  const wsname = wb.SheetNames[0];
+  const ws = wb.Sheets[wsname];
+  return XLSX.utils.sheet_to_json(ws);
+};
+
+export const exportToExcel = (data: unknown[], headers?: string[]): void => {
+  const wb = XLSX.utils.book_new();
+  const ws = XLSX.utils.json_to_sheet(data, { header: headers });
+  XLSX.utils.book_append_sheet(wb, ws, 'result');
+  XLSX.writeFile(wb, 'gameResult.xlsx');
+};

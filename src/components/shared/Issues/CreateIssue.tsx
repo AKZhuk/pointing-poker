@@ -1,4 +1,7 @@
 import {
+  Accordion,
+  AccordionDetails,
+  AccordionSummary,
   Button,
   Container,
   createStyles,
@@ -12,11 +15,15 @@ import {
   Theme,
   Typography,
 } from '@material-ui/core';
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import SaveIcon from '@material-ui/icons/Save';
 import { ChangeEvent, FormEvent, SyntheticEvent, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { idGenerator } from '../../../helpers/helpers';
+
+import { exportToExcel, idGenerator, parseDataFromExcel } from '../../../helpers/helpers';
 import { SendWSMessage } from '../../../helpers/WebSocketApi';
 import { setOpen } from '../../../redux/reducers/popUp/popUpActions';
+import UploadButton from '../UploadButton';
 import { IIssue, IRootState } from '../../../types';
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -40,6 +47,7 @@ const useStyles = makeStyles((theme: Theme) =>
 const CreateIssue = ({ oldIssue }: { oldIssue?: IIssue }): JSX.Element => {
   const classes = useStyles();
   const dispatch = useDispatch();
+
   const {
     room: { roomKey },
   } = useSelector((state: IRootState) => state);
@@ -54,6 +62,7 @@ const CreateIssue = ({ oldIssue }: { oldIssue?: IIssue }): JSX.Element => {
     link: oldIssue ? oldIssue.link : '',
     priority: oldIssue ? oldIssue.priority : 'Low',
   });
+
   useEffect(() => {
     if (!isValidationError) {
       setFormValid(false);
@@ -68,6 +77,15 @@ const CreateIssue = ({ oldIssue }: { oldIssue?: IIssue }): JSX.Element => {
     } else if (inputName === 'title' && value.length === 0) {
       setTitleError('Поле не может быть пустым');
     }
+  };
+
+  const importIssues = (ArrayBuffer: ArrayBuffer) => {
+    const data = parseDataFromExcel(ArrayBuffer);
+    data.forEach((importedIssue: any) => {
+      importedIssue.id = idGenerator();
+      SendWSMessage('addIssue', roomKey, importedIssue);
+    });
+    dispatch(setOpen('CreateIssuePopUp', false));
   };
 
   const handleChange = (event: ChangeEvent<{ name?: string | undefined; value: unknown }>) => {
@@ -164,6 +182,28 @@ const CreateIssue = ({ oldIssue }: { oldIssue?: IIssue }): JSX.Element => {
               </Select>
             </FormControl>
           </Grid>
+          <Grid item xs={12}>
+            <Accordion>
+              <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls="panel1c-content" id="panel1c-header">
+                <Typography>Import from Excel</Typography>
+              </AccordionSummary>
+              <AccordionDetails>
+                <div className="row">
+                  <Button
+                    variant="contained"
+                    color="primary"
+                    startIcon={<SaveIcon />}
+                    onClick={() => {
+                      exportToExcel([], ['title', 'link', 'priority']);
+                    }}
+                  >
+                    Export template
+                  </Button>
+                  <UploadButton fileHandler={importIssues} accept=".xlsx" />
+                </div>
+              </AccordionDetails>
+            </Accordion>
+          </Grid>
         </Grid>
         <Grid
           container
@@ -177,6 +217,7 @@ const CreateIssue = ({ oldIssue }: { oldIssue?: IIssue }): JSX.Element => {
               Yes
             </Button>
           </Grid>
+
           <Grid item xs={2}>
             <Button variant="contained" color="secondary" onClick={handleNoButton}>
               No

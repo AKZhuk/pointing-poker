@@ -1,7 +1,5 @@
-import { BASE_URL } from './Connect';
-
 export async function checkRoom(roomKey: string): Promise<boolean> {
-  const resp = await fetch(`http://${BASE_URL}/checkRoom`, {
+  const resp = await fetch(`https://${process.env.BASE_URL}/checkRoom`, {
     method: 'POST',
     body: JSON.stringify({ roomKey }),
     headers: {

@@ -77,7 +77,8 @@ export type IPopUp = {
 };
 
 export interface IUploadButtonProps {
-  handleUpdateImage(imageURL: string): void;
+  fileHandler: (data: unknown) => void;
+  accept: 'image/*' | '.xlsx';
 }
 
 export interface ISwitcherProps {
@@ -88,7 +89,6 @@ export interface ISwitcherProps {
 
 export interface IConnection {
   url: string;
-  socket: null | WebSocket;
   isConnected: boolean;
   isGoToLobby: boolean;
 }
@@ -120,6 +120,7 @@ export interface IRoom {
     activeIssueId: string;
     vote: { [key: string]: { userId: string; voice: number }[] };
   };
+  chatMessages: IChatMessage[];
 }
 
 export interface IScoreTypes {
@@ -136,4 +137,10 @@ export interface IFeatures {
   isVoted: boolean;
   kickMember: IUser | null;
   candidate: IUser | null;
+}
+
+export interface IChatMessage {
+  user: IUser;
+  message: string;
+  date: number;
 }

@@ -1,6 +1,6 @@
 import { useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { WSMethods } from './constants';
+import { RECONNECT_TIMEOUT, WSMethods } from './constants';
 import { addRoom, setRoom } from '../redux/reducers/room/roomActions';
 import { setConnection } from '../redux/reducers/connection/connectionActions';
 import { defaultRoomState } from '../redux/reducers/room/roomReducer';
@@ -9,10 +9,8 @@ import { creatLinkFromKey } from './helpers';
 import { addKickMember, addMemberToRoom, resetVoting } from '../redux/reducers/features/featuresActions';
 import { setOpen } from '../redux/reducers/popUp/popUpActions';
 
-export const BASE_URL = 'localhost:5000';
-const RECONNECT_TIMEOUT = 1000;
+export const socket = new WebSocket(`wss://${process.env.BASE_URL}`);
 
-export const socket = new WebSocket(`ws://${BASE_URL}`);
 export const Connect = (): void => {
   const dispatch = useDispatch();
   const history = useHistory();
@@ -58,6 +56,9 @@ export const Connect = (): void => {
         dispatch(addRoom(defaultRoomState));
         history.push('/');
         break;
+      case WSMethods.addChatMessage:
+        dispatch(setRoom('chatMessages', res.data));
+        break;
       case WSMethods.changeRoute:
         dispatch(setRoom('route', res.data));
         history.push(`/${res.data}`);
@@ -93,6 +94,7 @@ export const Connect = (): void => {
   socket.onclose = () => {
     setInterval(() => socket.OPEN, RECONNECT_TIMEOUT);
   };
+
   socket.onerror = () => {
     console.log('Что-то пошло не так!');
   };
