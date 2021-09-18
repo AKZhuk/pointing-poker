@@ -87,7 +87,6 @@ export interface ISwitcherProps {
 
 export interface IConnection {
   url: string;
-  socket: null | WebSocket;
   isConnected: boolean;
   isGoToLobby: boolean;
 }
