@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux';
 import { IRootState } from '../../types';
 
 const Timer = (): JSX.Element => {
-  const timer = useSelector((state: IRootState) => state.gameSettings.timer);
+  const timer = useSelector((state: IRootState) => state.room.game.remainingRoundTime);
   return <Typography variant="h4">{timer}</Typography>;
 };
 
