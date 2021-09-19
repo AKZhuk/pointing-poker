@@ -2,7 +2,7 @@ import { Card, CardContent, Typography, Avatar, IconButton } from '@material-ui/
 import BlockIcon from '@material-ui/icons/Block';
 import { useDispatch, useSelector } from 'react-redux';
 import { setOpen } from '../../../redux/reducers/popUp/popUpActions';
-import { IRootState, IUser, PopUpNames } from '../../../types';
+import { GameRole, IRootState, IUser, PopUpNames } from '../../../types';
 import './Members.scss';
 
 const MemberCard = ({
@@ -17,7 +17,8 @@ const MemberCard = ({
   const dispatch = useDispatch();
   const { deleteMemberPopUp } = PopUpNames;
   const {
-    user: { id },
+    user: { id, role },
+    room: { members },
   } = useSelector((state: IRootState) => state);
 
   const handleClick = () => {
@@ -26,25 +27,40 @@ const MemberCard = ({
     }
     dispatch(setOpen(deleteMemberPopUp, true));
   };
+
+  const isRemovable = () => {
+    const playerCount = members.filter((user: IUser) => user.role === GameRole.player).length;
+    if (isScrumMaster) {
+      return false;
+    }
+    if (role === GameRole.scrumMaster) {
+      return true;
+    }
+    if (role === GameRole.player && playerCount >= 3 && id !== member.id) {
+      return true;
+    }
+    return false;
+  };
+
   return (
     <Card className="card">
       <CardContent className="card-content">
         <Avatar alt="avatar" src={member.urlToImage} className="avatar" />
         <Typography variant="h6" component="h3">
           <Typography variant="caption" display="block" gutterBottom>
-            {isScrumMaster && 'Scrum Master'} {id === member.id && `it's you`}
+            {member.role} {id === member.id && `, it's you`}
           </Typography>
           {`${member.firstName} ${member.lastName}`}
           <Typography variant="caption" display="block" gutterBottom>
             {member.jobPostion}
           </Typography>
         </Typography>
-        {isScrumMaster ? (
-          <div />
-        ) : (
+        {isRemovable() ? (
           <IconButton onClick={handleClick}>
             <BlockIcon fontSize="large" color="error" />
           </IconButton>
+        ) : (
+          <div className="abstract-icon" />
         )}
       </CardContent>
     </Card>

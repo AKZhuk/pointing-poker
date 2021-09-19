@@ -1,5 +1,5 @@
 import { useSelector } from 'react-redux';
-import { IRootState } from '../../types';
+import { GameRole, IRootState } from '../../types';
 import GameCard from './GameCards/GameCard';
 import { scoreTypes } from './GameCards/GameCards';
 import Title from './Title';
@@ -14,7 +14,11 @@ const Statistics = ({ issueId }: { issueId: string }): JSX.Element => {
   } = useSelector((state: IRootState) => state);
 
   const calculateIssueStat = (cardValue: number) => {
-    const stat = (vote[issueId]?.filter(data => data.voice === cardValue)?.length / members.length) * 100;
+    // вынести расчет на сервер
+    const stat =
+      (vote[issueId]?.filter(data => data.voice === cardValue)?.length /
+        members.filter(member => member.role === GameRole.player).length) *
+      100;
     return stat ? `${stat.toFixed(2)}%` : '0%';
   };
 
@@ -23,10 +27,10 @@ const Statistics = ({ issueId }: { issueId: string }): JSX.Element => {
       <Title text="Statistic:" variant="h5" align="left" />
       <div className="card-container">
         {scoreTypes[scoreType].slice(0, cards).map(elem => (
-          <div key={elem}>
+          <section key={elem}>
             <GameCard value={elem} />
             <Title text={calculateIssueStat(elem)} variant="h5" align="center" />
-          </div>
+          </section>
         ))}
       </div>
     </div>

@@ -5,6 +5,7 @@
 .vscode
 .vs
 .idea
+.env
 
 coverage
 
@@ -19,7 +20,6 @@ node_modules/
 
 # Build results
 dist
-
 .sass-cache/
 *.css.map
 *.sass.map

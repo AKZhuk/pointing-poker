@@ -7,14 +7,13 @@ import Result from './Result/Result';
 import NotFound from './shared/NotFound';
 import Header from './shared/Header/Header';
 import Footer from './shared/Footer/Footer';
-import './App.scss';
 import { Connect } from '../helpers/Connect';
-
 import PopUp from './shared/PopUp';
 import { IRootState, PopUpNames } from '../types';
 import KickMember from './shared/Members/KickMember';
 import VotingListener from './shared/VotingListener';
 import AddMember from './shared/Members/AddMember';
+import './App.scss';
 
 const App = (): JSX.Element => {
   const { kickVoting, askForJoinMemberPopUp } = PopUpNames;

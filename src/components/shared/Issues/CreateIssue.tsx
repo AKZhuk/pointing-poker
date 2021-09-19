@@ -56,6 +56,7 @@ const CreateIssue = ({ oldIssue }: { oldIssue?: IIssue }): JSX.Element => {
   const [formValid, setFormValid] = useState(false);
   const errorMessage = titleDirty && titleError ? titleError : ' ';
   const isValidationError = !!(titleDirty && titleError.length > 1);
+  console.log(oldIssue);
   const [issue, setIssue] = useState({
     id: oldIssue ? oldIssue.id : idGenerator(),
     title: oldIssue ? oldIssue.title : '',

@@ -34,7 +34,7 @@ const UserMenu = (): JSX.Element => {
     <div className="menu">
       <MemberCard member={scrumMaster} isScrumMaster />
       {role === GameRole.scrumMaster ? (
-        <div className="menu__scramMaster">
+        <>
           <Typography variant="overline" display="block" gutterBottom>
             Link to lobby:
           </Typography>
@@ -43,11 +43,11 @@ const UserMenu = (): JSX.Element => {
               {fullUrl}
             </Paper>
             {copy ? (
-              <Button variant="contained" disabled>
+              <Button variant="contained" className="button_copy" disabled>
                 Copied
               </Button>
             ) : (
-              <Button variant="contained" color="primary" onClick={copyURL}>
+              <Button variant="contained" color="primary" className="button_copy" onClick={copyURL}>
                 Copy
               </Button>
             )}
@@ -66,13 +66,16 @@ const UserMenu = (): JSX.Element => {
               Cancel game
             </Button>
           </div>
-        </div>
+        </>
       ) : (
-        <div className="menu__memberButtons">
-          <Button variant="contained" color="primary" onClick={() => SendWSMessage('removeMember', roomKey, user)}>
-            Exit
-          </Button>
-        </div>
+        <Button
+          className="button_exit"
+          variant="contained"
+          color="primary"
+          onClick={() => SendWSMessage('removeMember', roomKey, user)}
+        >
+          Exit
+        </Button>
       )}
     </div>
   );
