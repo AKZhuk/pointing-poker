@@ -29,6 +29,7 @@ const Result = (): JSX.Element => {
       const stat: any = {};
       stat.issue = issue.title;
       scoreTypes[scoreType].slice(0, cards).forEach(x => {
+        // вынести расчет на сервер(дублируется в statistic)
         stat[`${x} of ${scoreType}`] = calculateIssueStat(issue.id, x);
       });
       data.push(stat);

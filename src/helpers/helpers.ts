@@ -1,4 +1,4 @@
-import * as XLSX from 'xlsx';
+import XLSX from 'xlsx';
 
 export function getRoomKeyFromURL(url = window.location.search): string {
   const arr = url.split('?');

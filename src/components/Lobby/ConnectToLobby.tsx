@@ -44,16 +44,14 @@ const ConnectToLobby = (): JSX.Element => {
   const classes = useStyles();
   const history = useHistory();
   const dispatch = useDispatch();
-  const { observer } = GameRole;
+  const { observer, player } = GameRole;
   const { ConnectToLobbyPopUp } = PopUpNames;
-  const { lobby } = Routes;
   const {
     user,
-    user: { firstName, lastName, jobPostion, urlToImage },
+    user: { firstName, lastName, jobPostion, urlToImage, role },
     connection: { url, isConnected },
     room,
   } = useSelector((state: IRootState) => state);
-  const [isObserver, setIsObserver] = useState(false);
   const [firstNameDirty, setFirstNameDirty] = useState(false);
   const [firstNameError, setFirstNameError] = useState(' ');
   const [formValid, setFormValid] = useState(false);
@@ -91,16 +89,13 @@ const ConnectToLobby = (): JSX.Element => {
     dispatch(setUser('urlToImage', imageURL));
   };
 
-  const handleChecked = () => {
-    setIsObserver(prev => !prev);
+  const handleChecked = (e: ChangeEvent<HTMLInputElement>) => {
+    dispatch(setUser('role', e.target.checked ? observer : player));
   };
 
   const redirectToLobby = () => {
-    if (isObserver) {
-      dispatch(setUser('role', observer));
-    }
     if (isConnected) {
-      changeRoute(lobby);
+      changeRoute(Routes.lobby);
       dispatch(setOpen(ConnectToLobbyPopUp, false));
     }
   };
@@ -192,9 +187,11 @@ const ConnectToLobby = (): JSX.Element => {
                 </div>
               </Box>
             </Grid>
-            <Grid item xs={7}>
-              <Switcher label="Connect as observer" name="role" handleChecked={handleChecked} />
-            </Grid>
+            {role !== GameRole.scrumMaster && (
+              <Grid item xs={7}>
+                <Switcher label="Connect as observer" name="role" handleChecked={handleChecked} />
+              </Grid>
+            )}
           </Grid>
           <div className={classes.wrapper}>
             <Button variant="contained" color="primary" type="submit" disabled={formValid}>

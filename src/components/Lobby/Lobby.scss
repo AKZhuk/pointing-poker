@@ -3,42 +3,48 @@
   @include flexbox(space-between, left, column);
   width: 100%;
   margin: 0 auto;
-  padding: 0 20px;
   &__linkBox {
-    width: 400px;
-    @include flexbox(space-between, center);
+    gap: 20px;
+    @include flexbox(normal, center);
     margin-bottom: 30px;
   }
-  &__scramMaster {
-    max-height: 150px;
-  }
+
   &__link {
-    max-width: 350px;
+    max-width: 500px;
     padding: 5px;
   }
   &__masterButtons {
-    width: 300px;
     @include flexbox(space-between, center);
   }
-  &__memberButtons {
-    margin-top: 20px;
-  }
+
   margin-bottom: 30px;
 }
 
 .lobby {
-  @include flexbox(space-between, center, row, nowrap);
+  @include flexbox(space-between, center, row, wrap);
   width: 100%;
-  padding-bottom:20px;
-  &__main{
-    align-self: flex-start;
-    width: 60%;
-    word-wrap: normal;
+  padding-bottom: 20px;
+  &__main {
+    max-width: 1000px;
+    width: 90%;
   }
-  &__chat{
-    width: 40%;
+  &__chat {
+    width: 90%;
     min-width: 300px;
+    max-width: 400px;
     align-self: flex-start;
-    height: 75vh;
+    height: 70vh;
+  }
+}
+
+.button {
+  &_copy {
+    width: 100px;
+  }
+
+  &_exit {
+    margin-top: 20px;
+    width: fit-content;
+    align-self: flex-end;
   }
 }

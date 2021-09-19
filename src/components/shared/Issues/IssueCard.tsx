@@ -3,20 +3,21 @@ import EditIcon from '@material-ui/icons/Edit';
 import DeleteOutlineIcon from '@material-ui/icons/DeleteOutline';
 import AddIcon from '@material-ui/icons/Add';
 import { useDispatch, useSelector } from 'react-redux';
+import { Dispatch, SetStateAction } from 'react';
 import { setOpen } from '../../../redux/reducers/popUp/popUpActions';
 import { IIssue, IRootState } from '../../../types';
 import { SendWSMessage } from '../../../helpers/WebSocketApi';
-import PopUp from '../PopUp';
-import CreateIssue from './CreateIssue';
 
 const IssueCard = ({
   issue = undefined,
   editable = false,
   removable = false,
+  setEditableIssue,
 }: {
   issue?: IIssue | undefined;
   editable?: boolean;
   removable?: boolean;
+  setEditableIssue?: Dispatch<SetStateAction<IIssue>>;
 }): JSX.Element => {
   const dispatch = useDispatch();
   const {
@@ -25,9 +26,14 @@ const IssueCard = ({
       game: { activeIssueId },
     },
   } = useSelector((state: IRootState) => state);
+
   const editHandler = () => {
+    if (setEditableIssue) {
+      setEditableIssue(issue as IIssue);
+    }
     dispatch(setOpen('ChangeIssuePopUp', true));
   };
+
   return (
     <Card className={activeIssueId === issue?.id ? 'card_active' : 'card'}>
       <CardContent className="card-content">
@@ -43,7 +49,6 @@ const IssueCard = ({
               <IconButton onClick={editHandler}>
                 <EditIcon />
               </IconButton>
-              <PopUp content={<CreateIssue oldIssue={issue} />} name="ChangeIssuePopUp" />
             </>
           )}
           {removable && (
