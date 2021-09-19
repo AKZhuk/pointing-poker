@@ -14,10 +14,11 @@ import PopUp from './shared/PopUp';
 import { IRootState, PopUpNames } from '../types';
 import KickMember from './shared/Members/KickMember';
 import VotingListener from './shared/VotingListener';
+import AddMember from './shared/Members/AddMember';
 
 const App = (): JSX.Element => {
-  const { kickVoting } = PopUpNames;
-  const vote = useSelector((state: IRootState) => state.kickVote);
+  const { kickVoting, askForJoinMemberPopUp } = PopUpNames;
+  const features = useSelector((state: IRootState) => state.features);
   Connect();
   VotingListener();
 
@@ -34,7 +35,11 @@ const App = (): JSX.Element => {
         </Switch>
       </main>
       <Footer />
-      <PopUp content={<KickMember member={vote.kickMember} popUpName={kickVoting} />} name={kickVoting} />
+      <PopUp content={<KickMember member={features.kickMember} popUpName={kickVoting} />} name={kickVoting} />
+      <PopUp
+        content={<AddMember member={features.candidate} popUpName={askForJoinMemberPopUp} />}
+        name={askForJoinMemberPopUp}
+      />
     </div>
   );
 };

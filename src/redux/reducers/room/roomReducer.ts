@@ -28,6 +28,7 @@ export const defaultRoomState: IRoom = {
   game: {
     activeIssueId: '',
     vote: {},
+    remainingRoundTime: '',
   },
   chatMessages: [],
 };

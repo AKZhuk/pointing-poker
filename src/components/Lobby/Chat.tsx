@@ -1,6 +1,6 @@
 import './Chat.scss';
 import { IconButton, InputAdornment, TextField } from '@material-ui/core';
-import { ChatSharp, Send } from '@material-ui/icons';
+import { Send } from '@material-ui/icons';
 import { ChangeEvent, FormEvent, useEffect, useRef, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { IChatMessage, IRootState } from '../../types';

@@ -4,7 +4,7 @@ import { setOpen } from '../../../redux/reducers/popUp/popUpActions';
 import { SendWSMessage } from '../../../helpers/WebSocketApi';
 import { GameRole, IRootState, KickMemberProps } from '../../../types';
 import Title from '../Title';
-import { setVote } from '../../../redux/reducers/voting/votingActions';
+import { setVote } from '../../../redux/reducers/features/featuresActions';
 import './Members.scss';
 
 const KickMember = ({ member, popUpName }: KickMemberProps): JSX.Element => {

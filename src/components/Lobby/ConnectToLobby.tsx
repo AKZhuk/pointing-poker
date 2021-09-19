@@ -1,15 +1,13 @@
 import { Avatar, Box, Button, Container, Grid, TextField, Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
-import { useHistory } from 'react-router-dom';
 import { ChangeEvent, FormEvent, SyntheticEvent, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { setOpen } from '../../redux/reducers/popUp/popUpActions';
 import { setDefaultUser, setUser } from '../../redux/reducers/user/userActions';
-import { GameRole, IRootState, PopUpNames, Routes } from '../../types';
+import { GameRole, IRootState, PopUpNames } from '../../types';
 import Switcher from '../shared/Switcher';
 import Title from '../shared/Title';
 import UploadButton from '../shared/UploadButton';
-import { setConnection } from '../../redux/reducers/connection/connectionActions';
 import { setRoom } from '../../redux/reducers/room/roomActions';
 import { CreateRoom, SendWSMessage } from '../../helpers/WebSocketApi';
 import { getRoomKeyFromURL } from '../../helpers/helpers';
@@ -42,15 +40,13 @@ const useStyles = makeStyles(theme => ({
 
 const ConnectToLobby = (): JSX.Element => {
   const classes = useStyles();
-  const history = useHistory();
   const dispatch = useDispatch();
   const { observer } = GameRole;
   const { ConnectToLobbyPopUp } = PopUpNames;
-  const { lobby } = Routes;
   const {
     user,
     user: { firstName, lastName, jobPostion, urlToImage },
-    connection: { url, isConnected },
+    connection: { url },
     room,
   } = useSelector((state: IRootState) => state);
   const [isObserver, setIsObserver] = useState(false);
@@ -68,11 +64,6 @@ const ConnectToLobby = (): JSX.Element => {
     }
   }, [firstNameError, isValidationError]);
 
-  const changeRoute = (route: keyof typeof Routes) => {
-    const path = `/${route}`;
-    history.push(path);
-  };
-
   const validateInput = (inputName: string, value: string) => {
     if (inputName === 'firstName' && value.length > 0) {
       setFirstNameError(' ');
@@ -87,36 +78,27 @@ const ConnectToLobby = (): JSX.Element => {
     validateInput(e.target.name, e.target.value);
   };
 
-  const handleUpdateImage = (imageURL: string): void => {
-    dispatch(setUser('urlToImage', imageURL));
+  const handleUpdateImage = (imageURL: unknown): void => {
+    dispatch(setUser('urlToImage', `${imageURL}`));
   };
 
   const handleChecked = () => {
     setIsObserver(prev => !prev);
   };
 
-  const redirectToLobby = () => {
+  const handleFormSubmit = (e: FormEvent): void => {
+    e.preventDefault();
     if (isObserver) {
       dispatch(setUser('role', observer));
     }
-    if (isConnected) {
-      changeRoute(lobby);
-      dispatch(setOpen(ConnectToLobbyPopUp, false));
-    }
-  };
-
-  const handleFormSubmit = (e: FormEvent): void => {
-    e.preventDefault();
     if (firstName?.length > 0) {
       if (user.role === GameRole.scrumMaster) {
         room.scrumMaster = user;
         CreateRoom(room);
         dispatch(setRoom('scrumMaster', user));
       } else {
-        SendWSMessage('addMember', getRoomKeyFromURL(url), user);
+        SendWSMessage('connectToRoom', getRoomKeyFromURL(url), user);
       }
-      dispatch(setConnection('isGoToLobby', true));
-      redirectToLobby();
     } else {
       validateInput('firstName', '');
     }

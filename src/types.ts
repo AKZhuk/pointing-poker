@@ -53,7 +53,7 @@ export interface IGameSettings {
   scoreTypeShort: string;
   flipCardsWhenAllVoted: boolean;
   addPlayerWhenGameStarted: boolean;
-  timer?: string;
+  timer: string;
   cards: number;
 }
 
@@ -68,6 +68,8 @@ export enum PopUpNames {
   deleteMemberPopUp = 'deleteMemberPopUp',
   kickVoting = 'kickVoting',
   ChangeIssuePopUp = 'ChangeIssuePopUp',
+  askForJoinMemberPopUp = 'askForJoinMemberPopUp',
+  LoginDeniedPopUp = 'LoginDeniedPopUp',
 }
 
 export type IPopUp = {
@@ -104,7 +106,7 @@ export interface IRootState {
   popUp: IPopUp;
   gameSettings: IGameSettings;
   room: IRoom;
-  kickVote: IVoting;
+  features: IFeatures;
 }
 
 export interface IRoom {
@@ -117,6 +119,7 @@ export interface IRoom {
   game: {
     activeIssueId: string;
     vote: { [key: string]: { userId: string; voice: number }[] };
+    remainingRoundTime: string;
   };
   chatMessages: IChatMessage[];
 }
@@ -131,9 +134,10 @@ export interface KickMemberProps {
   member: IUser | null;
   popUpName: keyof typeof PopUpNames;
 }
-export interface IVoting {
+export interface IFeatures {
   isVoted: boolean;
   kickMember: IUser | null;
+  candidate: IUser | null;
 }
 
 export interface IChatMessage {
