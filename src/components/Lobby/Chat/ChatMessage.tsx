@@ -1,8 +1,7 @@
 import { Avatar } from '@material-ui/core';
 import { useSelector } from 'react-redux';
-import { getTimeFromDate } from '../../helpers/helpers';
-import { IRootState, IUser } from '../../types';
-import './ChatMessage.scss';
+import { getTimeFromDate } from '../../../helpers/helpers';
+import { IRootState, IUser } from '../../../types';
 
 const ChatMessage = ({ user, message, date }: { user: IUser; message: string; date: number }): JSX.Element => {
   const currentUser: IUser = useSelector((state: IRootState) => state.user);

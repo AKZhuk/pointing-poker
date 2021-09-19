@@ -33,7 +33,7 @@ $red: red;
 
 .card-container {
   width: fit-content;
-  max-width: 1000px;
+  //max-width: 1000px;
   min-height: 100px;
   margin-bottom: 50px;
   @include flexbox(normal, normal, row, wrap);
@@ -47,4 +47,9 @@ $red: red;
   position: fixed !important;
   right: 50px;
   top: 200px;
+}
+
+.abstract-icon {
+  width: 50px;
+  height: 50px;
 }

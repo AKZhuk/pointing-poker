@@ -9,16 +9,7 @@ export const setUser = (title: keyof IUser, value: string): IAction<string> => (
   type: SET_USER,
   payload: { [title]: value },
 });
-/*
-Надо удалить
 
-export const setMember = (user: IUser): IAction<IUser> => ({
-  type: SET_MEMBER,
-  payload: { user },
-});
-
-export const removeMember = (user: IUser): IAction<IUser> => ({ type: REMOVE_MEMBER, payload: { user } });
-*/
 export const setDefaultUser = (title: keyof IUser, value: string): IAction<string> => ({
   type: RESET_USER_DATA,
   payload: { [title]: value },
