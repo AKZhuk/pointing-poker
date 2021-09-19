@@ -17,10 +17,10 @@ import './Game.scss';
 
 const Game = (): JSX.Element => {
   const { deleteMemberPopUp } = PopUpNames;
-  const [user, setUser] = useState<IUser | null>(null);
+  const [kickUser, setKickUser] = useState<IUser | null>(null);
 
   const handleUser = (member: IUser) => {
-    setUser(member);
+    setKickUser(member);
   };
 
   const {
@@ -86,7 +86,7 @@ const Game = (): JSX.Element => {
             ))}
         </aside>
       </div>
-      <PopUp content={<KickMember member={user} popUpName={deleteMemberPopUp} />} name={deleteMemberPopUp} />
+      <PopUp content={<KickMember member={kickUser} popUpName={deleteMemberPopUp} />} name={deleteMemberPopUp} />
     </>
   );
 };

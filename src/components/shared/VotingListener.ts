@@ -8,15 +8,15 @@ const VotingListener = (): void => {
   const { player } = GameRole;
   const dispatch = useDispatch();
   const {
-    kickVote,
+    features,
     user: { role },
   } = useSelector((state: IRootState) => state);
 
   useEffect(() => {
-    if (kickVote.kickMember && role === player && !kickVote.isVoted) {
+    if (features.kickMember && role === player && !features.isVoted) {
       dispatch(setOpen(kickVoting, true));
     }
-  }, [dispatch, kickVoting, player, role, kickVote]);
+  }, [dispatch, kickVoting, player, role, features]);
 };
 
 export default VotingListener;

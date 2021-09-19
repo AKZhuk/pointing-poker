@@ -12,10 +12,11 @@ import { getRoomKeyFromURL, idGenerator } from '../../helpers/helpers';
 
 import './FirstPage.scss';
 import { checkRoom } from '../../helpers/HttpServerApi';
+import LoginDenied from '../shared/LoginDenied';
 
 const FirstPage = (): JSX.Element => {
   const dispatch = useDispatch();
-  const { ConnectToLobbyPopUp } = PopUpNames;
+  const { ConnectToLobbyPopUp, LoginDeniedPopUp } = PopUpNames;
   const { scrumMaster, player } = GameRole;
   const [Url, setUrl] = useState('');
   const [urlDirty, setUrlDirty] = useState(false);
@@ -114,6 +115,7 @@ const FirstPage = (): JSX.Element => {
         </Box>
       </div>
       <PopUp content={<ConnectToLobby />} name={ConnectToLobbyPopUp} />
+      <PopUp content={<LoginDenied />} name={LoginDeniedPopUp} />
     </>
   );
 };
