@@ -9,7 +9,7 @@ import { creatLinkFromKey } from './helpers';
 import { addKickMember, addMemberToRoom, resetVoting } from '../redux/reducers/features/featuresActions';
 import { setOpen } from '../redux/reducers/popUp/popUpActions';
 
-export const socket = new WebSocket(`ws://${process.env.BASE_URL}`);
+export const socket = new WebSocket(`wss://${process.env.BASE_URL}`);
 
 export const Connect = (): void => {
   const dispatch = useDispatch();
