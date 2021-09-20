@@ -17,6 +17,7 @@
   "dependencies": {
     "@material-ui/core": "^4.12.3",
     "@material-ui/icons": "^4.11.2",
+    "@material-ui/lab": "^4.0.0-alpha.60",
     "@types/react-redux": "^7.1.18",
     "@types/react-transition-group": "^4.4.2",
     "normalize-scss": "^7.0.1",

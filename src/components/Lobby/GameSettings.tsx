@@ -21,10 +21,14 @@ const GameSettings = (): JSX.Element => {
       <div className="setting-container">
         <Title text="Game Settings:" variant="h5" align="left" />
         <Switcher label="Scrum master as Player:" name="ScrumMasterAsPlayer" handleChecked={handleChange} />
-        <Switcher label="flip the cards when all voted:" name="flipCardsWhenAllVoted" handleChecked={handleChange} />
-        <Switcher label="Changing card in round end:" name="changingCardInRoundEnd" handleChecked={handleChange} />
+        <Switcher label="Flip the cards when all voted:" name="flipCardsWhenAllVoted" handleChecked={handleChange} />
         <Switcher
-          label="add players if the game has started:"
+          label="Changing card if all cards flipped:"
+          name="changingCardInRoundEnd"
+          handleChecked={handleChange}
+        />
+        <Switcher
+          label="Add players if the game has started:"
           name="addPlayerWhenGameStarted"
           handleChecked={handleChange}
         />

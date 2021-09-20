@@ -1,6 +1,7 @@
 import { ButtonBase, Card, CardContent, Typography } from '@material-ui/core';
 import { useSelector } from 'react-redux';
 import { useState } from 'react';
+import { Alert } from '@material-ui/lab';
 import { GameRole, IRootState, IUser, PopUpNames } from '../../types';
 import Statistics from '../shared/Statistics';
 import Title from '../shared/Title';
@@ -18,7 +19,7 @@ import './Game.scss';
 const Game = (): JSX.Element => {
   const { deleteMemberPopUp } = PopUpNames;
   const [kickUser, setKickUser] = useState<IUser | null>(null);
-
+  const [isVoted, setIsVoted] = useState(false);
   const handleUser = (member: IUser) => {
     setKickUser(member);
   };
@@ -28,7 +29,7 @@ const Game = (): JSX.Element => {
       members,
       roomKey,
       game: { activeIssueId, vote },
-      gameSettings: { scoreType, cards },
+      gameSettings: { scoreType, cards, changingCardInRoundEnd },
     },
     user: { role, id },
   } = useSelector((state: IRootState) => state);
@@ -39,11 +40,15 @@ const Game = (): JSX.Element => {
   };
 
   const handleUserVoice = (cardValue: number) => {
+    const canIChangeVote = changingCardInRoundEnd && members.length === vote[activeIssueId].length;
     const userVoice = vote[activeIssueId].find(voice => voice.userId === id);
-    if (userVoice === undefined) {
+    if (userVoice === undefined || canIChangeVote) {
       SendWSMessage('setVoice', roomKey, { issueId: activeIssueId, userId: id, voice: cardValue });
     } else {
-      alert('you alredy voice');
+      setIsVoted(true);
+      setTimeout(() => {
+        setIsVoted(false);
+      }, 5000);
     }
   };
 
@@ -59,13 +64,16 @@ const Game = (): JSX.Element => {
           </div>
           {role === GameRole.scrumMaster && <Statistics issueId={activeIssueId} />}
           {role === GameRole.player && (
-            <div className="center">
-              {scoreTypes[scoreType].slice(0, cards).map(card => (
-                <ButtonBase key={card} onClick={() => handleUserVoice(card)}>
-                  <GameCard value={card} large />
-                </ButtonBase>
-              ))}
-            </div>
+            <>
+              <div className="message-area">{isVoted && <Alert severity="warning">You are already voted!</Alert>}</div>
+              <div className="center">
+                {scoreTypes[scoreType].slice(0, cards).map(card => (
+                  <ButtonBase key={card} onClick={() => handleUserVoice(card)}>
+                    <GameCard value={card} large />
+                  </ButtonBase>
+                ))}
+              </div>
+            </>
           )}
         </section>
         <aside className="game__aside">
