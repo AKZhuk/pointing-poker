@@ -13,13 +13,16 @@ const Result = (): JSX.Element => {
     room: {
       issues,
       members,
-      gameSettings: { scoreType, cards },
+      gameSettings: { scoreType, cards, ScrumMasterAsPlayer },
       game: { vote },
     },
   } = useSelector((state: IRootState) => state);
 
   const calculateIssueStat = (issueId: string, cardValue: number) => {
-    const stat = (vote[issueId]?.filter(data => data.voice === cardValue)?.length / members.length) * 100;
+    const stat =
+      (vote[issueId]?.filter(data => data.voice === cardValue)?.length /
+        (members.length + (ScrumMasterAsPlayer ? 1 : 0))) *
+      100;
     return stat ? `${stat.toFixed(2)}%` : '0%';
   };
 

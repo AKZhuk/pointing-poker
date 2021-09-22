@@ -29,7 +29,8 @@ const Game = (): JSX.Element => {
       members,
       roomKey,
       game: { activeIssueId, vote },
-      gameSettings: { scoreType, cards, changingCardInRoundEnd },
+      scrumMaster,
+      gameSettings: { scoreType, cards, changingCardInRoundEnd, ScrumMasterAsPlayer },
     },
     user: { role, id },
   } = useSelector((state: IRootState) => state);
@@ -37,6 +38,10 @@ const Game = (): JSX.Element => {
   const findUserVoice = (userId: string): string => {
     const voice = activeIssueId !== '' && vote[activeIssueId].find(elem => elem.userId === userId);
     return voice ? `${voice.voice} ${scoreType}` : 'In progress';
+  };
+
+  const isScrumMasterCanVote = (): boolean => {
+    return role === GameRole.scrumMaster && ScrumMasterAsPlayer;
   };
 
   const handleUserVoice = (cardValue: number) => {
@@ -63,7 +68,7 @@ const Game = (): JSX.Element => {
             {role === GameRole.scrumMaster ? <RoundControlPanel /> : <Statistics issueId={activeIssueId} />}
           </div>
           {role === GameRole.scrumMaster && <Statistics issueId={activeIssueId} />}
-          {role === GameRole.player && (
+          {(role === GameRole.player || isScrumMasterCanVote()) && (
             <>
               <div className="message-area">{isVoted && <Alert severity="warning">You are already voted!</Alert>}</div>
               <div className="center">
@@ -92,6 +97,18 @@ const Game = (): JSX.Element => {
                 <MemberCard member={member} onKickMember={handleUser} />
               </div>
             ))}
+          {isScrumMasterCanVote() && (
+            <div className="row" key={scrumMaster.id}>
+              <Card className="card">
+                <CardContent className="card-content">
+                  <Typography variant="h6" component="h3">
+                    {findUserVoice(scrumMaster.id)}
+                  </Typography>
+                </CardContent>
+              </Card>
+              <MemberCard member={scrumMaster} onKickMember={handleUser} />
+            </div>
+          )}
         </aside>
       </div>
       <PopUp content={<KickMember member={kickUser} popUpName={deleteMemberPopUp} />} name={deleteMemberPopUp} />

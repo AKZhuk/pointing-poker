@@ -43,7 +43,8 @@ const Chat = (): JSX.Element => {
       <form className="chat__inputBox" onSubmit={submitHandler}>
         <TextField
           variant="outlined"
-          margin="dense"
+          margin="none"
+          size="small"
           value={msg}
           onChange={(e: ChangeEvent<HTMLInputElement>) => setMsg(e.target.value)}
           fullWidth
