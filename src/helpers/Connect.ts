@@ -92,7 +92,8 @@ export const Connect = (): void => {
     }
   };
   socket.onclose = () => {
-    setInterval(() => socket.OPEN, RECONNECT_TIMEOUT);
+    console.log('closing')
+    /* setInterval(() => socket.OPEN, RECONNECT_TIMEOUT); */
   };
 
   socket.onerror = () => {
