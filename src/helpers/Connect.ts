@@ -12,7 +12,7 @@ import { setOpen } from '../redux/reducers/popUp/popUpActions';
 export const socket = new WebSocket(`wss://${process.env.BASE_URL}`);
 
 function keepAlive() {
-  const timeout = 10000;
+  const timeout = 20000;
   if (socket.readyState === socket.OPEN) {
     socket.send('');
   }
