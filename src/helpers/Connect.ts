@@ -25,7 +25,6 @@ export const Connect = (): void => {
   const { kickVoting, askForJoinMemberPopUp } = PopUpNames;
   const { user, room } = useSelector((state: IRootState) => state);
   const { isVoted } = useSelector((state: IRootState) => state.features);
-  keepAlive();
   const changeRoute = (route: keyof typeof Routes) => {
     const path = `/${route}`;
     history.push(path);
@@ -34,6 +33,7 @@ export const Connect = (): void => {
   socket.onopen = () => {
     dispatch(setConnection('isConnected', true));
     console.log('Connected!');
+    keepAlive();
   };
 
   socket.onmessage = (event: MessageEvent) => {
