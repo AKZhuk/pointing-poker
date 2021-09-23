@@ -11,13 +11,13 @@ import { setOpen } from '../redux/reducers/popUp/popUpActions';
 
 export const socket = new WebSocket(`wss://${process.env.BASE_URL}`);
 
-function keepAlive() {
+const keepAlive = () => {
   if (socket.readyState === socket.OPEN) {
     socket.send(JSON.stringify({ method: WSMethods.reconnect }));
   }
   setTimeout(keepAlive, RECONNECT_TIMEOUT);
   console.log('Reconnect');
-}
+};
 
 export const Connect = (): void => {
   const dispatch = useDispatch();
