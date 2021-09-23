@@ -10,6 +10,15 @@ import { addKickMember, addMemberToRoom, resetVoting } from '../redux/reducers/f
 import { setOpen } from '../redux/reducers/popUp/popUpActions';
 
 export const socket = new WebSocket(`wss://${process.env.BASE_URL}`);
+
+function keepAlive() {
+  const timeout = 10000;
+  if (socket.readyState === socket.OPEN) {
+    socket.send('');
+  }
+  const timerId = setTimeout(keepAlive, timeout);
+  console.log('Reconnect');
+}
 export const Connect = (): void => {
   const dispatch = useDispatch();
   const history = useHistory();
@@ -90,7 +99,8 @@ export const Connect = (): void => {
         console.error(`Неизвестный ивент`);
     }
   };
-  socket.onclose = () => {/* 
+  socket.onclose = () => {
+    /* 
     setInterval(() => socket.OPEN, RECONNECT_TIMEOUT); */
   };
 
@@ -98,12 +108,3 @@ export const Connect = (): void => {
     console.log('Что-то пошло не так!');
   };
 };
-
-function keepAlive() { 
-  var timeout = 10000;  
-  if (socket.readyState == socket.OPEN) {  
-      socket.send('');  
-  }  
-  const timerId = setTimeout(keepAlive, timeout); 
-  console.log('Reconnect')
-} 
