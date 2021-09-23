@@ -1,5 +1,5 @@
 import { useHistory } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
+import { connect, useDispatch, useSelector } from 'react-redux';
 import { RECONNECT_TIMEOUT, WSMethods } from './constants';
 import { addRoom, setRoom } from '../redux/reducers/room/roomActions';
 import { setConnection } from '../redux/reducers/connection/connectionActions';
@@ -93,6 +93,7 @@ export const Connect = (): void => {
   };
   socket.onclose = () => {
     console.log('closing');
+    connect();
     /* setInterval(() => socket.OPEN, RECONNECT_TIMEOUT); */
   };
 
