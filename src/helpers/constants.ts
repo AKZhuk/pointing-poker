@@ -22,6 +22,7 @@ export const WSMethods = {
   attachmentMemberRequest: 'attachmentMemberRequest',
   connectToRoom: 'connectToRoom',
   addChatMessage: 'addChatMessage',
+  reconnect: 'reconnect',
 };
 
-export const RECONNECT_TIMEOUT = 1000;
+export const RECONNECT_TIMEOUT = 30000;

@@ -11,6 +11,14 @@ import { setOpen } from '../redux/reducers/popUp/popUpActions';
 
 export const socket = new WebSocket(`wss://${process.env.BASE_URL}`);
 
+function keepAlive() {
+  if (socket.readyState === socket.OPEN) {
+    socket.send(JSON.stringify({ method: WSMethods.reconnect }));
+  }
+  setTimeout(keepAlive, RECONNECT_TIMEOUT);
+  console.log('Reconnect');
+}
+
 export const Connect = (): void => {
   const dispatch = useDispatch();
   const history = useHistory();
@@ -20,12 +28,13 @@ export const Connect = (): void => {
 
   const changeRoute = (route: keyof typeof Routes) => {
     const path = `/${route}`;
-    history.push(path);
+    history.replace(path);
   };
 
   socket.onopen = () => {
     dispatch(setConnection('isConnected', true));
     console.log('Connected!');
+    keepAlive();
   };
 
   socket.onmessage = (event: MessageEvent) => {
@@ -54,19 +63,19 @@ export const Connect = (): void => {
         break;
       case WSMethods.removeRoom:
         dispatch(addRoom(defaultRoomState));
-        history.push('/');
+        history.replace('/');
         break;
       case WSMethods.addChatMessage:
         dispatch(setRoom('chatMessages', res.data));
         break;
       case WSMethods.changeRoute:
         dispatch(setRoom('route', res.data));
-        history.push(`/${res.data}`);
+        history.replace(`/${res.data}`);
         break;
       case WSMethods.removeMember:
         if (user.id === res.data) {
           dispatch(addRoom(defaultRoomState));
-          history.push('/');
+          history.replace('/');
         }
         break;
       case WSMethods.updateGame:
@@ -92,7 +101,7 @@ export const Connect = (): void => {
     }
   };
   socket.onclose = () => {
-    setInterval(() => socket.OPEN, RECONNECT_TIMEOUT);
+    'Websocket closed';
   };
 
   socket.onerror = () => {
