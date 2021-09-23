@@ -12,9 +12,9 @@ import { setOpen } from '../redux/reducers/popUp/popUpActions';
 export const socket = new WebSocket(`wss://${process.env.BASE_URL}`);
 
 function keepAlive() {
-  const timeout = 20000;
+  const timeout = 30000;
   if (socket.readyState === socket.OPEN) {
-    socket.send('');
+    socket.send(JSON.stringify({ method: '' }));
   }
   const timerId = setTimeout(keepAlive, timeout);
   console.log('Reconnect');
