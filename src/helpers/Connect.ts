@@ -1,10 +1,9 @@
-import { useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { RECONNECT_TIMEOUT, WSMethods } from './constants';
 import { addRoom, setRoom } from '../redux/reducers/room/roomActions';
 import { setConnection } from '../redux/reducers/connection/connectionActions';
 import { defaultRoomState } from '../redux/reducers/room/roomReducer';
-import { IRootState, PopUpNames, Routes, GameRole } from '../types';
+import { IRootState, PopUpNames, GameRole } from '../types';
 import { creatLinkFromKey } from './helpers';
 import { addKickMember, addMemberToRoom, resetVoting } from '../redux/reducers/features/featuresActions';
 import { setOpen } from '../redux/reducers/popUp/popUpActions';
@@ -21,15 +20,9 @@ const keepAlive = () => {
 
 export const Connect = (): void => {
   const dispatch = useDispatch();
-  const history = useHistory();
   const { kickVoting, askForJoinMemberPopUp } = PopUpNames;
-  const { user, room } = useSelector((state: IRootState) => state);
+  const { user } = useSelector((state: IRootState) => state);
   const { isVoted } = useSelector((state: IRootState) => state.features);
-
-  const changeRoute = (route: keyof typeof Routes) => {
-    const path = `/${route}`;
-    history.replace(path);
-  };
 
   socket.onopen = () => {
     dispatch(setConnection('isConnected', true));
@@ -42,9 +35,7 @@ export const Connect = (): void => {
     switch (res.method) {
       case WSMethods.login:
         dispatch(setOpen('ConnectToLobbyPopUp', false));
-        if (res.roomKey) {
-          changeRoute(room.route);
-        } else {
+        if (!res.roomKey) {
           dispatch(setOpen('LoginDeniedPopUp', true));
         }
         break;
@@ -63,19 +54,16 @@ export const Connect = (): void => {
         break;
       case WSMethods.removeRoom:
         dispatch(addRoom(defaultRoomState));
-        history.replace('/');
         break;
       case WSMethods.addChatMessage:
         dispatch(setRoom('chatMessages', res.data));
         break;
       case WSMethods.changeRoute:
         dispatch(setRoom('route', res.data));
-        history.replace(`/${res.data}`);
         break;
       case WSMethods.removeMember:
         if (user.id === res.data) {
           dispatch(addRoom(defaultRoomState));
-          history.replace('/');
         }
         break;
       case WSMethods.updateGame:
@@ -101,7 +89,7 @@ export const Connect = (): void => {
     }
   };
   socket.onclose = () => {
-    'Websocket closed';
+    console.log('Websocket closed');
   };
 
   socket.onerror = () => {

@@ -8,6 +8,8 @@ export function getRoomKeyFromURL(url = window.location.search): string {
   return roomKey;
 }
 
+export const validateURL = (url?: string): boolean => getRoomKeyFromURL(url) !== '';
+
 export function creatLinkFromKey(id: string): string {
   const URL = `${window.location.origin}/?room=${id}`;
   return URL;

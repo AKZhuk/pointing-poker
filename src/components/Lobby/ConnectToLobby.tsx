@@ -85,13 +85,6 @@ const ConnectToLobby = (): JSX.Element => {
     dispatch(setUser('role', e.target.checked ? observer : player));
   };
 
-  const redirectToLobby = () => {
-    if (isConnected) {
-      changeRoute(Routes.lobby);
-      dispatch(setOpen(ConnectToLobbyPopUp, false));
-    }
-  };
-
   const handleFormSubmit = (e: FormEvent): void => {
     e.preventDefault();
     if (firstName?.length > 0) {

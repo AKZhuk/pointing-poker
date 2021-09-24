@@ -32,6 +32,7 @@ export enum GameRole {
 }
 
 export enum Routes {
+  firstPage = 'firstPage',
   lobby = 'lobby',
   game = 'game',
   result = 'result',
