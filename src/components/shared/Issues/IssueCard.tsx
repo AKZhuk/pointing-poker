@@ -39,7 +39,6 @@ const IssueCard = ({
   };
 
   const handleClick = () => {
-    console.log('asdasd');
     if (issue && handleCurrentIssue) {
       handleCurrentIssue(issue);
     }
