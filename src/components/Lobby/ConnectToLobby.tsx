@@ -46,7 +46,7 @@ const ConnectToLobby = (): JSX.Element => {
   const {
     user,
     user: { firstName, lastName, jobPostion, urlToImage, role },
-    connection: { url, isConnected },
+    connection: { url },
     room,
   } = useSelector((state: IRootState) => state);
   const [firstNameDirty, setFirstNameDirty] = useState(false);

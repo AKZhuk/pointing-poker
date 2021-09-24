@@ -1,4 +1,5 @@
 import { Button, Paper, Typography } from '@material-ui/core';
+import { Alert } from '@material-ui/lab';
 import { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { delay } from '../../helpers/helpers';
@@ -8,26 +9,34 @@ import MemberCard from '../shared/Members/MemberCard';
 
 const UserMenu = (): JSX.Element => {
   const [copy, setCopy] = useState(false);
+  const [alertText, setAlertText] = useState('');
   const {
-    gameSettings,
     connection: { url },
-    room: { roomKey, scrumMaster },
+    room: { roomKey, scrumMaster, issues, members, gameSettings },
     user: { role },
     user,
   } = useSelector((state: IRootState) => state);
   const fullUrl = `${url}`;
-
-  async function copyURL(): Promise<void> {
+  const copyURL = async (): Promise<void> => {
     navigator.clipboard.writeText(fullUrl);
     setCopy(true);
     await delay(1.5);
     setCopy(false);
-  }
-
-  const handleStartGame = () => {
-    SendWSMessage('changeSettings', roomKey, gameSettings);
-    SendWSMessage('changeRoute', roomKey, Routes.game);
-    SendWSMessage('setActiveIssue', roomKey, {});
+  };
+  const handleStartGame = async (): Promise<void> => {
+    if (issues.length === 0) {
+      setAlertText('Create at least one Issue');
+      await delay(2);
+      setAlertText('');
+    } else if (members.length === 0) {
+      setAlertText('Invite your teammates');
+      await delay(2);
+      setAlertText('');
+    } else {
+      SendWSMessage('changeSettings', roomKey, gameSettings);
+      SendWSMessage('changeRoute', roomKey, Routes.game);
+      SendWSMessage('setActiveIssue', roomKey, {});
+    }
   };
 
   return (
@@ -53,7 +62,7 @@ const UserMenu = (): JSX.Element => {
             )}
           </div>
           <div className="menu__masterButtons">
-            <Button variant="contained" color="primary" onClick={handleStartGame}>
+            <Button variant="contained" color="primary" disabled={!!alertText} onClick={handleStartGame}>
               Start game
             </Button>
             <Button
@@ -66,6 +75,11 @@ const UserMenu = (): JSX.Element => {
               Cancel game
             </Button>
           </div>
+          {alertText && (
+            <div className="menu__alertBox">
+              <Alert severity="warning">{alertText}</Alert>
+            </div>
+          )}
         </>
       ) : (
         <Button

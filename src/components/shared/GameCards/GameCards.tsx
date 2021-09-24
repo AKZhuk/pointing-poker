@@ -12,14 +12,13 @@ export const scoreTypes: IScoreTypes = {
 
 const GameCards = ({ isGame = false }: { isGame?: boolean }): JSX.Element => {
   const {
-    gameSettings: { cards, scoreType },
     user,
     room: {
       game: { activeIssueId },
       roomKey,
+      gameSettings: { cards, scoreType },
     },
   } = useSelector((state: IRootState) => state);
-
   return (
     <div className="card-container">
       {scoreTypes[scoreType].slice(0, cards).map(elem =>

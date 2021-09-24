@@ -1,7 +1,7 @@
 import { Card, IconButton, Typography } from '@material-ui/core';
 import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
 import { useDispatch, useSelector } from 'react-redux';
-import { addCard } from '../../../redux/reducers/gameSettings/gameSettingsActions';
+import { addCard } from '../../../redux/reducers/room/roomActions';
 import { IRootState } from '../../../types';
 import './GameCard.scss';
 

@@ -1,7 +1,7 @@
 import { FormControl, InputLabel, MenuItem, Select, TextField } from '@material-ui/core';
 import { ChangeEvent } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { setSetting } from '../../redux/reducers/gameSettings/gameSettingsActions';
+import { setSetting } from '../../redux/reducers/room/roomActions';
 import { IGameSettings, IRootState } from '../../types';
 import GameCards from '../shared/GameCards/GameCards';
 import Switcher from '../shared/Switcher';
@@ -9,7 +9,7 @@ import Title from '../shared/Title';
 
 const GameSettings = (): JSX.Element => {
   const dispatch = useDispatch();
-  const settings = useSelector((state: IRootState) => state.gameSettings);
+  const settings = useSelector((state: IRootState) => state.room.gameSettings);
 
   const handleChange = (event: ChangeEvent<any>) => {
     const value = event.target.type === 'checkbox' ? (event.target as HTMLInputElement).checked : event.target.value;
