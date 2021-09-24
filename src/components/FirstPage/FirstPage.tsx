@@ -8,7 +8,7 @@ import { setOpen } from '../../redux/reducers/popUp/popUpActions';
 import { GameRole, PopUpNames } from '../../types';
 import { setUser } from '../../redux/reducers/user/userActions';
 import ConnectToLobby from '../Lobby/ConnectToLobby';
-import { getRoomKeyFromURL, idGenerator } from '../../helpers/helpers';
+import { getRoomKeyFromURL, idGenerator, validateURL } from '../../helpers/helpers';
 
 import './FirstPage.scss';
 import { checkRoom } from '../../helpers/HttpServerApi';
@@ -22,7 +22,6 @@ const FirstPage = (): JSX.Element => {
   const [urlDirty, setUrlDirty] = useState(false);
   const [errorMessage, setErrorMessage] = useState(' ');
   const isValidationError = !!(urlDirty && errorMessage.length > 1);
-  const validateURL = (url?: string) => getRoomKeyFromURL(url) !== '';
 
   useEffect(() => {
     const url = validateURL() ? window.location.href : '';

@@ -1,5 +1,4 @@
 import { useSelector } from 'react-redux';
-import { Route, Switch } from 'react-router-dom';
 import FirstPage from './FirstPage/FirstPage';
 import Lobby from './Lobby/Lobby';
 import Game from './Game/Game';
@@ -14,25 +13,39 @@ import KickMember from './shared/Members/KickMember';
 import VotingListener from './shared/VotingListener';
 import AddMember from './shared/Members/AddMember';
 import './App.scss';
+import { getRoomKeyFromURL } from '../helpers/helpers';
 
 const App = (): JSX.Element => {
   const { kickVoting, askForJoinMemberPopUp } = PopUpNames;
-  const features = useSelector((state: IRootState) => state.features);
+  const {
+    features,
+    room: { route },
+  } = useSelector((state: IRootState) => state);
   Connect();
   VotingListener();
-
+  const appNavigator = () => {
+    if (window.location.pathname !== '/' && !getRoomKeyFromURL()) {
+      return <NotFound />;
+    }
+    switch (route) {
+      case 'lobby': {
+        return <Lobby />;
+      }
+      case 'game': {
+        return <Game />;
+      }
+      case 'result': {
+        return <Result />;
+      }
+      default: {
+        return <FirstPage />;
+      }
+    }
+  };
   return (
     <div className="app">
       <Header />
-      <main className="main">
-        <Switch>
-          <Route path="/lobby" component={Lobby} />
-          <Route path="/game" component={Game} />
-          <Route path="/result" component={Result} />
-          <Route exact path="/" component={FirstPage} />
-          <Route path="*" component={NotFound} />
-        </Switch>
-      </main>
+      <main className="main">{appNavigator()}</main>
       <Footer />
       <PopUp content={<KickMember member={features.kickMember} popUpName={kickVoting} />} name={kickVoting} />
       <PopUp

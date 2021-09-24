@@ -1,21 +1,25 @@
 import { Button } from '@material-ui/core';
 import SaveIcon from '@material-ui/icons/Save';
+import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import { useSelector } from 'react-redux';
-import { IRootState } from '../../types';
+import { IRootState, Routes } from '../../types';
 import IssueCard from '../shared/Issues/IssueCard';
 import Statistics from '../shared/Statistics';
 import Title from '../shared/Title';
 import { scoreTypes } from '../shared/GameCards/GameCards';
 import { exportToExcel } from '../../helpers/helpers';
+import { SendWSMessage } from '../../helpers/WebSocketApi';
 
 const Result = (): JSX.Element => {
   const {
     room: {
+      roomKey,
       issues,
       members,
       gameSettings: { scoreType, cards },
       game: { vote },
     },
+    user,
   } = useSelector((state: IRootState) => state);
 
   const calculateIssueStat = (issueId: string, cardValue: number) => {
@@ -36,10 +40,17 @@ const Result = (): JSX.Element => {
     });
     return data;
   };
-
+  const handleBackToLobby = (): void => {
+    SendWSMessage('changeRoute', roomKey, Routes.lobby);
+  };
   return (
     <div className="wrapper">
       <Title text="Result" variant="h3" align="center" />
+      {user.role === 'scrumMaster' ? (
+        <Button variant="contained" color="primary" startIcon={<ArrowBackIcon />} onClick={handleBackToLobby}>
+          back to lobby
+        </Button>
+      ) : null}
       {issues.map(issue => (
         <div className="game-result" key={issue.id}>
           <IssueCard issue={issue} />

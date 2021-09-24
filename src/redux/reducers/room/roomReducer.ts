@@ -24,7 +24,7 @@ export const defaultRoomState: IRoom = {
     addPlayerWhenGameStarted: false,
     cards: 1,
   },
-  route: Routes.lobby,
+  route: Routes.firstPage,
   game: {
     activeIssueId: '',
     vote: {},
