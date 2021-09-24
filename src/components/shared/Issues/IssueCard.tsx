@@ -5,7 +5,7 @@ import AddIcon from '@material-ui/icons/Add';
 import { useDispatch, useSelector } from 'react-redux';
 import { Dispatch, SetStateAction } from 'react';
 import { setOpen } from '../../../redux/reducers/popUp/popUpActions';
-import { IIssue, IRootState } from '../../../types';
+import { GameRole, IIssue, IRootState } from '../../../types';
 import { SendWSMessage } from '../../../helpers/WebSocketApi';
 
 const IssueCard = ({
@@ -13,19 +13,23 @@ const IssueCard = ({
   editable = false,
   removable = false,
   setEditableIssue,
+  handleCurrentIssue,
 }: {
   issue?: IIssue | undefined;
   editable?: boolean;
   removable?: boolean;
+  handleCurrentIssue?: (issue: IIssue) => void;
   setEditableIssue?: Dispatch<SetStateAction<IIssue>>;
 }): JSX.Element => {
   const dispatch = useDispatch();
   const {
+    user: { role },
     room: {
       roomKey,
       game: { activeIssueId },
     },
   } = useSelector((state: IRootState) => state);
+  const { scrumMaster } = GameRole;
 
   const editHandler = () => {
     if (setEditableIssue) {
@@ -34,8 +38,18 @@ const IssueCard = ({
     dispatch(setOpen('ChangeIssuePopUp', true));
   };
 
+  const handleClick = () => {
+    console.log('asdasd');
+    if (issue && handleCurrentIssue) {
+      handleCurrentIssue(issue);
+    }
+    if (role !== scrumMaster) {
+      dispatch(setOpen('IssueDetailsPopUp', true));
+    }
+  };
+
   return (
-    <Card className={activeIssueId === issue?.id ? 'card_active' : 'card'}>
+    <Card className={activeIssueId === issue?.id ? 'card_active' : 'card'} onClick={handleClick}>
       <CardContent className="card-content">
         <Typography variant="h6" component="h3">
           {issue ? issue.title : 'Create issue'}

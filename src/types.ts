@@ -71,6 +71,7 @@ export enum PopUpNames {
   ChangeIssuePopUp = 'ChangeIssuePopUp',
   askForJoinMemberPopUp = 'askForJoinMemberPopUp',
   LoginDeniedPopUp = 'LoginDeniedPopUp',
+  IssueDetailsPopUp = 'IssueDetailsPopUp',
 }
 
 export type IPopUp = {
@@ -144,4 +145,9 @@ export interface IChatMessage {
   user: IUser;
   message: string;
   date: number;
+}
+
+export interface IssueDetailsProps {
+  issue: IIssue | null;
+  popUpName: keyof typeof PopUpNames;
 }
