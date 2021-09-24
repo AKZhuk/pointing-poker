@@ -5,14 +5,12 @@ import { roomReducer } from './reducers/room/roomReducer';
 import { popUpReducer } from './reducers/popUp/popUpReducer';
 import { connectionReducer } from './reducers/connection/connectionReducer';
 import { userReducer } from './reducers/user/userReducer';
-import { gameSettingsReducer } from './reducers/gameSettings/gameSettingsReducer';
 import { featuresReducer } from './reducers/features/featuresReducer';
 
 const rootReducer = combineReducers({
   user: userReducer,
   popUp: popUpReducer,
   connection: connectionReducer,
-  gameSettings: gameSettingsReducer,
   room: roomReducer,
   features: featuresReducer,
 });
