@@ -105,7 +105,6 @@ export interface IRootState {
   connection: IConnection;
   user: IUser;
   popUp: IPopUp;
-  gameSettings: IGameSettings;
   room: IRoom;
   features: IFeatures;
 }
