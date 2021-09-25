@@ -1,4 +1,5 @@
 import XLSX from 'xlsx';
+import { IUser, IRoom } from '../types';
 
 export function getRoomKeyFromURL(url = window.location.search): string {
   const arr = url.split('?');
@@ -45,3 +46,10 @@ export const exportToExcel = (data: unknown[], headers?: string[]): void => {
   XLSX.utils.book_append_sheet(wb, ws, 'result');
   XLSX.writeFile(wb, 'gameResult.xlsx');
 };
+
+export function getUserFromRoom(id: string, room: IRoom): IUser | null {
+  if (room.scrumMaster.id === id) return room.scrumMaster;
+  const index = room.members.findIndex(member => member.id === id);
+  if (index >= 0) return room.members[index];
+  return null;
+}

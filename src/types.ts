@@ -81,6 +81,7 @@ export type IPopUp = {
 export interface IUploadButtonProps {
   fileHandler: (data: unknown) => void;
   accept: 'image/*' | '.xlsx';
+  isDisabled: boolean;
 }
 
 export interface ISwitcherProps {
@@ -142,7 +143,7 @@ export interface IFeatures {
 }
 
 export interface IChatMessage {
-  user: IUser;
+  userid: string;
   message: string;
   date: number;
 }
