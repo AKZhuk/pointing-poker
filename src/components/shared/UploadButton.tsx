@@ -17,7 +17,7 @@ const useStyles = makeStyles((theme: Theme) =>
   }),
 );
 
-const UploadButton = ({ fileHandler, accept }: IUploadButtonProps): JSX.Element => {
+const UploadButton = ({ fileHandler, accept, isDisabled }: IUploadButtonProps): JSX.Element => {
   const classes = useStyles();
   const handleChange = (e: ChangeEvent<HTMLInputElement>): void => {
     const file: File = (e.target.files as FileList)[0];
@@ -45,7 +45,13 @@ const UploadButton = ({ fileHandler, accept }: IUploadButtonProps): JSX.Element 
           type="file"
           onChange={handleChange}
         />
-        <Button variant="contained" color="primary" component="span" startIcon={<CloudUploadIcon />}>
+        <Button
+          variant="contained"
+          color="primary"
+          component="span"
+          disabled={isDisabled}
+          startIcon={<CloudUploadIcon />}
+        >
           Upload
         </Button>
       </label>

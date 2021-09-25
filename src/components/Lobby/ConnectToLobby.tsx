@@ -1,4 +1,4 @@
-import { Avatar, Box, Button, Container, Grid, TextField, Typography } from '@material-ui/core';
+import { Avatar, Box, Button, CircularProgress, Container, Grid, TextField, Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import { ChangeEvent, FormEvent, SyntheticEvent, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -14,6 +14,7 @@ import { getRoomKeyFromURL } from '../../helpers/helpers';
 
 const useStyles = makeStyles(theme => ({
   paper: {
+    position: 'relative',
     marginTop: theme.spacing(1),
     display: 'flex',
     flexDirection: 'column',
@@ -51,6 +52,7 @@ const ConnectToLobby = (): JSX.Element => {
   } = useSelector((state: IRootState) => state);
   const [firstNameDirty, setFirstNameDirty] = useState(false);
   const [firstNameError, setFirstNameError] = useState(' ');
+  const [isSubmit, setIsSubmit] = useState(false);
   const [formValid, setFormValid] = useState(false);
   const errorMessage = firstNameDirty && firstNameError ? firstNameError : ' ';
   const isValidationError = !!(firstNameDirty && firstNameError.length > 1);
@@ -92,8 +94,10 @@ const ConnectToLobby = (): JSX.Element => {
         room.scrumMaster = user;
         CreateRoom(room);
         dispatch(setRoom('scrumMaster', user));
+        setIsSubmit(true);
       } else {
         SendWSMessage('connectToRoom', getRoomKeyFromURL(url), user);
+        setIsSubmit(true);
       }
     } else {
       validateInput('firstName', '');
@@ -166,7 +170,7 @@ const ConnectToLobby = (): JSX.Element => {
                 </Typography>
                 <div className={classes.wrapper}>
                   <Avatar alt={firstName} src={urlToImage} className={classes.avatar} />
-                  <UploadButton fileHandler={handleUpdateImage} accept={'image/*'} />
+                  <UploadButton fileHandler={handleUpdateImage} accept={'image/*'} isDisabled={isSubmit} />
                 </div>
               </Box>
             </Grid>
@@ -177,10 +181,11 @@ const ConnectToLobby = (): JSX.Element => {
             )}
           </Grid>
           <div className={classes.wrapper}>
-            <Button variant="contained" color="primary" type="submit" disabled={formValid}>
+            <Button variant="contained" color="primary" type="submit" disabled={formValid || isSubmit}>
               Confirm
             </Button>
-            <Button variant="contained" color="secondary" onClick={handleCancelButton}>
+            {isSubmit && <CircularProgress />}
+            <Button variant="contained" color="secondary" disabled={isSubmit} onClick={handleCancelButton}>
               Cancel
             </Button>
           </div>
