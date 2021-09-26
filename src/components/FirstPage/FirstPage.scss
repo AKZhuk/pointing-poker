@@ -8,9 +8,20 @@
   &__logo {
     padding-top: 3%;
     padding-bottom: 4%;
+    width: 85%;
+    max-width: 600px;
   }
   &__link {
     width: 340px;
     top: -20px;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .firstPage__link {
+    width: 90%;
+  }
+  .firstPage__link-wrapper {
+    margin: 0 !important;
   }
 }

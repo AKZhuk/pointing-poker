@@ -96,7 +96,7 @@ const FirstPage = (): JSX.Element => {
           <Typography variant="overline" align="center" gutterBottom>
             Connect to lobby by URL:
           </Typography>
-          <Box marginLeft={5} marginRight={5} display="inline">
+          <Box marginLeft={5} marginRight={5} display="inline" className="firstPage__link-wrapper">
             <TextField
               name="connect"
               error={isValidationError}
