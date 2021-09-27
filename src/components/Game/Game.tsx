@@ -3,7 +3,6 @@ import { useSelector } from 'react-redux';
 import { useState } from 'react';
 import { Alert } from '@material-ui/lab';
 import { GameRole, IRootState, IUser, PopUpNames } from '../../types';
-import Statistics from '../shared/Statistics';
 import Title from '../shared/Title';
 import GameControl from './GameControl';
 import Issues from '../shared/Issues/Issues';
@@ -15,6 +14,7 @@ import KickMember from '../shared/Members/KickMember';
 import PopUp from '../shared/PopUp';
 import RoundControlPanel from './RoundControlPanel';
 import './Game.scss';
+import Statistics from '../shared/Statistic/Statistics';
 
 const Game = (): JSX.Element => {
   const { deleteMemberPopUp } = PopUpNames;
@@ -28,7 +28,7 @@ const Game = (): JSX.Element => {
     room: {
       members,
       roomKey,
-      game: { activeIssueId, vote },
+      game: { activeIssueId, vote, cardsIsFlipped, remainingRoundTime },
       scrumMaster,
       gameSettings: { scoreType, cards, changingCardInRoundEnd, ScrumMasterAsPlayer },
     },
@@ -45,9 +45,10 @@ const Game = (): JSX.Element => {
   };
 
   const handleUserVoice = (cardValue: number) => {
-    const canIChangeVote = changingCardInRoundEnd && members.length === vote[activeIssueId].length;
+    const canIChangeVote = changingCardInRoundEnd || !cardsIsFlipped;
     const userVoice = vote[activeIssueId].find(voice => voice.userId === id);
-    if (userVoice === undefined || canIChangeVote) {
+    const isTimeOver = remainingRoundTime === '00:00';
+    if ((userVoice === undefined && !isTimeOver && !cardsIsFlipped) || (canIChangeVote && !isTimeOver)) {
       SendWSMessage('setVoice', roomKey, { issueId: activeIssueId, userId: id, voice: cardValue });
     } else {
       setIsVoted(true);
@@ -65,12 +66,16 @@ const Game = (): JSX.Element => {
           <GameControl />
           <div className="row">
             <Issues />
-            {role === GameRole.scrumMaster ? <RoundControlPanel /> : <Statistics issueId={activeIssueId} />}
+            {role === GameRole.scrumMaster ? (
+              <RoundControlPanel />
+            ) : (
+              <Statistics issueId={activeIssueId} isFlipped={cardsIsFlipped} />
+            )}
           </div>
-          {role === GameRole.scrumMaster && <Statistics issueId={activeIssueId} />}
+          {role === GameRole.scrumMaster && <Statistics issueId={activeIssueId} isFlipped={cardsIsFlipped} />}
           {(role === GameRole.player || isScrumMasterCanVote()) && (
             <>
-              <div className="message-area">{isVoted && <Alert severity="warning">You are already voted!</Alert>}</div>
+              <div className="message-area">{isVoted && <Alert severity="warning">The round is over!</Alert>}</div>
               <div className="center">
                 {scoreTypes[scoreType].slice(0, cards).map(card => (
                   <ButtonBase key={card} onClick={() => handleUserVoice(card)}>

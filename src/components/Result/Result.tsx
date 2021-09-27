@@ -4,11 +4,11 @@ import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import { useSelector } from 'react-redux';
 import { IRootState, Routes } from '../../types';
 import IssueCard from '../shared/Issues/IssueCard';
-import Statistics from '../shared/Statistics';
 import Title from '../shared/Title';
 import { scoreTypes } from '../shared/GameCards/GameCards';
 import { exportToExcel } from '../../helpers/helpers';
 import { SendWSMessage } from '../../helpers/WebSocketApi';
+import Statistics from '../shared/Statistic/Statistics';
 
 const Result = (): JSX.Element => {
   const {
