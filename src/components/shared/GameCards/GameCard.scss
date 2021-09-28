@@ -5,6 +5,7 @@
   width: 100px;
   height: 160px;
   margin: 10px;
+  margin-bottom: 40px;
   font-size: 16px;
   @include flexbox(space-between, normal, column);
 

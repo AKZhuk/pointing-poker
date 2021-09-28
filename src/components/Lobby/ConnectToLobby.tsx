@@ -52,6 +52,7 @@ const ConnectToLobby = (): JSX.Element => {
   } = useSelector((state: IRootState) => state);
   const [firstNameDirty, setFirstNameDirty] = useState(false);
   const [firstNameError, setFirstNameError] = useState(' ');
+  const [isObserver, setIsObserver] = useState(false);
   const [isSubmit, setIsSubmit] = useState(false);
   const [formValid, setFormValid] = useState(false);
   const errorMessage = firstNameDirty && firstNameError ? firstNameError : ' ';
@@ -84,6 +85,7 @@ const ConnectToLobby = (): JSX.Element => {
   };
 
   const handleChecked = (e: ChangeEvent<HTMLInputElement>) => {
+    setIsObserver(!isObserver);
     dispatch(setUser('role', e.target.checked ? observer : player));
   };
 
@@ -133,6 +135,7 @@ const ConnectToLobby = (): JSX.Element => {
                 label="First Name"
                 helperText={errorMessage}
                 value={firstName}
+                inputProps={{ maxLength: 12 }}
                 onChange={handleTextInputsChange}
                 fullWidth
                 required
@@ -147,6 +150,7 @@ const ConnectToLobby = (): JSX.Element => {
                 name="lastName"
                 autoComplete="off"
                 value={lastName}
+                inputProps={{ maxLength: 12 }}
                 onChange={handleTextInputsChange}
                 helperText=" "
               />
@@ -159,6 +163,7 @@ const ConnectToLobby = (): JSX.Element => {
                 name="jobPostion"
                 autoComplete="off"
                 value={jobPostion}
+                inputProps={{ maxLength: 20 }}
                 onChange={handleTextInputsChange}
                 helperText=" "
               />
@@ -176,7 +181,7 @@ const ConnectToLobby = (): JSX.Element => {
             </Grid>
             {role !== GameRole.scrumMaster && (
               <Grid item xs={7}>
-                <Switcher label="Connect as observer" name="role" handleChecked={handleChecked} />
+                <Switcher label="Connect as observer" name="role" value={isObserver} handleChecked={handleChecked} />
               </Grid>
             )}
           </Grid>
