@@ -12,7 +12,7 @@ const RoundControlPanel = (): JSX.Element => {
     },
   } = useSelector((state: IRootState) => state);
   return (
-    <div>
+    <div className="row margin-20">
       <Timer />
       <Button
         variant="contained"

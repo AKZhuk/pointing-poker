@@ -5,14 +5,15 @@
     @include flexbox(space-between, normal, row, wrap);
   }
   &__main {
-    width: 65%;
-    padding-right: 60px;
+    width: 80%;
+    max-width: 850px;
     min-height: 80vh;
     @include flexbox(space-between, normal, column, nowrap);
   }
-  &__aside {
-    border-left: 2px black solid;
-    width: 35%;
+
+  &__right {
+    width: 90%;
+    max-width: 600px;
   }
 }
 

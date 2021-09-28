@@ -17,7 +17,7 @@ const GameSettings = (): JSX.Element => {
   };
 
   return (
-    <div>
+    <section>
       <div className="setting-container">
         <Title text="Game Settings:" variant="h5" align="left" />
         <Switcher label="Scrum master as Player:" name="ScrumMasterAsPlayer" handleChecked={handleChange} />
@@ -60,7 +60,7 @@ const GameSettings = (): JSX.Element => {
         )}
       </div>
       <GameCards />
-    </div>
+    </section>
   );
 };
 

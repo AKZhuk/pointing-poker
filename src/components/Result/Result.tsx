@@ -47,31 +47,33 @@ const Result = (): JSX.Element => {
     SendWSMessage('changeRoute', roomKey, Routes.lobby);
   };
   return (
-    <div className="wrapper">
+    <>
       <Title text="Result" variant="h3" align="center" />
-      {user.role === 'scrumMaster' ? (
-        <Button variant="contained" color="primary" startIcon={<ArrowBackIcon />} onClick={handleBackToLobby}>
-          back to lobby
-        </Button>
-      ) : null}
       {issues.map(issue => (
-        <div className="game-result" key={issue.id}>
+        <div key={issue.id}>
           <IssueCard issue={issue} />
           <Statistics issueId={issue.id} />
         </div>
       ))}
-      <Button
-        variant="contained"
-        className="saveButton"
-        color="primary"
-        startIcon={<SaveIcon />}
-        onClick={() => {
-          exportToExcel(prepareData());
-        }}
-      >
-        Save
-      </Button>
-    </div>
+      <div className="result__buttons">
+        {user.role === 'scrumMaster' ? (
+          <Button variant="contained" color="primary" startIcon={<ArrowBackIcon />} onClick={handleBackToLobby}>
+            back to lobby
+          </Button>
+        ) : null}
+        <Button
+          variant="contained"
+          className="saveButton"
+          color="primary"
+          startIcon={<SaveIcon />}
+          onClick={() => {
+            exportToExcel(prepareData());
+          }}
+        >
+          Save
+        </Button>
+      </div>
+    </>
   );
 };
 

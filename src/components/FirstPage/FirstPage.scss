@@ -6,10 +6,8 @@
   align-items: center;
   padding-bottom: 4%;
   &__logo {
-    padding-top: 3%;
-    padding-bottom: 4%;
     width: 85%;
-    max-width: 600px;
+    max-width: 500px;
   }
   &__link {
     width: 340px;
@@ -19,9 +17,13 @@
 
 @media screen and (max-width: 480px) {
   .firstPage__link {
-    width: 90%;
+    width: 100%;
   }
   .firstPage__link-wrapper {
     margin: 0 !important;
+  }
+
+  .main {
+    padding: 0 10px;
   }
 }

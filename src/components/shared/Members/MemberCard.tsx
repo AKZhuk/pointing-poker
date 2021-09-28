@@ -43,10 +43,10 @@ const MemberCard = ({
   };
 
   return (
-    <Card className="card">
+    <Card className="card" elevation={4}>
       <CardContent className="card-content">
         <Avatar alt="avatar" src={member.urlToImage} className="avatar" />
-        <Typography variant="h6" component="h3">
+        <Typography variant="h6">
           <Typography variant="caption" display="block" gutterBottom>
             {member.role} {id === member.id && `, it's you`}
           </Typography>

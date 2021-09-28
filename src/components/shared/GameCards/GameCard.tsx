@@ -17,7 +17,7 @@ const GameCard = ({
   const handleAddCard = () => dispatch(addCard());
 
   return (
-    <Card className={large ? 'game-card_large' : 'game-card'}>
+    <Card elevation={8} className={large ? 'game-card_large' : 'game-card'}>
       <span>{value && scoreType}</span>
       {value ? (
         <Typography variant="h3" component="h3" align="center" color="primary">
