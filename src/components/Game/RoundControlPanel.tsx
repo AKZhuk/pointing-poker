@@ -29,7 +29,7 @@ const RoundControlPanel = (): JSX.Element => {
       >
         Reset Round
       </Button>
-       {isTimerNeeded && <Timer />}
+      {isTimerNeeded && <Timer />}
       <Button
         variant="contained"
         color="primary"

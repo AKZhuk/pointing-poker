@@ -58,7 +58,7 @@ const Game = (): JSX.Element => {
         <Issues />
         <div className="game__right">
           {role === GameRole.scrumMaster && <RoundControlPanel />}
-          <Statistics issueId={activeIssueId} isFlipped={cardsIsFlipped}/>
+          <Statistics issueId={activeIssueId} isFlipped={cardsIsFlipped} />
           <Votes setKickUser={setKickUser} />
         </div>
       </div>
