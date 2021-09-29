@@ -29,6 +29,7 @@ export const defaultRoomState: IRoom = {
     activeIssueId: '',
     vote: {},
     remainingRoundTime: '',
+    cardsIsFlipped: false,
   },
   chatMessages: [],
 };

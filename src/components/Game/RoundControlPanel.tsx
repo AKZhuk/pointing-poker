@@ -8,28 +8,43 @@ const RoundControlPanel = (): JSX.Element => {
   const {
     room: {
       roomKey,
-      game: { activeIssueId },
+      game,
+      gameSettings: { isTimerNeeded },
     },
   } = useSelector((state: IRootState) => state);
+
+  const handleFlipCard = () => {
+    const newGameObj = { ...game };
+    newGameObj.cardsIsFlipped = !newGameObj.cardsIsFlipped;
+    SendWSMessage('updateGame', roomKey, newGameObj);
+  };
+
   return (
     <div className="row margin-20">
       <Button
         variant="contained"
         color="secondary"
-        onClick={() => SendWSMessage('resetRound', roomKey, { issueId: activeIssueId })}
+        disabled={!game.activeIssueId}
+        onClick={() => SendWSMessage('resetRound', roomKey, { issueId: game.activeIssueId })}
       >
         Reset Round
       </Button>
-      <Timer />
+       {isTimerNeeded && <Timer />}
       <Button
         variant="contained"
         color="primary"
+        disabled={!game.activeIssueId}
         onClick={() => {
           SendWSMessage('setActiveIssue', roomKey, {});
         }}
       >
         Next issue
       </Button>
+      {!isTimerNeeded && (
+        <Button variant="contained" color="primary" disabled={!game.activeIssueId} onClick={handleFlipCard}>
+          Flip Cards
+        </Button>
+      )}
     </div>
   );
 };

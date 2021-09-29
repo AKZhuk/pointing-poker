@@ -3,13 +3,22 @@
 .game-card_large {
   width: 100px;
   height: 160px;
-  padding: 10px;
   margin: 10px;
+  margin-bottom: 40px;
+  font-size: 16px;
   @include flexbox(space-between, normal, column);
 
   &_active {
     background-color: green !important;
     opacity: 0.5;
+  }
+
+  &_front {
+    padding: 10px;
+  }
+  &_img {
+    width: 100%;
+    height: 100%;
   }
 }
 
