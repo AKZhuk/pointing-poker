@@ -6,11 +6,26 @@
   align-items: center;
   padding-bottom: 4%;
   &__logo {
-    padding-top: 3%;
-    padding-bottom: 4%;
+    width: 100%;
+    max-width: 500px;
   }
   &__link {
     width: 340px;
     top: -20px;
+    margin-top: 20px;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .firstPage__link {
+    margin-top: 10px;
+    width: 100%;
+  }
+  .firstPage__link-wrapper {
+    margin: 10px 0 !important;
+  }
+
+  .main {
+    padding: 0 10px;
   }
 }

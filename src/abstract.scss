@@ -1,4 +1,4 @@
-$blue: #003f63;
+$secondary: #16a085;
 @mixin flexbox($justify-content, $align-items: normal, $direction: row, $wrap: wrap) {
   display: flex;
   justify-content: $justify-content;
@@ -14,6 +14,7 @@ $blue: #003f63;
 .row {
   width: 100%;
   @include flexbox(space-between, center);
+  gap: 10px;
 }
 
 .col-center {
@@ -25,28 +26,15 @@ $blue: #003f63;
 .center {
   @include flexbox(center);
 }
-.setting-container {
-  max-width: 500px;
-  padding: 0 20px;
-  margin-bottom: 20px;
-}
 
 .card-container {
   width: fit-content;
-  //max-width: 1000px;
   min-height: 100px;
-  margin-bottom: 50px;
   @include flexbox(normal, normal, row, wrap);
 }
 
 .active {
   background-color: #60dabf !important;
-}
-
-.saveButton {
-  position: fixed !important;
-  right: 50px;
-  top: 200px;
 }
 
 .abstract-icon {

@@ -86,6 +86,7 @@ module.exports = ({ development }) => ({
     }),
     new HtmlWebpackPlugin({
       title: 'React Components',
+      favicon: './src/assets/img/logo1.png',
       template: './src/index.html',
     }),
     new CopyPlugin({

@@ -16,7 +16,7 @@ const Members = (): JSX.Element => {
   };
 
   return (
-    <div className="wrapper">
+    <section>
       <Title text="Members:" variant="h5" align="left" />
       <div className="card-container">
         {room?.members.map((member: IUser) => (
@@ -24,7 +24,7 @@ const Members = (): JSX.Element => {
         ))}
       </div>
       <PopUp content={<KickMember member={user} popUpName={deleteMemberPopUp} />} name={deleteMemberPopUp} />
-    </div>
+    </section>
   );
 };
 

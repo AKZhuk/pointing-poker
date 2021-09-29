@@ -20,8 +20,7 @@ const RoundControlPanel = (): JSX.Element => {
   };
 
   return (
-    <div className="round_controlPanel">
-      {isTimerNeeded && <Timer />}
+    <div className="row margin-20">
       <Button
         variant="contained"
         color="secondary"
@@ -30,6 +29,7 @@ const RoundControlPanel = (): JSX.Element => {
       >
         Reset Round
       </Button>
+      {isTimerNeeded && <Timer />}
       <Button
         variant="contained"
         color="primary"
