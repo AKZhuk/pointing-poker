@@ -1,9 +1,11 @@
 @import '../../abstract.scss';
+
 .menu {
   position: relative;
   @include flexbox(space-between, left, column);
   width: 100%;
   margin: 0 auto;
+  gap: 20px;
   &__linkBox {
     gap: 15px;
     @include flexbox(normal, center);
@@ -25,25 +27,14 @@
     top: 100%;
     left: 0;
     padding: 10px;
-    width: 400px
+    width: 400px;
   }
 }
 
 .lobby {
-  @include flexbox(space-between, center, row, wrap);
-  width: 100%;
+  @include flexbox(center, normal, column, wrap);
   padding-bottom: 20px;
-  &__main {
-    max-width: 1000px;
-    width: 90%;
-  }
-  &__chat {
-    width: 90%;
-    min-width: 300px;
-    max-width: 400px;
-    align-self: flex-start;
-    height: 70vh;
-  }
+  gap: 20px;
 }
 
 .button {
@@ -56,4 +47,9 @@
     width: fit-content;
     align-self: flex-end;
   }
+}
+
+.setting-container {
+  max-width: 500px;
+  margin-bottom: 20px;
 }

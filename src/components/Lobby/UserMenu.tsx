@@ -85,7 +85,7 @@ const UserMenu = (): JSX.Element => {
         <Button
           className="button_exit"
           variant="contained"
-          color="primary"
+          color="secondary"
           onClick={() => SendWSMessage('removeMember', roomKey, user)}
         >
           Exit
