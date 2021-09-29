@@ -33,7 +33,7 @@ const Chat = (): JSX.Element => {
     }
   }, [chatMessages]);
   return (
-    <Paper className="chat" elevation={8}>
+    <Paper className="chat">
       <Title text="Chat" variant="h5" align="center" />
       <div className="chat__field" ref={chatField}>
         {chatMessages.map((el: IChatMessage) => (

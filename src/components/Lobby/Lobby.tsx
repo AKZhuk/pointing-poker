@@ -13,25 +13,24 @@ const Lobby = (): JSX.Element => {
   return (
     <>
       <Title text="Lobby" variant="h3" align="center" />
-      <div className="lobby">
-        <div className="row">
-          <div className="lobby__main">
-            <UserMenu />
-            <Members />
-          </div>
-          <Chat />
+      <div className="lobby wrapper">
+        <div className=" lobby__main">
+          <UserMenu />
+          <Members />
+          {user.role === GameRole.scrumMaster && (
+            <>
+              <Title text="Issues:" variant="h5" align="left" />
+              <Issues className="card-container" />
+              <GameSettings />
+            </>
+          )}
         </div>
-
-        {user.role === GameRole.scrumMaster && (
-          <>
-            <Title text="Issues:" variant="h5" align="left" />
-            <Issues className="card-container" />
-            <GameSettings />
-          </>
-        )}
+        <aside className=" lobby__chat">
+          <Chat />
+        </aside>
       </div>
     </>
   );
 };
-//
+
 export default Lobby;

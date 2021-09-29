@@ -44,22 +44,24 @@ const PopUp = ({ content, name }: IPopUpProps): JSX.Element => {
   };
 
   return (
-    <Modal
-      aria-labelledby="transition-modal-title"
-      aria-describedby="transition-modal-description"
-      className={classes.modal}
-      open={isOpen}
-      onClose={handleClose}
-      closeAfterTransition
-      BackdropComponent={Backdrop}
-      BackdropProps={{
-        timeout: 500,
-      }}
-    >
-      <Fade in={isOpen}>
-        <div className={classes.paper}>{content}</div>
-      </Fade>
-    </Modal>
+    <div>
+      <Modal
+        aria-labelledby="transition-modal-title"
+        aria-describedby="transition-modal-description"
+        className={classes.modal}
+        open={isOpen}
+        onClose={handleClose}
+        closeAfterTransition
+        BackdropComponent={Backdrop}
+        BackdropProps={{
+          timeout: 500,
+        }}
+      >
+        <Fade in={isOpen}>
+          <div className={classes.paper}>{content}</div>
+        </Fade>
+      </Modal>
+    </div>
   );
 };
 export default PopUp;

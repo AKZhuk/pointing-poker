@@ -33,13 +33,12 @@ const GameControl = (): JSX.Element => {
         <MemberCard member={scrumMaster} isScrumMaster />
       </Box>
       {role === GameRole.scrumMaster ? (
-        <Button variant="outlined" color="secondary" onClick={handleStopGame}>
+        <Button variant="outlined" color="primary" onClick={handleStopGame}>
           Stop Game
         </Button>
       ) : (
         <>
-         {isTimerNeeded && <Timer />}
-          <Button variant="outlined" color="secondary" onClick={handleExit}>       
+          {isTimerNeeded && <Timer />}
           <Button variant="outlined" color="primary" onClick={handleExit}>
             Exit
           </Button>

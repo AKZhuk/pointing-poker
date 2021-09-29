@@ -1,7 +1,5 @@
 import { useSelector } from 'react-redux';
 import { Dispatch, SetStateAction, useState } from 'react';
-import { TransitionGroup } from 'react-transition-group';
-import { Collapse } from '@material-ui/core';
 import { GameRole, IIssue, IRootState } from '../../../types';
 import CreateIssue from './CreateIssue';
 import IssueCard from './IssueCard';
@@ -23,14 +21,12 @@ const Issues = ({ className }: { className?: string }): JSX.Element => {
 
   return (
     <>
-      <TransitionGroup className={className}>
+      <section className={className}>
         {issues.map((issue: IIssue) =>
           user.role === GameRole.scrumMaster ? (
-            <Collapse key={issue.id}>
-              <section>
-                <IssueCard key={issue.id} issue={issue} editable removable setEditableIssue={setEditableIssue} />
-              </section>
-            </Collapse>
+            <section key={issue.id}>
+              <IssueCard key={issue.id} issue={issue} editable removable setEditableIssue={setEditableIssue} />
+            </section>
           ) : (
             <IssueCard key={issue.id} issue={issue} handleCurrentIssue={handleCurrentIssue} />
           ),
@@ -42,7 +38,7 @@ const Issues = ({ className }: { className?: string }): JSX.Element => {
             <PopUp content={<CreateIssue oldIssue={editableIssue} />} name="ChangeIssuePopUp" />
           </>
         )}
-      </TransitionGroup>
+      </section>
       <PopUp content={<IssueDetails issue={currentIssue} popUpName="IssueDetailsPopUp" />} name="IssueDetailsPopUp" />
     </>
   );
