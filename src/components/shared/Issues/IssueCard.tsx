@@ -48,7 +48,7 @@ const IssueCard = ({
   };
 
   return (
-    <Card elevation={4} className={activeIssueId === issue?.id ? 'card_active' : 'card'} onClick={handleClick}>
+    <Card className={activeIssueId === issue?.id ? 'card_active' : 'card'} onClick={handleClick}>
       <CardContent className="card-content">
         <Typography variant="h6" component="h3">
           {issue ? issue.title : 'Create issue'}
