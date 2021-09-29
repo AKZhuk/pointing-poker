@@ -104,7 +104,7 @@ const Game = (): JSX.Element => {
                 <MemberCard member={member} onKickMember={handleUser} />
               </div>
             ))}
-          {isScrumMasterCanVote() && (
+          {ScrumMasterAsPlayer && (
             <div className="row" key={scrumMaster.id}>
               <Card className="card">
                 <CardContent className="card-content">

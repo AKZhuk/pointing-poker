@@ -6,7 +6,11 @@ import Timer from '../shared/Timer';
 
 const RoundControlPanel = (): JSX.Element => {
   const {
-    room: { roomKey, game },
+    room: {
+      roomKey,
+      game,
+      gameSettings: { isTimerNeeded },
+    },
   } = useSelector((state: IRootState) => state);
 
   const handleFlipCard = () => {
@@ -16,8 +20,8 @@ const RoundControlPanel = (): JSX.Element => {
   };
 
   return (
-    <div>
-      <Timer />
+    <div className="round_controlPanel">
+      {isTimerNeeded && <Timer />}
       <Button
         variant="contained"
         color="secondary"
@@ -36,9 +40,11 @@ const RoundControlPanel = (): JSX.Element => {
       >
         Next issue
       </Button>
-      <Button variant="contained" color="primary" disabled={!game.activeIssueId} onClick={handleFlipCard}>
-        Flip Cards
-      </Button>
+      {!isTimerNeeded && (
+        <Button variant="contained" color="primary" disabled={!game.activeIssueId} onClick={handleFlipCard}>
+          Flip Cards
+        </Button>
+      )}
     </div>
   );
 };
