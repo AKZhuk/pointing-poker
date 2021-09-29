@@ -87,6 +87,7 @@ export interface IUploadButtonProps {
 export interface ISwitcherProps {
   label: string;
   name: string;
+  value: boolean;
   handleChecked(e: ChangeEvent<HTMLInputElement>): void;
 }
 
@@ -122,6 +123,7 @@ export interface IRoom {
     activeIssueId: string;
     vote: { [key: string]: { userId: string; voice: number }[] };
     remainingRoundTime: string;
+    cardsIsFlipped: boolean;
   };
   chatMessages: IChatMessage[];
 }

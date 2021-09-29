@@ -35,7 +35,7 @@ const GameCards = ({ isGame = false }: { isGame?: boolean }): JSX.Element => {
           <GameCard key={elem} value={elem} large />
         ),
       )}
-      {!isGame && <GameCard large />}
+      {!isGame && cards < scoreTypes[scoreType].length && <GameCard large />}
     </div>
   );
 };

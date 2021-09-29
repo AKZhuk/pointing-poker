@@ -20,19 +20,36 @@ const GameSettings = (): JSX.Element => {
     <section>
       <div className="setting-container">
         <Title text="Game Settings:" variant="h5" align="left" />
-        <Switcher label="Scrum master as Player:" name="ScrumMasterAsPlayer" handleChecked={handleChange} />
-        <Switcher label="Flip the cards when all voted:" name="flipCardsWhenAllVoted" handleChecked={handleChange} />
+        <Switcher
+          label="Scrum master as Player:"
+          name="ScrumMasterAsPlayer"
+          value={settings.ScrumMasterAsPlayer}
+          handleChecked={handleChange}
+        />
+        <Switcher
+          label="Flip the cards when all voted:"
+          name="flipCardsWhenAllVoted"
+          value={settings.flipCardsWhenAllVoted}
+          handleChecked={handleChange}
+        />
         <Switcher
           label="Changing card if all cards flipped:"
           name="changingCardInRoundEnd"
+          value={settings.changingCardInRoundEnd}
           handleChecked={handleChange}
         />
         <Switcher
           label="Add players if the game has started:"
           name="addPlayerWhenGameStarted"
+          value={settings.addPlayerWhenGameStarted}
           handleChecked={handleChange}
         />
-        <Switcher label="Is timer needed:" name="isTimerNeeded" handleChecked={handleChange} />
+        <Switcher
+          label="Is timer needed:"
+          name="isTimerNeeded"
+          value={settings.isTimerNeeded}
+          handleChecked={handleChange}
+        />
 
         <FormControl fullWidth>
           <InputLabel id="scoreTypeId">Score type</InputLabel>

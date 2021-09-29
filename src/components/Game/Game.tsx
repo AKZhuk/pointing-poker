@@ -3,7 +3,6 @@ import { useSelector } from 'react-redux';
 import { useState } from 'react';
 import { Alert } from '@material-ui/lab';
 import { GameRole, IRootState, IUser, PopUpNames } from '../../types';
-import Statistics from '../shared/Statistics';
 import Title from '../shared/Title';
 import GameControl from './GameControl';
 import Issues from '../shared/Issues/Issues';
@@ -15,12 +14,12 @@ import PopUp from '../shared/PopUp';
 import RoundControlPanel from './RoundControlPanel';
 import Votes from './Votes';
 import './Game.scss';
+import Statistics from '../shared/Statistic/Statistics';
 
 const Game = (): JSX.Element => {
   const { deleteMemberPopUp } = PopUpNames;
   const [kickUser, setKickUser] = useState<IUser | null>(null);
   const [isVoted, setIsVoted] = useState(false);
-
   const {
     room: {
       members,
@@ -36,10 +35,12 @@ const Game = (): JSX.Element => {
   };
 
   const handleUserVoice = (cardValue: number) => {
-    const canIChangeVote = changingCardInRoundEnd && members.length === vote[activeIssueId].length;
+    const canIChangeVote = changingCardInRoundEnd || !cardsIsFlipped;
     const userVoice = vote[activeIssueId].find(voice => voice.userId === id);
-    if (userVoice === undefined || canIChangeVote) {
+    const isTimeOver = remainingRoundTime === '00:00';
+    if ((userVoice === undefined && !isTimeOver && !cardsIsFlipped) || (canIChangeVote && !isTimeOver)) {
       SendWSMessage('setVoice', roomKey, { issueId: activeIssueId, userId: id, voice: cardValue });
+      setPickedCard(cardValue);
     } else {
       setIsVoted(true);
       setTimeout(() => {
@@ -47,6 +48,12 @@ const Game = (): JSX.Element => {
       }, 5000);
     }
   };
+
+  const CARD_ELEMENTS = scoreTypes[scoreType].slice(0, cards).map(card => (
+    <ButtonBase key={card} className={card === pickedCard ? 'picked' : ''} onClick={() => handleUserVoice(card)}>
+      <GameCard value={card} large />
+    </ButtonBase>
+  ));
 
   return (
     <>

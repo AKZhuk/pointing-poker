@@ -35,7 +35,7 @@ const PopUp = ({ content, name }: IPopUpProps): JSX.Element => {
     if (popUpStateName !== undefined) {
       return popUpState[popUpStateName] as boolean;
     }
-    return popUpState.isOpen;
+    return popUpState.isOpen as boolean;
   };
   const isOpen = getIsOpen();
 

@@ -7,7 +7,11 @@ import Timer from '../shared/Timer';
 
 const GameControl = (): JSX.Element => {
   const {
-    room: { scrumMaster, roomKey },
+    room: {
+      scrumMaster,
+      roomKey,
+      gameSettings: { isTimerNeeded },
+    },
     user: { role },
     user,
   } = useSelector((state: IRootState) => state);
@@ -34,8 +38,9 @@ const GameControl = (): JSX.Element => {
         </Button>
       ) : (
         <>
-          <Timer />
-          <Button variant="outlined" color="secondary" onClick={handleExit}>
+         {isTimerNeeded && <Timer />}
+          <Button variant="outlined" color="secondary" onClick={handleExit}>       
+          <Button variant="outlined" color="primary" onClick={handleExit}>
             Exit
           </Button>
         </>
