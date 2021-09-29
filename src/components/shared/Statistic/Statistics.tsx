@@ -20,7 +20,7 @@ const Statistics = ({ issueId, isFlipped = true }: { issueId: string; isFlipped?
       (vote[issueId]?.filter(data => data.voice === cardValue)?.length /
         (members.filter(member => member.role === GameRole.player).length + (ScrumMasterAsPlayer ? 1 : 0))) *
       100;
-    return stat ? `${stat.toFixed(2)}%` : '0%';
+    return stat ? `${stat.toFixed(1)}%` : '0%';
   };
 
   return (

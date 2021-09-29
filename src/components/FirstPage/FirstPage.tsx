@@ -85,7 +85,7 @@ const FirstPage = (): JSX.Element => {
         </Container>
         <Box marginTop={5}>
           <Title variant="h3" text="Or:" align="left" />
-          <Box marginBottom={1}>
+          <Box marginBottom={3}>
             <Typography variant="overline" align="center" gutterBottom>
               Connect to lobby by URL:
             </Typography>

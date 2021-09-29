@@ -20,11 +20,11 @@ const GameCard = ({
   const { scoreType } = useSelector((state: IRootState) => state.room.gameSettings);
   const handleAddCard = () => dispatch(addCard());
   return (
-    <ReactCardFlip isFlipped={isFlip} flipDirection="vertical">
+    <ReactCardFlip isFlipped={isFlip} flipDirection="horizontal" flipSpeedBackToFront={1} flipSpeedFrontToBack={1}>
       <Card elevation={8} className={large ? 'game-card_large game-card_front' : 'game-card game-card_front'}>
         <span>{value && scoreType}</span>
         {value ? (
-          <Typography variant="h3" component="h3" align="center" color="primary">
+          <Typography variant={large ? 'h3' : 'h4'} component="h3" align="center" color="primary">
             {value}
           </Typography>
         ) : (

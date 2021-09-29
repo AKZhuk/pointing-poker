@@ -23,10 +23,8 @@ const Game = (): JSX.Element => {
 
   const {
     room: {
-      members,
       roomKey,
       game: { activeIssueId, vote, cardsIsFlipped, remainingRoundTime },
-      scrumMaster,
       gameSettings: { scoreType, cards, changingCardInRoundEnd, ScrumMasterAsPlayer },
     },
     user: { role, id },

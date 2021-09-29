@@ -50,8 +50,8 @@ const MemberCard = ({
           <Typography variant="caption" display="block" gutterBottom>
             {member.role} {id === member.id && `, it's you`}
           </Typography>
-          <Typography variant="h6" display="block" gutterBottom>{`${member.firstName}`}</Typography>
-          <Typography variant="h6" display="block" gutterBottom>{`${member.lastName}`}</Typography>
+          <Typography variant="h6" component="p" display="block" gutterBottom>{`${member.firstName}`}</Typography>
+          <Typography variant="h6" component="p" display="block" gutterBottom>{`${member.lastName}`}</Typography>
           <Typography variant="caption" display="block" gutterBottom>
             {member.jobPostion}
           </Typography>

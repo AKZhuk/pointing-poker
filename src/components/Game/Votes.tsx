@@ -17,16 +17,11 @@ const Votes = ({ setKickUser }: { setKickUser: Dispatch<IUser | null> }): JSX.El
       scrumMaster,
       gameSettings: { scoreType, ScrumMasterAsPlayer },
     },
-    user: { role },
   } = useSelector((state: IRootState) => state);
 
   const findUserVoice = (userId: string): string => {
     const voice = activeIssueId !== '' && vote[activeIssueId].find(elem => elem.userId === userId);
     return voice ? `${voice.voice} ${scoreType}` : 'In progress';
-  };
-
-  const isScrumMasterCanVote = (): boolean => {
-    return role === GameRole.scrumMaster && ScrumMasterAsPlayer;
   };
 
   return (
@@ -44,7 +39,7 @@ const Votes = ({ setKickUser }: { setKickUser: Dispatch<IUser | null> }): JSX.El
             <MemberCard member={member} onKickMember={handleUser} />
           </div>
         ))}
-      {isScrumMasterCanVote() && (
+      {ScrumMasterAsPlayer && (
         <div className="vote" key={scrumMaster.id}>
           <Card className="card card__sm" elevation={4}>
             <CardContent className="card-content">
