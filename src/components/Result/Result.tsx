@@ -49,12 +49,6 @@ const Result = (): JSX.Element => {
   return (
     <>
       <Title text="Result" variant="h3" align="center" />
-      {issues.map(issue => (
-        <div key={issue.id}>
-          <IssueCard issue={issue} />
-          <Statistics issueId={issue.id} />
-        </div>
-      ))}
       <div className="result__buttons">
         {user.role === 'scrumMaster' ? (
           <Button variant="contained" color="primary" startIcon={<ArrowBackIcon />} onClick={handleBackToLobby}>
@@ -73,6 +67,12 @@ const Result = (): JSX.Element => {
           Save
         </Button>
       </div>
+      {issues.map(issue => (
+        <div key={issue.id}>
+          <IssueCard issue={issue} />
+          <Statistics issueId={issue.id} />
+        </div>
+      ))}
     </>
   );
 };

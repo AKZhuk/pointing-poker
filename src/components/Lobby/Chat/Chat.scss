@@ -77,8 +77,10 @@
 /*RIGHT*/
 .answer.right {
   padding: 0 58px 0 0;
-  text-align: right;
   float: right;
+  & span {
+    text-align: right;
+  }
 }
 
 .answer.right .avatar {

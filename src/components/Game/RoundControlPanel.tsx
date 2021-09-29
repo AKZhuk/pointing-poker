@@ -13,7 +13,6 @@ const RoundControlPanel = (): JSX.Element => {
   } = useSelector((state: IRootState) => state);
   return (
     <div className="row margin-20">
-      <Timer />
       <Button
         variant="contained"
         color="secondary"
@@ -21,6 +20,7 @@ const RoundControlPanel = (): JSX.Element => {
       >
         Reset Round
       </Button>
+      <Timer />
       <Button
         variant="contained"
         color="primary"

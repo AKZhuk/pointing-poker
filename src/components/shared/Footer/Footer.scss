@@ -4,6 +4,7 @@
   width: 100%;
   gap: 20px;
   padding: 10px;
+  min-height: 80px;
   @include flexbox(space-between);
   &__link {
     display: block;

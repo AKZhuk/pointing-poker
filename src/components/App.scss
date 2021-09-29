@@ -9,7 +9,7 @@
 main {
   width: 100%;
   max-width: 1400px;
-  min-height: 81vh;
+  min-height: calc(100vh - 160px);
   margin: 40px auto 0 auto;
   padding: 0 80px;
 }
@@ -48,4 +48,23 @@ main {
 
 .title {
   color: $secondary;
+}
+
+.result {
+  &__buttons {
+    position: fixed !important;
+    right: 50px;
+    top: 200px;
+    @include flexbox(center, normal, column);
+    gap: 20px;
+  }
+}
+
+@media screen and (max-width: 700px) {
+  .result__buttons {
+    position: static !important;
+    flex-direction: row;
+    justify-content: flex-start;
+    margin: 30px 0;
+  }
 }

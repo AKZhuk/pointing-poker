@@ -2,18 +2,17 @@ import { Box, Button, Container, TextField, Typography } from '@material-ui/core
 import { useDispatch } from 'react-redux';
 import { ChangeEvent, useEffect, useState } from 'react';
 import { setConnection } from '../../redux/reducers/connection/connectionActions';
-import firstPageLogo from '../../assets/img/poker-discussion.png';
-import PopUp from '../shared/PopUp';
-import { setOpen } from '../../redux/reducers/popUp/popUpActions';
-import { GameRole, PopUpNames } from '../../types';
 import { setUser } from '../../redux/reducers/user/userActions';
+import { setOpen } from '../../redux/reducers/popUp/popUpActions';
 import ConnectToLobby from '../Lobby/ConnectToLobby';
 import { getRoomKeyFromURL, idGenerator, validateURL } from '../../helpers/helpers';
-
-import './FirstPage.scss';
 import { checkRoom } from '../../helpers/HttpServerApi';
+import PopUp from '../shared/PopUp';
 import LoginDenied from '../shared/LoginDenied';
 import Title from '../shared/Title';
+import { GameRole, PopUpNames } from '../../types';
+import firstPageLogo from '../../assets/img/poker-discussion.png';
+import './FirstPage.scss';
 
 const FirstPage = (): JSX.Element => {
   const dispatch = useDispatch();
@@ -68,7 +67,6 @@ const FirstPage = (): JSX.Element => {
         <img className="firstPage__logo" src={firstPageLogo} alt="logo-404" />
         <Container>
           <Title variant="h3" text="Start your planning:" align="left" />
-
           <Typography variant="overline" gutterBottom>
             Create session:
           </Typography>
@@ -85,12 +83,13 @@ const FirstPage = (): JSX.Element => {
             </Button>
           </Box>
         </Container>
-        <Box marginTop={10}>
+        <Box marginTop={5}>
           <Title variant="h3" text="Or:" align="left" />
-
-          <Typography variant="overline" align="center" gutterBottom>
-            Connect to lobby by URL:
-          </Typography>
+          <Box marginBottom={1}>
+            <Typography variant="overline" align="center" gutterBottom>
+              Connect to lobby by URL:
+            </Typography>
+          </Box>
           <Box marginLeft={5} marginRight={5} display="inline" className="firstPage__link-wrapper">
             <TextField
               name="connect"
