@@ -50,11 +50,11 @@ const Result = (): JSX.Element => {
     <>
       <Title text="Result" variant="h3" align="center" />
       <div className="result__buttons">
-        {user.role === 'scrumMaster' ? (
+        {user.role === 'scrumMaster' && (
           <Button variant="contained" color="primary" startIcon={<ArrowBackIcon />} onClick={handleBackToLobby}>
             back to lobby
           </Button>
-        ) : null}
+        )}
         <Button
           variant="contained"
           className="saveButton"

@@ -9,7 +9,7 @@
 main {
   width: 100%;
   max-width: 1400px;
-  min-height: calc(100vh - 160px);
+  min-height: calc(100vh - 184px);
   margin: 40px auto 0 auto;
   padding: 0 80px;
 }
@@ -52,19 +52,9 @@ main {
 
 .result {
   &__buttons {
-    position: fixed !important;
-    right: 50px;
-    top: 200px;
-    @include flexbox(center, normal, column);
-    gap: 20px;
-  }
-}
-
-@media screen and (max-width: 700px) {
-  .result__buttons {
+    width: 300px;
     position: static !important;
-    flex-direction: row;
-    justify-content: flex-start;
+    @include flexbox(space-between, center, row, nowrap);
     margin: 30px 0;
   }
 }
