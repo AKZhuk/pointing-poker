@@ -20,6 +20,7 @@ const Game = (): JSX.Element => {
   const { deleteMemberPopUp } = PopUpNames;
   const [kickUser, setKickUser] = useState<IUser | null>(null);
   const [isVoted, setIsVoted] = useState(false);
+  const [pickedCard, setPickedCard] = useState<null | number>(null);
 
   const {
     room: {
@@ -40,6 +41,7 @@ const Game = (): JSX.Element => {
     const isTimeOver = remainingRoundTime === '00:00';
     if ((userVoice === undefined && !isTimeOver && !cardsIsFlipped) || (canIChangeVote && !isTimeOver)) {
       SendWSMessage('setVoice', roomKey, { issueId: activeIssueId, userId: id, voice: cardValue });
+      setPickedCard(cardValue);
     } else {
       setIsVoted(true);
       setTimeout(() => {
@@ -65,7 +67,11 @@ const Game = (): JSX.Element => {
           <div className="message-area">{isVoted && <Alert severity="warning">The round is over!</Alert>}</div>
           <div className="center">
             {scoreTypes[scoreType].slice(0, cards).map(card => (
-              <ButtonBase key={card} onClick={() => handleUserVoice(card)}>
+              <ButtonBase
+                key={card}
+                className={card === pickedCard ? 'picked' : ''}
+                onClick={() => handleUserVoice(card)}
+              >
                 <GameCard value={card} large />
               </ButtonBase>
             ))}
