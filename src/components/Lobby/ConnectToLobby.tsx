@@ -11,6 +11,7 @@ import UploadButton from '../shared/UploadButton';
 import { setRoom } from '../../redux/reducers/room/roomActions';
 import { CreateRoom, SendWSMessage } from '../../helpers/WebSocketApi';
 import { getRoomKeyFromURL } from '../../helpers/helpers';
+import { deleteAvatar } from '../../helpers/HttpServerApi';
 
 const useStyles = makeStyles(theme => ({
   paper: {
@@ -47,7 +48,7 @@ const ConnectToLobby = (): JSX.Element => {
   const { ConnectToLobbyPopUp } = PopUpNames;
   const {
     user,
-    user: { firstName, lastName, jobPostion, urlToImage, role },
+    user: { id, firstName, lastName, jobPostion, urlToImage, role },
     connection: { url },
     room,
   } = useSelector((state: IRootState) => state);
@@ -107,7 +108,8 @@ const ConnectToLobby = (): JSX.Element => {
     }
   };
 
-  const handleCancelButton = (): void => {
+  const handleCancelButton = async (): Promise<void> => {
+    deleteAvatar(id);
     dispatch(setDefaultUser('firstName', ''));
     dispatch(setOpen(ConnectToLobbyPopUp, false));
   };
@@ -176,7 +178,7 @@ const ConnectToLobby = (): JSX.Element => {
                 </Typography>
                 <Grid container direction="row" justifyContent="flex-start" alignItems="center">
                   <Avatar alt={firstName} src={urlToImage} className={classes.avatar} />
-                  <UploadButton fileHandler={handleUpdateImage} accept={'image/*'} isDisabled={isSubmit} />
+                  <UploadButton fileHandler={handleUpdateImage} accept="avatar" isDisabled={isSubmit} />
                 </Grid>
               </Box>
             </Grid>

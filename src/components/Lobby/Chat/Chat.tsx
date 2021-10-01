@@ -17,7 +17,14 @@ const Chat = (): JSX.Element => {
   const submitHandler = (e: FormEvent) => {
     e.preventDefault();
     if (msg) {
-      SendWSMessage('addChatMessage', roomKey, { userid: user.id, message: msg, date: Date.now() });
+      const message: IChatMessage = {
+        userid: user.id,
+        userName: user.firstName,
+        urlToAvatar: user.urlToImage,
+        message: msg,
+        date: Date.now(),
+      };
+      SendWSMessage('addChatMessage', roomKey, message);
       setMsg('');
     }
   };
@@ -37,7 +44,7 @@ const Chat = (): JSX.Element => {
       <Title text="Chat" variant="h5" align="center" />
       <div className="chat__field" ref={chatField}>
         {chatMessages.map((el: IChatMessage) => (
-          <ChatMessage key={el.date} userid={el.userid} message={el.message} date={el.date} />
+          <ChatMessage key={el.date} msg={el} />
         ))}
       </div>
       <form className="chat__inputBox" onSubmit={submitHandler}>

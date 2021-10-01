@@ -2,7 +2,9 @@ import { ChangeEvent } from 'react';
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import CloudUploadIcon from '@material-ui/icons/CloudUpload';
-import { IUploadButtonProps } from '../../types';
+import { useSelector } from 'react-redux';
+import { IRootState, IUploadButtonProps } from '../../types';
+import { SERVER_URL, uploadAvatar } from '../../helpers/HttpServerApi';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -19,18 +21,20 @@ const useStyles = makeStyles((theme: Theme) =>
 
 const UploadButton = ({ fileHandler, accept, isDisabled }: IUploadButtonProps): JSX.Element => {
   const classes = useStyles();
-  const handleChange = (e: ChangeEvent<HTMLInputElement>): void => {
-    const file: File = (e.target.files as FileList)[0];
-    const reader = new FileReader();
-    reader.onloadend = () => {
-      fileHandler(reader.result);
-    };
-    if (file) {
-      if (accept === 'image/*') {
-        reader.readAsDataURL(file);
-      } else {
-        reader.readAsArrayBuffer(file);
-      }
+  const userid = useSelector((state: IRootState) => state.user.id);
+  const handleChange = async (e: ChangeEvent<HTMLInputElement>): Promise<void> => {
+    if (accept === 'avatar') {
+      const resp = await uploadAvatar(e.target, userid);
+      console.log(resp.result);
+      if (resp.result) fileHandler(`${SERVER_URL}/${resp.result}`);
+      else console.error(resp.error);
+    } else {
+      const file: File = (e.target.files as FileList)[0];
+      const reader = new FileReader();
+      reader.readAsArrayBuffer(file);
+      reader.onloadend = () => {
+        fileHandler(reader.result);
+      };
     }
   };
 

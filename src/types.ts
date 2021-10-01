@@ -42,7 +42,7 @@ export interface IUser {
   firstName: string;
   lastName?: string;
   jobPostion?: string;
-  urlToImage?: string;
+  urlToImage: string;
   role: keyof typeof GameRole;
 }
 
@@ -80,7 +80,7 @@ export type IPopUp = {
 
 export interface IUploadButtonProps {
   fileHandler: (data: unknown) => void;
-  accept: 'image/*' | '.xlsx';
+  accept: 'avatar' | '.xlsx';
   isDisabled: boolean;
 }
 
@@ -146,6 +146,8 @@ export interface IFeatures {
 
 export interface IChatMessage {
   userid: string;
+  userName: string;
+  urlToAvatar: string;
   message: string;
   date: number;
 }
