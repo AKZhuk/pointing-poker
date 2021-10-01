@@ -27,6 +27,7 @@ const useStyles = makeStyles(theme => ({
     display: 'flex',
     justifyContent: 'space-between',
     alignItems: 'center',
+    flexWrap: 'wrap',
   },
   avatar: {
     width: theme.spacing(10),
@@ -170,15 +171,15 @@ const ConnectToLobby = (): JSX.Element => {
                 helperText=" "
               />
             </Grid>
-            <Grid item xs={7}>
+            <Grid item xs={12}>
               <Box component="div">
                 <Typography variant="subtitle1" gutterBottom>
                   Upload Avatar
                 </Typography>
-                <div className={classes.wrapper}>
+                <Grid container direction="row" justifyContent="flex-start" alignItems="center">
                   <Avatar alt={firstName} src={urlToImage} className={classes.avatar} />
                   <UploadButton fileHandler={handleUpdateImage} accept="avatar" isDisabled={isSubmit} />
-                </div>
+                </Grid>
               </Box>
             </Grid>
             {role !== GameRole.scrumMaster && (

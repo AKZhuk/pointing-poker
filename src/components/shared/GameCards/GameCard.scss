@@ -30,3 +30,7 @@
 .rotate {
   transform: rotate(179.72deg);
 }
+.picked .game-card_large,
+.picked > .game-card_large {
+  border: 3px solid #16a085;
+}
