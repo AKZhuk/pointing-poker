@@ -22,7 +22,7 @@ export const defaultRoomState: IRoom = {
     timer: '02:00',
     flipCardsWhenAllVoted: false,
     addPlayerWhenGameStarted: false,
-    cards: 2,
+    cards: 4,
   },
   route: Routes.firstPage,
   game: {

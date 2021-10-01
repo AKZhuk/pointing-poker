@@ -30,6 +30,7 @@ $secondary: #16a085;
 .card-container {
   width: fit-content;
   min-height: 100px;
+  padding-bottom: 20px;
   @include flexbox(normal, normal, row, wrap);
 }
 
