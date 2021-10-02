@@ -8,7 +8,7 @@ import PopUp from '../PopUp';
 
 const Members = (): JSX.Element => {
   const { deleteMemberPopUp } = PopUpNames;
-  const room = useSelector((state: IRootState) => state.room);
+  const { members } = useSelector((state: IRootState) => state.room);
   const [user, setUser] = useState<IUser | null>(null);
 
   const handleUser = (member: IUser) => {
@@ -17,13 +17,21 @@ const Members = (): JSX.Element => {
 
   return (
     <section>
-      <Title text="Members:" variant="h5" align="left" />
-      <div className="card-container">
-        {room?.members.map((member: IUser) => (
-          <MemberCard key={member.id} member={member} onKickMember={handleUser} />
-        ))}
-      </div>
-      <PopUp content={<KickMember member={user} popUpName={deleteMemberPopUp} />} name={deleteMemberPopUp} />
+      {members.length === 0 ? (
+        <Title text="No members yet. Invite your teammeate" variant="h5" align="left" />
+      ) : (
+        <>
+          <Title text="Members:" variant="h5" align="left" />
+          <div className="card-container">
+            {members.map((member: IUser) => (
+              <MemberCard key={member.id} member={member} onKickMember={handleUser} />
+            ))}
+          </div>
+        </>
+      )}
+      <PopUp name={deleteMemberPopUp}>
+        <KickMember member={user} popUpName={deleteMemberPopUp} />
+      </PopUp>
     </section>
   );
 };

@@ -42,12 +42,18 @@ const Issues = ({ className }: { className?: string }): JSX.Element => {
         {user.role === GameRole.scrumMaster && (
           <>
             <IssueCard />
-            <PopUp content={<CreateIssue />} name="CreateIssuePopUp" />
-            <PopUp content={<CreateIssue oldIssue={editableIssue} />} name="ChangeIssuePopUp" />
+            <PopUp name="CreateIssuePopUp">
+              <CreateIssue />
+            </PopUp>
+            <PopUp name="ChangeIssuePopUp">
+              <CreateIssue oldIssue={editableIssue} />
+            </PopUp>
           </>
         )}
       </TransitionGroup>
-      <PopUp content={<IssueDetails issue={currentIssue} popUpName="IssueDetailsPopUp" />} name="IssueDetailsPopUp" />
+      <PopUp name="IssueDetailsPopUp">
+        <IssueDetails issue={currentIssue} popUpName="IssueDetailsPopUp" />
+      </PopUp>
     </>
   );
 };

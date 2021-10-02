@@ -38,7 +38,7 @@ const KickMember = ({ member, popUpName }: KickMemberProps): JSX.Element => {
 
   return (
     <>
-      <Title text="Kick player?" variant="h3" align="center" />
+      <Title text="Kick player?" variant="h4" align="center" />
       <p className="kick-text">{kickMessage}</p>
       <div className="button-wrapper">
         <Button variant="contained" color="primary" onClick={handleYesButton}>

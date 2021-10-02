@@ -18,11 +18,14 @@ const useStyles = makeStyles((theme: Theme) =>
       boxShadow: theme.shadows[5],
       padding: theme.spacing(2, 4, 3),
       borderRadius: '10px',
+      minWidth: '350px',
+      minHeight: '30%',
+      maxWidth: '95%',
     },
   }),
 );
 
-const PopUp = ({ content, name }: IPopUpProps): JSX.Element => {
+const PopUp = ({ children, name }: IPopUpProps): JSX.Element => {
   const classes = useStyles();
   const dispatch = useDispatch();
   const popUpState: IPopUp = useSelector((state: IRootState) => state.popUp);
@@ -57,7 +60,7 @@ const PopUp = ({ content, name }: IPopUpProps): JSX.Element => {
       }}
     >
       <Fade in={isOpen}>
-        <div className={classes.paper}>{content}</div>
+        <div className={classes.paper}>{children}</div>
       </Fade>
     </Modal>
   );

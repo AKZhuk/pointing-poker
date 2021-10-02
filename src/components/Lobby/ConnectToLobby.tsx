@@ -127,50 +127,46 @@ const ConnectToLobby = (): JSX.Element => {
   return (
     <Container component="div" maxWidth="xs">
       <div className={classes.paper}>
-        <Title text="Connect to lobby" variant="h3" align="center" />
+        <Title text="Connect to lobby" variant="h4" align="center" />
         <form className={classes.form} onSubmit={handleFormSubmit} noValidate>
           <Grid container spacing={2}>
-            <Grid item xs={12}>
-              <TextField
-                error={isValidationError}
-                autoComplete="off"
-                name="firstName"
-                label="First Name"
-                helperText={errorMessage}
-                value={firstName}
-                inputProps={{ maxLength: 12 }}
-                onChange={handleTextInputsChange}
-                fullWidth
-                required
-                onBlur={blurHandler}
-                autoFocus
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <TextField
-                fullWidth
-                label="Last Name"
-                name="lastName"
-                autoComplete="off"
-                value={lastName}
-                inputProps={{ maxLength: 12 }}
-                onChange={handleTextInputsChange}
-                helperText=" "
-              />
-            </Grid>
+            <TextField
+              error={isValidationError}
+              autoComplete="off"
+              name="firstName"
+              label="First Name"
+              helperText={errorMessage}
+              value={firstName}
+              inputProps={{ maxLength: 12 }}
+              onChange={handleTextInputsChange}
+              fullWidth
+              required
+              onBlur={blurHandler}
+              autoFocus
+            />
 
-            <Grid item xs={12}>
-              <TextField
-                fullWidth
-                label="Job position"
-                name="jobPostion"
-                autoComplete="off"
-                value={jobPostion}
-                inputProps={{ maxLength: 20 }}
-                onChange={handleTextInputsChange}
-                helperText=" "
-              />
-            </Grid>
+            <TextField
+              fullWidth
+              label="Last Name"
+              name="lastName"
+              autoComplete="off"
+              value={lastName}
+              inputProps={{ maxLength: 12 }}
+              onChange={handleTextInputsChange}
+              helperText=" "
+            />
+
+            <TextField
+              fullWidth
+              label="Job position"
+              name="jobPostion"
+              autoComplete="off"
+              value={jobPostion}
+              inputProps={{ maxLength: 20 }}
+              onChange={handleTextInputsChange}
+              helperText=" "
+            />
+
             <Grid item xs={12}>
               <Box component="div">
                 <Typography variant="subtitle1" gutterBottom>

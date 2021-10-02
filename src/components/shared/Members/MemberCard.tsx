@@ -1,4 +1,4 @@
-import { Card, CardContent, Typography, Avatar, IconButton } from '@material-ui/core';
+import { Card, CardContent, Typography, Avatar, IconButton, Badge } from '@material-ui/core';
 import BlockIcon from '@material-ui/icons/Block';
 import { useDispatch, useSelector } from 'react-redux';
 import { setOpen } from '../../../redux/reducers/popUp/popUpActions';
@@ -45,7 +45,11 @@ const MemberCard = ({
   return (
     <Card className="card" elevation={4}>
       <CardContent className="card-content">
-        <Avatar alt="avatar" src={member.urlToImage} className="avatar" />
+        <Badge overlap="circular" anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }} variant="dot">
+          <Avatar alt="avatar" src={member.urlToImage} className="avatar">
+            {member.firstName[0] + (member.lastName && member.lastName[0])}
+          </Avatar>
+        </Badge>
         <Typography variant="h6">
           <Typography variant="caption" display="block" gutterBottom>
             {member.role} {id === member.id && `, it's you`}

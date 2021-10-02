@@ -47,11 +47,12 @@ const App = (): JSX.Element => {
       <Header />
       <main className="main">{appNavigator()}</main>
       <Footer />
-      <PopUp content={<KickMember member={features.kickMember} popUpName={kickVoting} />} name={kickVoting} />
-      <PopUp
-        content={<AddMember member={features.candidate} popUpName={askForJoinMemberPopUp} />}
-        name={askForJoinMemberPopUp}
-      />
+      <PopUp name={kickVoting}>
+        <KickMember member={features.kickMember} popUpName={kickVoting} />
+      </PopUp>
+      <PopUp name={askForJoinMemberPopUp}>
+        <AddMember member={features.candidate} popUpName={askForJoinMemberPopUp} />
+      </PopUp>
     </div>
   );
 };

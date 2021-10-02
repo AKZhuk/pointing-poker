@@ -128,7 +128,7 @@ const CreateIssue = ({ oldIssue }: { oldIssue?: IIssue }): JSX.Element => {
 
   return (
     <Container component="div" maxWidth="xs">
-      <Typography variant="h5" gutterBottom>
+      <Typography variant="h4" gutterBottom className="title">
         {oldIssue ? `Change Issue` : `Create Issue`}
       </Typography>
       <form className={classes.form} onSubmit={handleFormSubmit} noValidate>

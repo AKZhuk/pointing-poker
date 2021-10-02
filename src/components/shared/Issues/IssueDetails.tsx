@@ -12,7 +12,7 @@ const IssueDetails = ({ issue, popUpName }: IssueDetailsProps): JSX.Element => {
 
   return (
     <>
-      <Title text={`${issue?.title}`} variant="h3" align="center" />
+      <Title text={`${issue?.title}`} variant="h4" align="center" />
       <Grid container direction="column" justifyContent="space-around" alignItems="flex-start">
         <div className="card-text">
           <strong>URL</strong>: {issue?.link}
