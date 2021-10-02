@@ -1,4 +1,4 @@
-import { ButtonBase } from '@material-ui/core';
+import { ButtonBase, Collapse } from '@material-ui/core';
 import { useSelector } from 'react-redux';
 import { useState } from 'react';
 import { Alert } from '@material-ui/lab';
@@ -59,7 +59,9 @@ const Game = (): JSX.Element => {
         <div className="game__right">
           {role === GameRole.scrumMaster && <RoundControlPanel />}
           <Statistics issueId={activeIssueId} isFlipped={cardsIsFlipped} />
-          <Votes setKickUser={setKickUser} />
+          <Collapse in={cardsIsFlipped || role === GameRole.scrumMaster}>
+            <Votes setKickUser={setKickUser} />
+          </Collapse>
         </div>
       </div>
       {(role === GameRole.player || isScrumMasterCanVote()) && (
