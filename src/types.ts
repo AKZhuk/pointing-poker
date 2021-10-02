@@ -51,7 +51,6 @@ export interface IGameSettings {
   changingCardInRoundEnd: boolean;
   isTimerNeeded: boolean;
   scoreType: keyof IScoreTypes;
-  scoreTypeShort: string;
   flipCardsWhenAllVoted: boolean;
   addPlayerWhenGameStarted: boolean;
   timer: string;
@@ -129,9 +128,10 @@ export interface IRoom {
 }
 
 export interface IScoreTypes {
-  'power of 2': number[];
-  'story point': number[];
-  fibonacci: number[];
+  'T-shirts/GameOfThrones': string[];
+  'T-shirts/StarWars': string[];
+  storyPoint: string[];
+  fibonacci: string[];
 }
 
 export interface KickMemberProps {

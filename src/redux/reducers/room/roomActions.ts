@@ -4,6 +4,7 @@ export const ADD_ROOM = 'ADD_ROOM';
 export const SET_ROOM = 'SET_ROOM';
 export const SET_SETTING = 'SET_SETTING';
 export const ADD_CARD = 'ADD_CARD';
+export const REMOVE_CARD = 'REMOVE_CARD';
 
 export const addRoom = (value: IRoom): IRoomAction => ({
   type: ADD_ROOM,
@@ -22,4 +23,8 @@ export const setSetting = <T>(name: keyof IGameSettings, value: T): IAction<T> =
 
 export const addCard = (): { type: string } => ({
   type: ADD_CARD,
+});
+
+export const removeCard = (): { type: string } => ({
+  type: REMOVE_CARD,
 });

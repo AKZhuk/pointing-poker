@@ -1,16 +1,21 @@
-import { ButtonBase } from '@material-ui/core';
-import { useSelector } from 'react-redux';
+import { ButtonBase, Fab } from '@material-ui/core';
+import { useSelector, useDispatch } from 'react-redux';
 import { SendWSMessage } from '../../../helpers/WebSocketApi';
 import { IRootState, IScoreTypes } from '../../../types';
+import AddIcon from '@material-ui/icons/Add';
+import RemoveIcon from '@material-ui/icons/Remove';
 import GameCard from './GameCard';
+import { addCard, removeCard } from '../../../redux/reducers/room/roomActions';
 
 export const scoreTypes: IScoreTypes = {
-  'power of 2': [-2, -1, 1, 2, 4, 8, 16, 32, 64, 128, 256, 512],
-  'story point': [-2, -1, 1 / 2, 1, 2, 3, 5, 8, 13, 20, 30, 100],
-  fibonacci: [-2, -1, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89],
+  storyPoint: ['coffee', 'unknown', '1', '2', '3', '5', '8', '13', '20', '40', '100', 'infinity'],
+  'T-shirts/GameOfThrones': ['unknown', 'XXS', 'XS', 'S', 'M', 'L', 'XL'],
+  'T-shirts/StarWars': ['unknown', 'XXS', 'XS', 'S', 'M', 'L', 'XL'],
+  fibonacci: ['unknown', '0', '1', '3', '5', '8', '13', '21', '34', '55', '89', 'infinity'],
 };
-
 const GameCards = ({ isGame = false }: { isGame?: boolean }): JSX.Element => {
+  const dispatch = useDispatch();
+
   const {
     user,
     room: {
@@ -19,8 +24,13 @@ const GameCards = ({ isGame = false }: { isGame?: boolean }): JSX.Element => {
       gameSettings: { cards, scoreType },
     },
   } = useSelector((state: IRootState) => state);
+
+  const handleAddCard = () => dispatch(addCard());
+
+  const handleRemoveCard = () => dispatch(removeCard());
+
   return (
-    <div className="card-container">
+    <section className="card-container">
       {scoreTypes[scoreType].slice(0, cards).map(elem =>
         isGame ? (
           <ButtonBase
@@ -35,8 +45,21 @@ const GameCards = ({ isGame = false }: { isGame?: boolean }): JSX.Element => {
           <GameCard key={elem} value={elem} large />
         ),
       )}
-      {!isGame && cards < scoreTypes[scoreType].length && <GameCard large />}
-    </div>
+      {!isGame && (
+        <div className="game-card__control">
+          {4 < cards && (
+            <Fab color="secondary" size="small" aria-label="add" onClick={handleRemoveCard}>
+              <RemoveIcon />
+            </Fab>
+          )}
+          {cards < scoreTypes[scoreType].length && (
+            <Fab color="primary" aria-label="add" onClick={handleAddCard}>
+              <AddIcon />
+            </Fab>
+          )}
+        </div>
+      )}
+    </section>
   );
 };
 
