@@ -1,5 +1,5 @@
 import { GameRole, IRoom, IRoomAction, Routes } from '../../../types';
-import { ADD_CARD, ADD_ROOM, SET_ROOM, SET_SETTING } from './roomActions';
+import { ADD_CARD, ADD_ROOM, REMOVE_CARD, SET_ROOM, SET_SETTING } from './roomActions';
 
 export const defaultRoomState: IRoom = {
   roomKey: '',
@@ -18,11 +18,10 @@ export const defaultRoomState: IRoom = {
     changingCardInRoundEnd: false,
     isTimerNeeded: false,
     scoreType: 'storyPoint',
-    scoreTypeShort: '',
-    timer: '02:00',
+    timer: '01:00',
     flipCardsWhenAllVoted: false,
     addPlayerWhenGameStarted: false,
-    cards: 4,
+    cards: 3,
   },
   route: Routes.firstPage,
   game: {
@@ -44,6 +43,8 @@ export const roomReducer = (state: IRoom = defaultRoomState, action: IRoomAction
       return { ...state, gameSettings: { ...state.gameSettings, ...action.payload } };
     case ADD_CARD:
       return { ...state, gameSettings: { ...state.gameSettings, cards: state.gameSettings.cards + 1 } };
+    case REMOVE_CARD:
+      return { ...state, gameSettings: { ...state.gameSettings, cards: state.gameSettings.cards - 1 } };
     default:
       return state;
   }

@@ -47,3 +47,12 @@
 .picked > .game-card_large {
   border: 3px solid #16a085;
 }
+
+.game-card__control {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  margin: 10px 0 40px;
+}

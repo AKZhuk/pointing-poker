@@ -51,7 +51,6 @@ export interface IGameSettings {
   changingCardInRoundEnd: boolean;
   isTimerNeeded: boolean;
   scoreType: keyof IScoreTypes;
-  scoreTypeShort: string;
   flipCardsWhenAllVoted: boolean;
   addPlayerWhenGameStarted: boolean;
   timer: string;
