@@ -6,6 +6,7 @@
   margin: 10px;
   margin-bottom: 40px;
   font-size: 16px;
+  border-radius: 10px !important;
   @include flexbox(space-between, normal, column);
 
   &_active {

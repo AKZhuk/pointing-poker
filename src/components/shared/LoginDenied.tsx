@@ -10,7 +10,7 @@ const LoginDenied = (): JSX.Element => {
   };
   return (
     <>
-      <Title text="Login denied!" variant="h3" align="center" />
+      <Title text="Login denied!" variant="h4" align="center" />
       <Button variant="contained" color="secondary" onClick={handleOKButton}>
         OK
       </Button>

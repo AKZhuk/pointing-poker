@@ -54,7 +54,7 @@ const Game = (): JSX.Element => {
     <>
       <Title text="Game" variant="h3" align="center" />
       <GameControl />
-      <div className="row">
+      <div className="game">
         <Issues />
         <div className="game__right">
           {role === GameRole.scrumMaster && <RoundControlPanel />}
@@ -65,6 +65,7 @@ const Game = (): JSX.Element => {
       {(role === GameRole.player || isScrumMasterCanVote()) && (
         <>
           <div className="message-area">{isVoted && <Alert severity="warning">The round is over!</Alert>}</div>
+          <Title text={'Make your choise'} align={'center'} variant={'h5'} />
           <div className="center">
             {scoreTypes[scoreType].slice(0, cards).map(card => (
               <ButtonBase
@@ -78,7 +79,9 @@ const Game = (): JSX.Element => {
           </div>
         </>
       )}
-      <PopUp content={<KickMember member={kickUser} popUpName={deleteMemberPopUp} />} name={deleteMemberPopUp} />
+      <PopUp name={deleteMemberPopUp}>
+        <KickMember member={kickUser} popUpName={deleteMemberPopUp} />
+      </PopUp>
     </>
   );
 };

@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import ReactCardFlip from 'react-card-flip';
 import { addCard } from '../../../redux/reducers/room/roomActions';
 import { IRootState } from '../../../types';
-import cardBack from '../../../assets/img/CardBack.png';
+import cardBack from '../../../assets/img/Cover.png';
 import './GameCard.scss';
 
 const GameCard = ({

@@ -30,7 +30,7 @@ const AddMember = ({ member, popUpName }: KickMemberProps): JSX.Element => {
   };
   return (
     <>
-      <Title text="New Member!" variant="h3" align="center" />
+      <Title text="New Member!" variant="h4" align="center" />
       <p className="kick-text">
         <span className="member-name">{` ${member?.firstName} ${member?.lastName}`}</span> wants to join the game .
       </p>

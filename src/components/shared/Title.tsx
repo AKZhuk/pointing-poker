@@ -6,7 +6,7 @@ const Title = ({
   align,
 }: {
   text: string;
-  variant: 'h3' | 'h5';
+  variant: 'h3' | 'h4' | 'h5';
   align: 'center' | 'left';
 }): JSX.Element => {
   return (

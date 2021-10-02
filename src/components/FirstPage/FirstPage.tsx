@@ -83,7 +83,7 @@ const FirstPage = (): JSX.Element => {
             </Button>
           </Box>
         </Container>
-        <Box marginTop={5}>
+        <Box marginTop={2} marginBottom={2}>
           <Title variant="h3" text="Or:" align="left" />
           <Box marginBottom={3}>
             <Typography variant="overline" align="center" gutterBottom>
@@ -107,8 +107,12 @@ const FirstPage = (): JSX.Element => {
           </Button>
         </Box>
       </div>
-      <PopUp content={<ConnectToLobby />} name={ConnectToLobbyPopUp} />
-      <PopUp content={<LoginDenied />} name={LoginDeniedPopUp} />
+      <PopUp name={ConnectToLobbyPopUp}>
+        <ConnectToLobby />
+      </PopUp>
+      <PopUp name={LoginDeniedPopUp}>
+        <LoginDenied />
+      </PopUp>
     </>
   );
 };

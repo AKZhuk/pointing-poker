@@ -1,9 +1,7 @@
 @import '/src/abstract.scss';
 
 .game {
-  &__wrapper {
-    @include flexbox(space-between, normal, row, wrap);
-  }
+  @include flexbox(space-between, flex-start, row, wrap);
   &__main {
     width: 80%;
     max-width: 850px;
@@ -14,6 +12,8 @@
   &__right {
     width: 90%;
     max-width: 600px;
+    position: sticky;
+    top: 200px;
   }
 }
 
@@ -23,5 +23,5 @@
 
 .round_controlPanel {
   height: 150px;
-  @include flexbox(space-between, center, column)
+  @include flexbox(space-between, center, column);
 }

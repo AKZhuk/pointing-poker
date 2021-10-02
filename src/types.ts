@@ -59,7 +59,7 @@ export interface IGameSettings {
 }
 
 export interface IPopUpProps {
-  content: JSX.Element;
+  children: JSX.Element;
   name: keyof typeof PopUpNames;
 }
 export enum PopUpNames {
