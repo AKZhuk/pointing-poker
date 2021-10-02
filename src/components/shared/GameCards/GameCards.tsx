@@ -1,9 +1,9 @@
 import { ButtonBase, Fab } from '@material-ui/core';
 import { useSelector, useDispatch } from 'react-redux';
-import { SendWSMessage } from '../../../helpers/WebSocketApi';
-import { IRootState, IScoreTypes } from '../../../types';
 import AddIcon from '@material-ui/icons/Add';
 import RemoveIcon from '@material-ui/icons/Remove';
+import { SendWSMessage } from '../../../helpers/WebSocketApi';
+import { IRootState, IScoreTypes } from '../../../types';
 import GameCard from './GameCard';
 import { addCard, removeCard } from '../../../redux/reducers/room/roomActions';
 
@@ -47,7 +47,7 @@ const GameCards = ({ isGame = false }: { isGame?: boolean }): JSX.Element => {
       )}
       {!isGame && (
         <div className="game-card__control">
-          {4 < cards && (
+          {cards > 4 && (
             <Fab color="secondary" size="small" aria-label="add" onClick={handleRemoveCard}>
               <RemoveIcon />
             </Fab>
