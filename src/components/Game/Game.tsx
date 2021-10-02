@@ -65,7 +65,7 @@ const Game = (): JSX.Element => {
       {(role === GameRole.player || isScrumMasterCanVote()) && (
         <>
           <div className="message-area">{isVoted && <Alert severity="warning">The round is over!</Alert>}</div>
-          <Title text={'Make your choise'} align={'center'} variant={'h5'} />
+          <Title text="Make your choise" align="center" variant="h5" />
           <div className="center">
             {scoreTypes[scoreType].slice(0, cards).map(card => (
               <ButtonBase

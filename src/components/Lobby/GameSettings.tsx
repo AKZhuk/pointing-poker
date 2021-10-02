@@ -76,7 +76,7 @@ const GameSettings = (): JSX.Element => {
           />
         )}
       </div>
-      <Title text="Add game cards:" variant={'h5'} align="left" />
+      <Title text="Add game cards:" variant="h5" align="left" />
       <GameCards />
     </section>
   );

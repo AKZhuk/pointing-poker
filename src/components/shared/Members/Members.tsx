@@ -18,7 +18,7 @@ const Members = (): JSX.Element => {
   return (
     <section>
       {members.length === 0 ? (
-        <Title text={'No members yet. Invite your teammeate'} variant={'h5'} align={'left'} />
+        <Title text="No members yet. Invite your teammeate" variant="h5" align="left" />
       ) : (
         <>
           <Title text="Members:" variant="h5" align="left" />
