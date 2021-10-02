@@ -90,7 +90,7 @@ module.exports = ({ development }) => ({
       template: './src/index.html',
     }),
     new CopyPlugin({
-      patterns: [{ from: './public', to: './', noErrorOnMissing: true }],
+      patterns: [{ from: './public', to: './assets', noErrorOnMissing: true }],
     }),
     new MiniCssExtractPlugin({ filename: '[name].[contenthash].css' }),
     new CleanWebpackPlugin({ cleanStaleWebpackAssets: false }),

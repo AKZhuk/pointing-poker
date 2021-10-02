@@ -129,9 +129,10 @@ export interface IRoom {
 }
 
 export interface IScoreTypes {
-  'power of 2': number[];
-  'story point': number[];
-  fibonacci: number[];
+  'T-shirts/GameOfThrones': string[];
+  'T-shirts/StarWars': string[];
+  storyPoint: string[];
+  fibonacci: string[];
 }
 
 export interface KickMemberProps {

@@ -5,9 +5,10 @@ import { IRootState, IScoreTypes } from '../../../types';
 import GameCard from './GameCard';
 
 export const scoreTypes: IScoreTypes = {
-  'power of 2': [-2, -1, 1, 2, 4, 8, 16, 32, 64, 128, 256, 512],
-  'story point': [-2, -1, 1 / 2, 1, 2, 3, 5, 8, 13, 20, 30, 100],
-  fibonacci: [-2, -1, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89],
+  storyPoint: ['coffee', 'unknown', '1', '2', '3', '5', '8', '13', '20', '40', '100', 'infinity'],
+  'T-shirts/GameOfThrones': ['unknown', 'XXS', 'XS', 'S', 'M', 'L', 'XL'],
+  'T-shirts/StarWars': ['unknown', 'XXS', 'XS', 'S', 'M', 'L', 'XL'],
+  fibonacci: ['unknown', '0', '1', '3', '5', '8', '13', '21', '34', '55', '89', 'infinity'],
 };
 
 const GameCards = ({ isGame = false }: { isGame?: boolean }): JSX.Element => {
@@ -20,7 +21,7 @@ const GameCards = ({ isGame = false }: { isGame?: boolean }): JSX.Element => {
     },
   } = useSelector((state: IRootState) => state);
   return (
-    <div className="card-container">
+    <section className="card-container">
       {scoreTypes[scoreType].slice(0, cards).map(elem =>
         isGame ? (
           <ButtonBase
@@ -36,7 +37,7 @@ const GameCards = ({ isGame = false }: { isGame?: boolean }): JSX.Element => {
         ),
       )}
       {!isGame && cards < scoreTypes[scoreType].length && <GameCard large />}
-    </div>
+    </section>
   );
 };
 

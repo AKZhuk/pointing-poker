@@ -54,9 +54,10 @@ const GameSettings = (): JSX.Element => {
         <FormControl fullWidth>
           <InputLabel id="scoreTypeId">Score type</InputLabel>
           <Select labelId="scoreTypeId" name="scoreType" value={settings.scoreType} onChange={handleChange} fullWidth>
-            <MenuItem value="power of 2">Power of 2</MenuItem>
+            <MenuItem value="T-shirts/GameOfThrones">T-shirts (GameOfThrones)</MenuItem>
+            <MenuItem value="T-shirts/StarWars">T-shirts (Star Wars)</MenuItem>
             <MenuItem value="fibonacci">Fibonacci</MenuItem>
-            <MenuItem value="story point">Story point</MenuItem>
+            <MenuItem value="storyPoint">Story point</MenuItem>
           </Select>
         </FormControl>
         {settings.isTimerNeeded && (

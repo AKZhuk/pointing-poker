@@ -17,7 +17,7 @@ export const defaultRoomState: IRoom = {
     ScrumMasterAsPlayer: false,
     changingCardInRoundEnd: false,
     isTimerNeeded: false,
-    scoreType: 'story point',
+    scoreType: 'storyPoint',
     scoreTypeShort: '',
     timer: '02:00',
     flipCardsWhenAllVoted: false,
