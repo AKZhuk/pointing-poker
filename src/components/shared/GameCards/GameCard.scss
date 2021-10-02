@@ -21,6 +21,15 @@
     width: 100%;
     height: 100%;
   }
+  &_icon {
+    align-self: center;
+    width: 45%;
+    height: 25%;
+  }
+  &_addIcon {
+    align-self: center;
+    margin: auto 0;
+  }
 }
 
 .game-card_large {

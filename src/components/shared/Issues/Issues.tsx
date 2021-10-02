@@ -32,7 +32,11 @@ const Issues = ({ className }: { className?: string }): JSX.Element => {
               </section>
             </Collapse>
           ) : (
-            <IssueCard key={issue.id} issue={issue} handleCurrentIssue={handleCurrentIssue} />
+            <Collapse key={issue.id}>
+              <section>
+                <IssueCard key={issue.id} issue={issue} handleCurrentIssue={handleCurrentIssue} />
+              </section>
+            </Collapse>
           ),
         )}
         {user.role === GameRole.scrumMaster && (
