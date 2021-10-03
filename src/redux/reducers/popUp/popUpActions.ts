@@ -1,5 +1,4 @@
-import { IAction } from './../../../types';
-import { PopUpNames } from '../../../types';
+import { IAction, PopUpNames } from '../../../types';
 
 export const SET_OPEN = 'SET_OPEN';
 
