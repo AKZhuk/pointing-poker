@@ -43,7 +43,7 @@ const MemberCard = ({
   };
 
   return (
-    <Card className="card" elevation={4}>
+    <Card className={isScrumMaster || member.role === 'scrumMaster' ? 'card scrum' : 'card'} elevation={4}>
       <CardContent className="card-content">
         <Badge overlap="circular" anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }} variant="dot">
           <Avatar alt="avatar" src={member.urlToImage} className="avatar">
