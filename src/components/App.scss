@@ -9,11 +9,21 @@
 main {
   width: 100%;
   max-width: 1400px;
-  min-height: calc(100vh - 184px);
   margin: 40px auto 0 auto;
   padding: 0 80px;
+  flex: 1 0 auto;
 }
-
+header {
+  flex: 0 0 auto;
+}
+footer{
+  flex: 0 0 auto;
+}
+.app {
+  display: flex;
+    flex-direction: column;
+    height: 100vh;
+}
 .wrapper {
   width: 100%;
   max-width: 1400px;
