@@ -8,7 +8,7 @@ export const setFeature = (title: keyof IFeatures, value: boolean | IUser): IAct
   payload: { [title]: value },
 });
 
-export const resetVoting = (value: null = null): IAction<null> => ({
+export const resetVoting = (value = null): IAction<null> => ({
   type: RESET_VOTING,
   payload: { value },
 });

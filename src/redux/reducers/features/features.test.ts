@@ -1,11 +1,6 @@
 import { defaultFeaturesState, featuresReducer } from './featuresReducer';
 import { IUser, GameRole } from '../../../types';
-import {
-  SET_FEATURE,
-  setFeature,
-  RESET_VOTING,
-  resetVoting,
-} from './featuresActions';
+import { SET_FEATURE, setFeature, RESET_VOTING, resetVoting } from './featuresActions';
 
 const testUser: IUser = {
   id: '1111',

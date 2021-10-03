@@ -75,7 +75,7 @@ export const Connect = (): void => {
         }
         break;
       case WSMethods.resetKickUserVoting:
-        dispatch(resetVoting(null));
+        dispatch(resetVoting());
         dispatch(setOpen(kickVoting, false));
         break;
       case WSMethods.attachmentMemberRequest:

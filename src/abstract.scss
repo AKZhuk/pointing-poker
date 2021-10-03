@@ -11,38 +11,3 @@ $secondary: #16a085;
   transition: all 0.5s ease-in-out;
 }
 
-.row {
-  width: 100%;
-  @include flexbox(space-between, center);
-  gap: 10px;
-}
-
-.col-center {
-  margin-top: 25px;
-  @include flexbox(space-between, center, column);
-  gap: 15px;
-}
-
-.center {
-  @include flexbox(center);
-}
-
-.card-container {
-  width: fit-content;
-  min-height: 100px;
-  padding-bottom: 20px;
-  @include flexbox(normal, normal, row, wrap);
-}
-
-.active {
-  background-color: #60dabf !important;
-}
-
-.abstract-icon {
-  width: 50px;
-  height: 50px;
-}
-
-.card-content{
-  word-break: break-word;
-}

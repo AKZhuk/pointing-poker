@@ -2,8 +2,8 @@ import { FormControl, InputLabel, MenuItem, Select, TextField } from '@material-
 import { ChangeEvent } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { setSetting } from '../../redux/reducers/room/roomActions';
-import { IGameSettings, IRootState } from '../../types';
-import GameCards from '../shared/GameCards/GameCards';
+import { IGameSettings, IRootState, IScoreTypes } from '../../types';
+import GameCards, { scoreTypes } from '../shared/GameCards/GameCards';
 import Switcher from '../shared/Switcher';
 import Title from '../shared/Title';
 
@@ -12,7 +12,13 @@ const GameSettings = (): JSX.Element => {
   const settings = useSelector((state: IRootState) => state.room.gameSettings);
 
   const handleChange = (event: ChangeEvent<any>) => {
-    const value = event.target.type === 'checkbox' ? (event.target as HTMLInputElement).checked : event.target.value;
+    const value: keyof IScoreTypes =
+      event.target.type === 'checkbox' ? (event.target as HTMLInputElement).checked : event.target.value;
+    if (event.target.name === 'scoreType') {
+      if (settings.cards > scoreTypes[value].length) {
+        dispatch(setSetting('cards', scoreTypes[value].length));
+      }
+    }
     dispatch(setSetting(event.target.name as keyof IGameSettings, value));
   };
 
