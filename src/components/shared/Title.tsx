@@ -10,7 +10,7 @@ const Title = ({
   align: 'center' | 'left';
 }): JSX.Element => {
   return (
-    <Typography variant={variant} gutterBottom align={align} className="title">
+    <Typography variant={variant} gutterBottom align={align} className="title" data-testid="Title-test">
       {text}
     </Typography>
   );

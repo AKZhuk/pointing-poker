@@ -1,4 +1,4 @@
-import { GameRole, IRoom, IRoomAction, Routes } from '../../../types';
+import { GameRole, IRoom, IRoomAction, Routes, IAction } from '../../../types';
 import { ADD_CARD, ADD_ROOM, SET_ROOM, SET_SETTING } from './roomActions';
 
 export const defaultRoomState: IRoom = {
@@ -34,7 +34,7 @@ export const defaultRoomState: IRoom = {
   chatMessages: [],
 };
 
-export const roomReducer = (state: IRoom = defaultRoomState, action: IRoomAction): IRoom => {
+export const roomReducer = (state: IRoom = defaultRoomState, action: IRoomAction | IAction<string | boolean | null>): IRoom => {
   switch (action.type) {
     case ADD_ROOM:
       return { ...state, ...action.payload };

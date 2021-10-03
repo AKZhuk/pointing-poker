@@ -1,11 +1,11 @@
 import { IAction, IPopUp } from '../../../types';
 import { SET_OPEN } from './popUpActions';
 
-export const defaultUserState: IPopUp = {
+export const defaultPopUpState: IPopUp = {
   isOpen: false,
 };
 
-export const popUpReducer = (state = defaultUserState, action: IAction<IPopUp>): IPopUp => {
+export const popUpReducer = (state = defaultPopUpState, action: IAction<boolean>): IPopUp => {
   switch (action.type) {
     case SET_OPEN:
       return { ...state, ...action.payload };

@@ -18,14 +18,14 @@ const AddMember = ({ member, popUpName }: KickMemberProps): JSX.Element => {
     if (role === scrumMaster) {
       SendWSMessage('rejectLogin', roomKey, member);
       dispatch(setOpen(popUpName, false));
-      dispatch(resetVoting(null));
+      dispatch(resetVoting());
     }
   };
   const handleYesButton = () => {
     if (role === scrumMaster) {
       SendWSMessage('addMember', roomKey, member);
       dispatch(setOpen(popUpName, false));
-      dispatch(resetVoting(null));
+      dispatch(resetVoting());
     }
   };
   return (

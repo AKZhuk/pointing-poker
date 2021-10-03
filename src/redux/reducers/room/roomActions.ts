@@ -20,6 +20,7 @@ export const setSetting = <T>(name: keyof IGameSettings, value: T): IAction<T> =
   payload: { [name]: value },
 });
 
-export const addCard = (): { type: string } => ({
+export const addCard = (value = null):  IAction<null> => ({
   type: ADD_CARD,
+  payload: { card: value},
 });

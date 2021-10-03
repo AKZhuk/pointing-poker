@@ -1,4 +1,4 @@
-import { connectionReducer } from './connectionReducer';
+import { connectionReducer, defaultConnectionState } from './connectionReducer';
 import { SET_CONNECTION, setConnection } from './connectionActions';
 
 describe('Test for connection actions', () => {
@@ -10,9 +10,8 @@ describe('Test for connection actions', () => {
 
 describe('Tests for "connectionReducer"', () => {
   it('"connectionReducer" should work correctly with "setConnection" action', () => {
-    const state = { url: 'hello' };
     const action = setConnection('url', 'test');
-    const result = { url: 'test' };
-    expect(connectionReducer(state, action)).toStrictEqual(result);
+    const result = { url: 'test', isConnected: false, isGoToLobby: false };
+    expect(connectionReducer(defaultConnectionState, action)).toStrictEqual(result);
   });
 });

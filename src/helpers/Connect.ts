@@ -5,7 +5,7 @@ import { setConnection } from '../redux/reducers/connection/connectionActions';
 import { defaultRoomState } from '../redux/reducers/room/roomReducer';
 import { IRootState, PopUpNames, GameRole } from '../types';
 import { creatLinkFromKey } from './helpers';
-import { addKickMember, addMemberToRoom, resetVoting } from '../redux/reducers/features/featuresActions';
+import { setFeature, resetVoting } from '../redux/reducers/features/featuresActions';
 import { setOpen } from '../redux/reducers/popUp/popUpActions';
 
 export const socket = new WebSocket(`wss://${process.env.BASE_URL}`);
@@ -71,7 +71,7 @@ export const Connect = (): void => {
         break;
       case WSMethods.startKickUserVoting:
         if (!isVoted && user.id !== res.data.id) {
-          dispatch(addKickMember('kickMember', res.data));
+          dispatch(setFeature('kickMember', res.data));
         }
         break;
       case WSMethods.resetKickUserVoting:
@@ -80,7 +80,7 @@ export const Connect = (): void => {
         break;
       case WSMethods.attachmentMemberRequest:
         if (user.role === GameRole.scrumMaster) {
-          dispatch(addMemberToRoom('candidate', res.data));
+          dispatch(setFeature('candidate', res.data));
           dispatch(setOpen(askForJoinMemberPopUp, true));
         }
         break;
