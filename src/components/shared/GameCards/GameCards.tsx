@@ -1,11 +1,11 @@
 import { ButtonBase, Fab } from '@material-ui/core';
-import { useSelector, useDispatch } from 'react-redux';
 import AddIcon from '@material-ui/icons/Add';
 import RemoveIcon from '@material-ui/icons/Remove';
+import { useSelector, useDispatch } from 'react-redux';
 import { SendWSMessage } from '../../../helpers/WebSocketApi';
 import { IRootState, IScoreTypes } from '../../../types';
-import GameCard from './GameCard';
 import { addCard, removeCard } from '../../../redux/reducers/room/roomActions';
+import GameCard from './GameCard';
 
 export const scoreTypes: IScoreTypes = {
   storyPoint: ['coffee', 'unknown', '1', '2', '3', '5', '8', '13', '20', '40', '100', 'infinity'],

@@ -1,4 +1,6 @@
 import { Box, Button, Container, TextField, Typography } from '@material-ui/core';
+import { Skeleton } from '@material-ui/lab';
+import { Img } from 'react-image';
 import { useDispatch } from 'react-redux';
 import { ChangeEvent, useEffect, useState } from 'react';
 import { setConnection } from '../../redux/reducers/connection/connectionActions';
@@ -64,7 +66,15 @@ const FirstPage = (): JSX.Element => {
   return (
     <>
       <div className="firstPage" data-testid="FirstPage-test">
-        <img className="firstPage__logo" src={firstPageLogo} alt="logo-404" width="500" height="405" />
+        <Img
+          className="firstPage__logo"
+          src={firstPageLogo}
+          loader={<Skeleton variant="rect" className="firstPage__logo" height={404} animation="wave" />}
+          unloader={<Skeleton variant="rect" className="firstPage__logo" height={404} animation="wave" />}
+          width="500"
+          height="auto"
+          alt="logo-404"
+        />
         <Container>
           <Title variant="h3" text="Start your planning:" align="left" />
           <Typography variant="overline" gutterBottom>

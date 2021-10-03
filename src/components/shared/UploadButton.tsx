@@ -24,10 +24,9 @@ const UploadButton = ({ fileHandler, accept, isDisabled }: IUploadButtonProps): 
   const userid = useSelector((state: IRootState) => state.user.id);
   const handleChange = async (e: ChangeEvent<HTMLInputElement>): Promise<void> => {
     if (accept === 'avatar') {
-      const resp = await uploadAvatar(e.target, userid);
-      console.log(resp.result);
-      if (resp.result) fileHandler(`${SERVER_URL}/${resp.result}`);
-      else console.error(resp.error);
+      const res = await uploadAvatar(e.target, userid);
+      if (res.result) fileHandler(`${SERVER_URL}/${res.result}`);
+      else console.error(res.error);
     } else {
       const file: File = (e.target.files as FileList)[0];
       const reader = new FileReader();
