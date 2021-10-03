@@ -1,7 +1,7 @@
+import { Collapse } from '@material-ui/core';
 import { useSelector } from 'react-redux';
 import { Dispatch, SetStateAction, useState } from 'react';
 import { TransitionGroup } from 'react-transition-group';
-import { Collapse } from '@material-ui/core';
 import { GameRole, IIssue, IRootState } from '../../../types';
 import CreateIssue from './CreateIssue';
 import IssueCard from './IssueCard';
@@ -13,8 +13,7 @@ const Issues = ({ className }: { className?: string }): JSX.Element => {
     room: { issues },
     user,
   } = useSelector((state: IRootState) => state);
-  const [editableIssue, setEditableIssue]: // | [undefined, Dispatch<SetStateAction<undefined>>]
-  [IIssue, Dispatch<SetStateAction<IIssue>>] = useState(issues[0]);
+  const [editableIssue, setEditableIssue]: [IIssue, Dispatch<SetStateAction<IIssue>>] = useState(issues[0]);
   const [currentIssue, setCurrentIssue] = useState<IIssue | null>(null);
 
   const handleCurrentIssue = (issue: IIssue) => {
