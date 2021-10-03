@@ -10,7 +10,7 @@ export const defaultUserState: IUser = {
   role: GameRole.scrumMaster,
 };
 
-export const userReducer = (state = defaultUserState, action: IAction<IUser>): IUser => {
+export const userReducer = (state = defaultUserState, action: IAction<string>): IUser => {
   switch (action.type) {
     case SET_USER:
       return { ...state, ...action.payload };

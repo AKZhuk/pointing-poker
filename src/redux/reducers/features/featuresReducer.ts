@@ -1,5 +1,5 @@
 import { IAction, IUser, IFeatures } from '../../../types';
-import { ADD_KICK_MEMBER, ADD_ROOM_MEMBER, RESET_VOTING, SET_VOTE } from './featuresActions';
+import { SET_FEATURE, RESET_VOTING } from './featuresActions';
 
 export const defaultFeaturesState: IFeatures = {
   isVoted: false,
@@ -7,14 +7,10 @@ export const defaultFeaturesState: IFeatures = {
   candidate: null,
 };
 
-export const featuresReducer = (state = defaultFeaturesState, action: IAction<IUser>): IFeatures => {
+export const featuresReducer = (state = defaultFeaturesState, action: IAction<IUser | boolean | null>): IFeatures => {
   switch (action.type) {
-    case SET_VOTE:
+    case SET_FEATURE:
       return { ...state, ...action.payload };
-    case ADD_KICK_MEMBER:
-      return { ...state, kickMember: { ...action.payload.kickMember } };
-    case ADD_ROOM_MEMBER:
-      return { ...state, candidate: { ...action.payload.candidate } };
     case RESET_VOTING:
       return { ...state, ...defaultFeaturesState };
     default:
