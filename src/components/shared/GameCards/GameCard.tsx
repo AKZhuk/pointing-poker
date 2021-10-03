@@ -23,7 +23,7 @@ const GameCard = ({
       <Card elevation={8} className={large ? 'game-card_large game-card_front' : 'game-card game-card_front'}>
         <Img
           className="game-card__img"
-          src={`./assets/d${scoreType}/${value}.png`}
+          src={`./assets/${scoreType}/${value}.png`}
           loader={<Skeleton variant="rect" height="100%" animation="wave" />}
           unloader={<Skeleton variant="rect" height="100%" animation="wave" />}
           alt={`card ${value}`}
