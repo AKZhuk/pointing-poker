@@ -11,7 +11,7 @@ const Header = (): JSX.Element => (
     <AppBar>
       <div className="wrapper">
         <Toolbar>
-          <img className="header__logo" src={logo} alt="logo" />
+          <img className="header__logo" src={logo} alt="logo" width="80" height="80" />
           <Typography variant="h6">Plain poker</Typography>
         </Toolbar>
       </div>

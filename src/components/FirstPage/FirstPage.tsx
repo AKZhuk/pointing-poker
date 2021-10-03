@@ -64,7 +64,7 @@ const FirstPage = (): JSX.Element => {
   return (
     <>
       <div className="firstPage" data-testid="FirstPage-test">
-        <img className="firstPage__logo" src={firstPageLogo} alt="logo-404" />
+        <img className="firstPage__logo" src={firstPageLogo} alt="logo-404" width="500" height="405" />
         <Container>
           <Title variant="h3" text="Start your planning:" align="left" />
           <Typography variant="overline" gutterBottom>
