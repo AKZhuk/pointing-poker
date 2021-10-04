@@ -1,4 +1,4 @@
-import { ButtonBase, Collapse } from '@material-ui/core';
+import { ButtonBase, Collapse, Snackbar } from '@material-ui/core';
 import { useSelector } from 'react-redux';
 import { useState } from 'react';
 import { Alert } from '@material-ui/lab';
@@ -15,6 +15,7 @@ import RoundControlPanel from './RoundControlPanel';
 import Votes from './Votes';
 import './Game.scss';
 import Statistics from '../shared/Statistic/Statistics';
+import Notification from '../shared/Notification';
 
 const Game = (): JSX.Element => {
   const { deleteMemberPopUp } = PopUpNames;
@@ -42,9 +43,6 @@ const Game = (): JSX.Element => {
       SendWSMessage('setVoice', roomKey, { issueId: activeIssueId, userId: id, voice: cardValue });
     } else {
       setIsVoted(true);
-      setTimeout(() => {
-        setIsVoted(false);
-      }, 5000);
     }
   };
 
@@ -72,9 +70,8 @@ const Game = (): JSX.Element => {
       </div>
       {(role === GameRole.player || isScrumMasterCanVote()) && (
         <>
-          <div className="message-area">{isVoted && <Alert severity="warning">The round is over!</Alert>}</div>
           <Title text="Make your choise" align="center" variant="h5" />
-          <div className="center">
+          <section className="center">
             {scoreTypes[scoreType].slice(0, cards).map(card => (
               <ButtonBase
                 key={card + scoreType}
@@ -84,12 +81,13 @@ const Game = (): JSX.Element => {
                 <GameCard value={card} large />
               </ButtonBase>
             ))}
-          </div>
+          </section>
         </>
       )}
       <PopUp name={deleteMemberPopUp}>
         <KickMember member={kickUser} popUpName={deleteMemberPopUp} />
       </PopUp>
+      <Notification text="The round is over!" isOpen={isVoted} onClose={() => setIsVoted(false)} />
     </>
   );
 };

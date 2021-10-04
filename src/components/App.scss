@@ -16,13 +16,13 @@ main {
 header {
   flex: 0 0 auto;
 }
-footer{
+footer {
   flex: 0 0 auto;
 }
 .app {
   display: flex;
-    flex-direction: column;
-    height: 100vh;
+  flex-direction: column;
+  height: 100vh;
 }
 .wrapper {
   width: 100%;
@@ -127,7 +127,7 @@ footer{
   height: 50px;
 }
 
-.card-content{
+.card-content {
   word-break: break-word;
 }
 
@@ -137,5 +137,5 @@ footer{
   display: block;
 }
 .issue-formSelect {
-  width: 80px;
+  width: 100px;
 }

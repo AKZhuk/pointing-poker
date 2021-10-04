@@ -5,8 +5,8 @@ const Title = ({
   variant,
   align,
 }: {
-  text: string;
-  variant: 'h3' | 'h4' | 'h5';
+  text: string | undefined;
+  variant: 'h3' | 'h4' | 'h5' | 'caption';
   align: 'center' | 'left';
 }): JSX.Element => {
   return (

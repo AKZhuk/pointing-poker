@@ -10,13 +10,10 @@
   cursor: pointer;
   &-content {
     width: 100%;
-    padding: 8px 15px !important;
+    gap: 12px;
+    padding: 8px 0 8px 12px !important;
     @include flexbox(space-between, center, row, nowrap);
   }
-}
-
-.card_active {
-  background-color: $secondary !important;
 }
 
 .button-wrapper {

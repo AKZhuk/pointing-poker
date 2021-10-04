@@ -17,10 +17,6 @@
   }
 }
 
-.message-area {
-  min-height: 50px;
-}
-
 .round_controlPanel {
   height: 150px;
   @include flexbox(space-between, center, column);

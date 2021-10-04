@@ -10,7 +10,7 @@ import IssueDetails from './IssueDetails';
 
 const Issues = ({ className }: { className?: string }): JSX.Element => {
   const {
-    room: { issues },
+    room: { issues, route },
     user,
   } = useSelector((state: IRootState) => state);
   const [editableIssue, setEditableIssue]: [IIssue, Dispatch<SetStateAction<IIssue>>] = useState(issues[0]);
@@ -27,7 +27,10 @@ const Issues = ({ className }: { className?: string }): JSX.Element => {
           user.role === GameRole.scrumMaster ? (
             <Collapse key={issue.id}>
               <section>
-                <IssueCard key={issue.id} issue={issue} editable removable setEditableIssue={setEditableIssue} />
+                {route === 'game' && <IssueCard key={issue.id} issue={issue} removable />}
+                {route === 'lobby' && (
+                  <IssueCard key={issue.id} issue={issue} setEditableIssue={setEditableIssue} editable removable />
+                )}
               </section>
             </Collapse>
           ) : (

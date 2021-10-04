@@ -70,9 +70,9 @@ const IssueCard = ({
   return (
     <Card elevation={4} className={activeIssueId === issue?.id ? 'card_active' : 'card'} onClick={handleClick}>
       <CardContent className="card-content">
-        <Typography variant="h6" component="h3">
+        <Typography variant="h6" component="h6">
           {issue ? issue.title : 'Create issue'}
-          <Typography variant="caption" display="block" gutterBottom>
+          <Typography variant="caption" display="block">
             {issue?.priority}
           </Typography>
         </Typography>
@@ -88,6 +88,7 @@ const IssueCard = ({
                   onChange={handleSelectChange}
                   label="finalScore"
                 >
+                  <MenuItem value="-">-</MenuItem>
                   {scoreTypes[scoreType].slice(0, cards).map(elem => (
                     <MenuItem key={elem} value={elem}>
                       {elem}
@@ -96,14 +97,14 @@ const IssueCard = ({
                 </Select>
               </FormControl>
             ) : (
-              <Typography variant="body1" display="inline">{`FS: ${issue.finalScore}`}</Typography>
+              <Typography variant="button">
+                Score: <span className="title">{issue.finalScore}</span>
+              </Typography>
             ))}
           {editable && (
-            <>
-              <IconButton onClick={editHandler}>
-                <EditIcon />
-              </IconButton>
-            </>
+            <IconButton onClick={editHandler}>
+              <EditIcon />
+            </IconButton>
           )}
           {removable && (
             <IconButton

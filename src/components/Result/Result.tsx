@@ -22,7 +22,7 @@ const Result = (): JSX.Element => {
     user,
   } = useSelector((state: IRootState) => state);
 
-  const calculateIssueStat = (issueId: string, cardValue: number) => {
+  const calculateIssueStat = (issueId: string, cardValue: string) => {
     const stat =
       (vote[issueId]?.filter(data => data.voice === cardValue)?.length /
         (members.length + (ScrumMasterAsPlayer ? 1 : 0))) *
@@ -35,6 +35,7 @@ const Result = (): JSX.Element => {
     issues.forEach(issue => {
       const stat: any = {};
       stat.issue = issue.title;
+      stat['Final Score'] = issue.finalScore;
       scoreTypes[scoreType].slice(0, cards).forEach(x => {
         // вынести расчет на сервер(дублируется в statistic)
         stat[`${x} of ${scoreType}`] = calculateIssueStat(issue.id, x);

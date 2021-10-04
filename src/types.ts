@@ -78,7 +78,7 @@ export type IPopUp = {
 };
 
 export interface IUploadButtonProps {
-  fileHandler: (data: unknown) => void;
+  fileHandler: (data: any) => void;
   accept: 'avatar' | '.xlsx';
   isDisabled: boolean;
 }

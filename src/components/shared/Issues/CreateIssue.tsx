@@ -61,7 +61,7 @@ const CreateIssue = ({ oldIssue }: { oldIssue?: IIssue }): JSX.Element => {
     title: oldIssue ? oldIssue.title : '',
     link: oldIssue ? oldIssue.link : '',
     priority: oldIssue ? oldIssue.priority : 'Low',
-    finalScore: oldIssue ? oldIssue.finalScore : 'unknown',
+    finalScore: oldIssue ? oldIssue.finalScore : '-',
   });
 
   useEffect(() => {
@@ -84,6 +84,7 @@ const CreateIssue = ({ oldIssue }: { oldIssue?: IIssue }): JSX.Element => {
     const data = parseDataFromExcel(ArrayBuffer);
     data.forEach((importedIssue: any) => {
       importedIssue.id = idGenerator();
+      importedIssue.finalScore = '-';
       SendWSMessage('addIssue', roomKey, importedIssue);
     });
     dispatch(setOpen('CreateIssuePopUp', false));
@@ -200,7 +201,7 @@ const CreateIssue = ({ oldIssue }: { oldIssue?: IIssue }): JSX.Element => {
                   >
                     Export template
                   </Button>
-                  <UploadButton fileHandler={importIssues} accept=".xlsx" />
+                  <UploadButton fileHandler={importIssues} accept=".xlsx" isDisabled={false} />
                 </div>
               </AccordionDetails>
             </Accordion>
