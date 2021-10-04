@@ -20,15 +20,25 @@ const GameCard = ({
 
   return (
     <ReactCardFlip isFlipped={isFlip} flipDirection="horizontal" flipSpeedBackToFront={1} flipSpeedFrontToBack={1}>
-      <Card elevation={8} className={large ? 'game-card_large game-card_front' : 'game-card game-card_front'}>
-        <Img
-          className="game-card__img"
-          src={`./assets/${scoreType}/${value}.png`}
-          loader={<Skeleton variant="rect" height="100%" animation="wave" />}
-          unloader={<Skeleton variant="rect" height="100%" animation="wave" />}
-          alt={`card ${value}`}
-        />
-      </Card>
+      <Img
+        className={large ? 'game-card_large game-card_front elevation-8' : 'game-card game-card_front elevation-8'}
+        src={`./assets/${scoreType}/${value}.png`}
+        loader={
+          <Skeleton
+            variant="rect"
+            animation="wave"
+            className={large ? 'game-card_large game-card_front' : 'game-card game-card_front'}
+          />
+        }
+        unloader={
+          <Skeleton
+            variant="rect"
+            animation="wave"
+            className={large ? 'game-card_large game-card_front' : 'game-card game-card_front'}
+          />
+        }
+        alt={`card ${value}`}
+      />
       <Card elevation={8} className={large ? 'game-card_large' : 'game-card'}>
         <img className="game-card__img" src={cardBack} alt="card back img" />
       </Card>

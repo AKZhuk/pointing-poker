@@ -34,9 +34,7 @@ const RoundControlPanel = (): JSX.Element => {
         variant="contained"
         color="primary"
         disabled={!game.activeIssueId}
-        onClick={() => {
-          SendWSMessage('setActiveIssue', roomKey, {});
-        }}
+        onClick={() => SendWSMessage('setActiveIssue', roomKey, {})}
       >
         Next issue
       </Button>

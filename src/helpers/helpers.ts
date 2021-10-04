@@ -43,5 +43,5 @@ export const exportToExcel = (data: unknown[], headers?: string[]): void => {
   const wb = XLSX.utils.book_new();
   const ws = XLSX.utils.json_to_sheet(data, { header: headers });
   XLSX.utils.book_append_sheet(wb, ws, 'result');
-  XLSX.writeFile(wb, 'gameResult.xlsx');
+  XLSX.writeFile(wb, 'excel.xlsx');
 };

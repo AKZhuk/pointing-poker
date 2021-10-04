@@ -20,7 +20,6 @@ const Game = (): JSX.Element => {
   const { deleteMemberPopUp } = PopUpNames;
   const [kickUser, setKickUser] = useState<IUser | null>(null);
   const [isVoted, setIsVoted] = useState(false);
-  const [pickedCard, setPickedCard] = useState<null | number>(null);
 
   const {
     room: {
@@ -35,19 +34,26 @@ const Game = (): JSX.Element => {
     return role === GameRole.scrumMaster && ScrumMasterAsPlayer;
   };
 
-  const handleUserVoice = (cardValue: number) => {
+  const handleUserVoice = (cardValue: string) => {
     const canIChangeVote = changingCardInRoundEnd || !cardsIsFlipped;
     const userVoice = vote[activeIssueId].find(voice => voice.userId === id);
     const isTimeOver = remainingRoundTime === '00:00';
     if ((userVoice === undefined && !isTimeOver && !cardsIsFlipped) || (canIChangeVote && !isTimeOver)) {
       SendWSMessage('setVoice', roomKey, { issueId: activeIssueId, userId: id, voice: cardValue });
-      setPickedCard(cardValue);
     } else {
       setIsVoted(true);
       setTimeout(() => {
         setIsVoted(false);
       }, 5000);
     }
+  };
+
+  const findUserVoice = () => {
+    let voice: string | undefined;
+    if (activeIssueId) {
+      voice = vote[activeIssueId].find(elem => elem.userId === id)?.voice;
+    }
+    return voice;
   };
 
   return (
@@ -71,8 +77,8 @@ const Game = (): JSX.Element => {
           <div className="center">
             {scoreTypes[scoreType].slice(0, cards).map(card => (
               <ButtonBase
-                key={card}
-                className={card === pickedCard ? 'picked' : ''}
+                key={card + scoreType}
+                className={card === findUserVoice() ? 'picked' : ''}
                 onClick={() => handleUserVoice(card)}
               >
                 <GameCard value={card} large />

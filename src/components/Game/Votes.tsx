@@ -21,12 +21,7 @@ const Votes = ({ setKickUser }: { setKickUser: Dispatch<IUser | null> }): JSX.El
 
   const findUserVoice = (userId: string): string => {
     const voice = activeIssueId !== '' && vote[activeIssueId].find(elem => elem.userId === userId);
-    if (voice) {
-      if (voice.voice > 0) return `${voice.voice} ${scoreType}`;
-      if (voice.voice === -1) return `coffee time`;
-      if (voice.voice === -2) return `unclear`;
-    }
-    return 'In progress';
+    return voice ? `${voice.voice} ${scoreType}` : 'In progress';
   };
 
   return (
