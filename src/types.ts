@@ -120,7 +120,7 @@ export interface IRoom {
   route: keyof typeof Routes;
   game: {
     activeIssueId: string;
-    vote: { [key: string]: { userId: string; voice: number }[] };
+    vote: { [key: string]: { userId: string; voice: string }[] };
     remainingRoundTime: string;
     cardsIsFlipped: boolean;
   };

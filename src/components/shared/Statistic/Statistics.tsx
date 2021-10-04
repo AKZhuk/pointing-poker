@@ -14,7 +14,7 @@ const Statistics = ({ issueId, isFlipped = true }: { issueId: string; isFlipped?
     },
   } = useSelector((state: IRootState) => state);
 
-  const calculateIssueStat = (cardValue: number) => {
+  const calculateIssueStat = (cardValue: string) => {
     // вынести расчет на сервер
     const stat =
       (vote[issueId]?.filter(data => data.voice === cardValue)?.length /
@@ -28,7 +28,7 @@ const Statistics = ({ issueId, isFlipped = true }: { issueId: string; isFlipped?
       <Title text="Statistic:" variant="h5" align="left" />
       <div className="card-container">
         {scoreTypes[scoreType].slice(0, cards).map(elem => (
-          <section key={elem} className="StatisticCard">
+          <section key={elem + scoreType} className="StatisticCard">
             <GameCard value={elem} isFlip={!isFlipped} />
             {isFlipped && (
               <div className="StatisticCard_result">

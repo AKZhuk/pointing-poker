@@ -34,7 +34,7 @@ const GameCards = ({ isGame = false }: { isGame?: boolean }): JSX.Element => {
       {scoreTypes[scoreType].slice(0, cards).map(elem =>
         isGame ? (
           <ButtonBase
-            key={elem}
+            key={elem + scoreType}
             onClick={() => {
               SendWSMessage('setVoice', roomKey, { issueId: activeIssueId, userId: user.id, voice: elem });
             }}
@@ -42,7 +42,7 @@ const GameCards = ({ isGame = false }: { isGame?: boolean }): JSX.Element => {
             <GameCard value={elem} large />
           </ButtonBase>
         ) : (
-          <GameCard key={elem} value={elem} large />
+          <GameCard key={elem + scoreType} value={elem} large />
         ),
       )}
       {!isGame && (
