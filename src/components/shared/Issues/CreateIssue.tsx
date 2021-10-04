@@ -61,6 +61,7 @@ const CreateIssue = ({ oldIssue }: { oldIssue?: IIssue }): JSX.Element => {
     title: oldIssue ? oldIssue.title : '',
     link: oldIssue ? oldIssue.link : '',
     priority: oldIssue ? oldIssue.priority : 'Low',
+    finalScore: oldIssue ? oldIssue.finalScore : 'unknown',
   });
 
   useEffect(() => {

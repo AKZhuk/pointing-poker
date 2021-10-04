@@ -101,6 +101,7 @@ export interface IIssue {
   title: string;
   priority: string;
   link: string;
+  finalScore: string;
 }
 
 export interface IRootState {
