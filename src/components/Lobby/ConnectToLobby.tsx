@@ -69,10 +69,18 @@ const ConnectToLobby = (): JSX.Element => {
   }, [firstNameError, isValidationError]);
 
   const validateInput = (inputName: string, value: string) => {
-    if (inputName === 'firstName' && value.length > 0) {
-      setFirstNameError(' ');
+    if (inputName === 'firstName' && value.length > 0 && value.length < 3) {
+      setFirstNameError('Имя не может быть короче 3 символов');
     } else if (inputName === 'firstName' && value.length === 0) {
       setFirstNameError('Имя не может быть пустым');
+    } else if (inputName === 'firstName' && /^-?\d*\.?\d*$/.test(value)) {
+      setFirstNameError('Имя не может состоять только из цифр');
+    } else if (inputName === 'firstName' && /[ ]/.test(value)) {
+      setFirstNameError('Имя не может cодержать пробелы');
+    } else if (inputName === 'firstName' && /[$&+,:;=?@#~|/'"`<>.^*()%!_-]/.test(value)) {
+      setFirstNameError('Имя не может cодержать сервисные символы');
+    } else if (inputName === 'firstName' && value.length > 3) {
+      setFirstNameError(' ');
     }
   };
 
