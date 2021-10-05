@@ -39,6 +39,11 @@
   gap: 10px;
 
   &__links {
+    & a {
+      @extend %transistion;
+    }
+    padding: 0;
+    margin: 0;
     @include flexbox(normal, normal, column);
   }
 

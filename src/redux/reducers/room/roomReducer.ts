@@ -1,5 +1,5 @@
 import { GameRole, IRoom, IRoomAction, Routes, IAction } from '../../../types';
-import { ADD_CARD, ADD_ROOM, REMOVE_CARD, SET_ROOM, SET_SETTING } from './roomActions';
+import { ADD_CARD, ADD_ROOM, REMOVE_CARD, SET_NOTIFICATION, SET_ROOM, SET_SETTING } from './roomActions';
 
 export const defaultRoomState: IRoom = {
   roomKey: '',
@@ -31,6 +31,7 @@ export const defaultRoomState: IRoom = {
     cardsIsFlipped: false,
   },
   chatMessages: [],
+  notification: { text: '', isOpen: false, severity: 'info' },
 };
 
 export const roomReducer = (
@@ -48,6 +49,8 @@ export const roomReducer = (
       return { ...state, gameSettings: { ...state.gameSettings, cards: state.gameSettings.cards + 1 } };
     case REMOVE_CARD:
       return { ...state, gameSettings: { ...state.gameSettings, cards: state.gameSettings.cards - 1 } };
+    case SET_NOTIFICATION:
+      return { ...state, ...action.payload };
     default:
       return state;
   }

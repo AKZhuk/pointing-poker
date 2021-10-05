@@ -1,10 +1,11 @@
-import { IGameSettings, IAction, IRoom, IRoomAction } from '../../../types';
+import { IGameSettings, IAction, IRoom, IRoomAction, INotification } from '../../../types';
 
 export const ADD_ROOM = 'ADD_ROOM';
 export const SET_ROOM = 'SET_ROOM';
 export const SET_SETTING = 'SET_SETTING';
 export const ADD_CARD = 'ADD_CARD';
 export const REMOVE_CARD = 'REMOVE_CARD';
+export const SET_NOTIFICATION = 'SET_NOTIFICATION';
 
 export const addRoom = (value: IRoom): IRoomAction => ({
   type: ADD_ROOM,
@@ -29,4 +30,9 @@ export const addCard = (value = null): IAction<null> => ({
 export const removeCard = (value = null): IAction<null> => ({
   type: REMOVE_CARD,
   payload: { card: value },
+});
+
+export const setNotification = (notification: INotification): IAction<INotification> => ({
+  type: SET_NOTIFICATION,
+  payload: { notification },
 });

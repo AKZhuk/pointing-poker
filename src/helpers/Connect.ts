@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { RECONNECT_TIMEOUT, WSMethods } from './constants';
-import { addRoom, setRoom } from '../redux/reducers/room/roomActions';
+import { addRoom, setNotification, setRoom } from '../redux/reducers/room/roomActions';
 import { setConnection } from '../redux/reducers/connection/connectionActions';
 import { defaultRoomState } from '../redux/reducers/room/roomReducer';
 import { IRootState, PopUpNames, GameRole } from '../types';
@@ -83,6 +83,9 @@ export const Connect = (): void => {
           dispatch(setFeature('candidate', res.data));
           dispatch(setOpen(askForJoinMemberPopUp, true));
         }
+        break;
+      case WSMethods.showNotification:
+        dispatch(setNotification(res.data));
         break;
       default:
         console.error(`Неизвестный ивент`);

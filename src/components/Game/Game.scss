@@ -16,8 +16,3 @@
     top: 200px;
   }
 }
-
-.round_controlPanel {
-  height: 150px;
-  @include flexbox(space-between, center, column);
-}

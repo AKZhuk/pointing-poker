@@ -13,12 +13,11 @@ main {
   padding: 0 80px;
   flex: 1 0 auto;
 }
-header {
-  flex: 0 0 auto;
-}
+header,
 footer {
   flex: 0 0 auto;
 }
+
 .app {
   display: flex;
   flex-direction: column;
@@ -138,4 +137,8 @@ footer {
 }
 .issue-formSelect {
   width: 100px;
+}
+
+li {
+  list-style-type: none;
 }
