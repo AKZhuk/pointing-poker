@@ -8,7 +8,7 @@ import { addCard, removeCard } from '../../../redux/reducers/room/roomActions';
 import GameCard from './GameCard';
 
 export const scoreTypes: IScoreTypes = {
-  storyPoint: ['coffee', 'unknown', '1', '2', '3', '5', '8', '13', '20', '40', '100', 'infinity'],
+  storyPoint: ['unknown', 'coffee', '1', '2', '3', '5', '8', '13', '20', '40', '100', 'infinity'],
   'T-shirts/GameOfThrones': ['unknown', 'XXS', 'XS', 'S', 'M', 'L', 'XL'],
   'T-shirts/StarWars': ['unknown', 'XXS', 'XS', 'S', 'M', 'L', 'XL'],
   fibonacci: ['unknown', '0', '1', '3', '5', '8', '13', '21', '34', '55', '89', 'infinity'],

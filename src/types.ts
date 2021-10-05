@@ -78,7 +78,7 @@ export type IPopUp = {
 };
 
 export interface IUploadButtonProps {
-  fileHandler: (data: unknown) => void;
+  fileHandler: (data: any) => void;
   accept: 'avatar' | '.xlsx';
   isDisabled: boolean;
 }
@@ -101,6 +101,7 @@ export interface IIssue {
   title: string;
   priority: string;
   link: string;
+  finalScore: string;
 }
 
 export interface IRootState {
@@ -125,6 +126,7 @@ export interface IRoom {
     cardsIsFlipped: boolean;
   };
   chatMessages: IChatMessage[];
+  notification: INotification;
 }
 
 export interface IScoreTypes {
@@ -134,6 +136,11 @@ export interface IScoreTypes {
   fibonacci: string[];
 }
 
+export interface INotification {
+  text: string;
+  isOpen: boolean;
+  severity: ISeverity;
+}
 export interface KickMemberProps {
   member: IUser | null;
   popUpName: keyof typeof PopUpNames;
@@ -156,3 +163,5 @@ export interface IssueDetailsProps {
   issue: IIssue | null;
   popUpName: keyof typeof PopUpNames;
 }
+
+export type ISeverity = 'warning' | 'info' | 'success' | 'error';

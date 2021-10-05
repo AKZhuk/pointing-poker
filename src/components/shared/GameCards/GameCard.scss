@@ -44,8 +44,9 @@
 }
 
 .picked .game-card_large,
-.picked > .game-card_large {
-  border: 3px solid #16a085;
+.picked > .game-card_large,
+.card_active {
+  border: 3px solid $secondary;
 }
 
 .game-card__control {

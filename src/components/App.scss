@@ -13,16 +13,15 @@ main {
   padding: 0 80px;
   flex: 1 0 auto;
 }
-header {
+header,
+footer {
   flex: 0 0 auto;
 }
-footer{
-  flex: 0 0 auto;
-}
+
 .app {
   display: flex;
-    flex-direction: column;
-    height: 100vh;
+  flex-direction: column;
+  height: 100vh;
 }
 .wrapper {
   width: 100%;
@@ -127,7 +126,7 @@ footer{
   height: 50px;
 }
 
-.card-content{
+.card-content {
   word-break: break-word;
 }
 
@@ -135,4 +134,11 @@ footer{
   margin: auto;
   max-width: 80%;
   display: block;
+}
+.issue-formSelect {
+  width: 100px;
+}
+
+li {
+  list-style-type: none;
 }

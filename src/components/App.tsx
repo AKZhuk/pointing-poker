@@ -1,4 +1,4 @@
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import FirstPage from './FirstPage/FirstPage';
 import Lobby from './Lobby/Lobby';
 import Game from './Game/Game';
@@ -14,13 +14,16 @@ import VotingListener from './shared/VotingListener';
 import AddMember from './shared/Members/AddMember';
 import './App.scss';
 import { getRoomKeyFromURL } from '../helpers/helpers';
+import Notification from './shared/Notification';
+import { setNotification } from '../redux/reducers/room/roomActions';
 
 const App = (): JSX.Element => {
   const { kickVoting, askForJoinMemberPopUp } = PopUpNames;
   const {
     features,
-    room: { route },
+    room: { route, notification },
   } = useSelector((state: IRootState) => state);
+  const dispatch = useDispatch();
   Connect();
   VotingListener();
   const appNavigator = () => {
@@ -53,6 +56,12 @@ const App = (): JSX.Element => {
       <PopUp name={askForJoinMemberPopUp}>
         <AddMember member={features.candidate} popUpName={askForJoinMemberPopUp} />
       </PopUp>
+      <Notification
+        text={notification.text}
+        isOpen={notification.isOpen}
+        severity={notification.severity}
+        onClose={() => dispatch(setNotification({ text: '', isOpen: false, severity: notification.severity }))}
+      />
     </div>
   );
 };
