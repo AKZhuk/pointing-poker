@@ -46,7 +46,7 @@ const App = (): JSX.Element => {
     }
   };
   return (
-    <div className="app">
+    <>
       <Header />
       <main className="main">{appNavigator()}</main>
       <Footer />
@@ -62,7 +62,7 @@ const App = (): JSX.Element => {
         severity={notification.severity}
         onClose={() => dispatch(setNotification({ text: '', isOpen: false, severity: notification.severity }))}
       />
-    </div>
+    </>
   );
 };
 export default App;

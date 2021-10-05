@@ -2,7 +2,7 @@ import { Snackbar } from '@material-ui/core';
 import { Alert } from '@material-ui/lab';
 import { ISeverity } from '../../types';
 
-function Notification({
+const Notification = ({
   isOpen,
   onClose,
   text,
@@ -12,12 +12,12 @@ function Notification({
   onClose: () => void;
   text: string;
   severity?: ISeverity;
-}): JSX.Element {
+}): JSX.Element => {
   return (
     <Snackbar
       open={isOpen}
       onClose={onClose}
-      autoHideDuration={3000}
+      autoHideDuration={5000}
       anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}
     >
       <Alert severity={severity} variant="filled" onClose={onClose}>
@@ -25,6 +25,6 @@ function Notification({
       </Alert>
     </Snackbar>
   );
-}
+};
 
 export default Notification;

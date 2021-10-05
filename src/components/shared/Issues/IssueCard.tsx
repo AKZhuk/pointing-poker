@@ -97,7 +97,7 @@ const IssueCard = ({
                 </Select>
               </FormControl>
             ) : (
-              <Typography variant="button">
+              <Typography variant="button" className="score">
                 Score: <span className="title">{issue.finalScore}</span>
               </Typography>
             ))}

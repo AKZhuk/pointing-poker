@@ -8,9 +8,9 @@
 
 main {
   width: 100%;
-  max-width: 1400px;
+  max-width: 1440px;
   margin: 40px auto 0 auto;
-  padding: 0 80px;
+  padding: 0 20px;
   flex: 1 0 auto;
 }
 header,
@@ -141,4 +141,8 @@ footer {
 
 li {
   list-style-type: none;
+}
+
+.score {
+  min-width: 110px;
 }
