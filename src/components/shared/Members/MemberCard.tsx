@@ -45,8 +45,13 @@ const MemberCard = ({
   return (
     <Card className="card member" elevation={4}>
       <CardContent className="card-content">
-        <Badge overlap="circular" anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }} variant="dot">
-          <Avatar alt="avatar" src={member.urlToImage} className="avatar">
+        <Badge
+          overlap="circular"
+          className="member__avatar"
+          anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
+          variant="dot"
+        >
+          <Avatar alt="avatar" src={member.urlToImage} className="avatar ">
             {member.firstName[0] + (member.lastName && member.lastName[0])}
           </Avatar>
         </Badge>

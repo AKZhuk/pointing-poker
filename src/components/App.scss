@@ -52,7 +52,7 @@ footer {
 }
 
 .margin-20 {
-  margin-bottom: 20px;
+  margin: 20px 0;
 }
 
 .title {
@@ -121,14 +121,10 @@ footer {
   background-color: #60dabf !important;
 }
 
-.abstract-icon {
-  width: 50px;
-  height: 50px;
-}
-
-.card-content {
-  word-break: break-word;
-}
+// .abstract-icon {
+//   width: 50px;
+//   height: 50px;
+// }
 
 .not-found {
   margin: auto;

@@ -9,8 +9,8 @@
   align-items: center;
   cursor: pointer;
   &-content {
+    word-break: break-word;
     width: 100%;
-    gap: 12px;
     padding: 8px 12px !important;
     @include flexbox(space-between, center, row, nowrap);
   }
@@ -41,6 +41,9 @@
 }
 
 .member {
+  &__avatar {
+    margin-right: 12px;
+  }
   &-name {
     font-weight: 600;
   }
@@ -49,13 +52,17 @@
   }
 }
 .scrumMaster {
-  border-bottom: 2px solid red;
+  border-bottom: 2px solid #ac0800;
 }
 
 .player {
-  border-bottom: 2px solid green;
+  border-bottom: 2px solid $secondary;
 }
 
 .observer {
-  border-bottom: 2px solid yellow;
+  border-bottom: 2px solid #0088a3;
+}
+
+.members-container {
+  max-width: 650px;
 }
