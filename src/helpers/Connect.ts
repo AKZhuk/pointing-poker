@@ -8,7 +8,7 @@ import { creatLinkFromKey } from './helpers';
 import { setFeature, resetVoting } from '../redux/reducers/features/featuresActions';
 import { setOpen } from '../redux/reducers/popUp/popUpActions';
 
-export const socket = new WebSocket(`wss://${process.env.BASE_URL}`);
+export const socket = new WebSocket(`ws://${process.env.BASE_URL}`);
 
 const keepAlive = () => {
   if (socket.readyState === socket.OPEN) {
