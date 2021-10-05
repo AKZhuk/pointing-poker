@@ -1,4 +1,4 @@
-export const SERVER_URL = `http://${process.env.BASE_URL}`;
+export const SERVER_URL = `https://${process.env.BASE_URL}`;
 
 export async function checkRoom(roomKey: string): Promise<boolean> {
   const resp = await fetch(`${SERVER_URL}/checkRoom`, {
