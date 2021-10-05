@@ -21,6 +21,9 @@ const useStyles = makeStyles((theme: Theme) =>
       minWidth: '350px',
       minHeight: '30%',
       maxWidth: '95%',
+      display: 'flex',
+      flexDirection: 'column',
+      justifyContent: 'space-between',
     },
   }),
 );
