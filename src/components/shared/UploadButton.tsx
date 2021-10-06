@@ -25,7 +25,7 @@ const UploadButton = ({ fileHandler, accept, isDisabled }: IUploadButtonProps): 
   const dispatch = useDispatch();
   const classes = useStyles();
   const extentionsRegExps = {
-    img: /jpg|png|svg|jpeg|gif/,
+    img: /jpg|png|svg|jpeg|gif|webp/,
     excel: /xls|xlsx/,
   };
   const userid = useSelector((state: IRootState) => state.user.id);
@@ -39,7 +39,7 @@ const UploadButton = ({ fileHandler, accept, isDisabled }: IUploadButtonProps): 
       } else {
         dispatch(
           setNotification({
-            text: 'Incorrect file type. File must be: jpg, png, svg, jpeg or gif',
+            text: 'Incorrect file type. File must be: jpg, png, svg, jpeg, webp or gif',
             isOpen: true,
             severity: 'error',
           }),

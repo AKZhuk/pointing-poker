@@ -2,7 +2,7 @@ import { Button, Paper, Typography } from '@material-ui/core';
 
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { delay } from '../../helpers/helpers';
+import { delay, validateTimer } from '../../helpers/helpers';
 import { SendWSMessage } from '../../helpers/WebSocketApi';
 import { setNotification } from '../../redux/reducers/room/roomActions';
 import { GameRole, IRootState, Routes } from '../../types';
@@ -31,6 +31,14 @@ const UserMenu = (): JSX.Element => {
       dispatch(setNotification({ text: 'Create at least one Issue', isOpen: true, severity: 'warning' }));
     } else if (members.length === 0) {
       dispatch(setNotification({ text: 'Invite your teammates', isOpen: true, severity: 'warning' }));
+    } else if (!validateTimer(gameSettings.timer)) {
+      dispatch(
+        setNotification({
+          text: 'Round time must be no less than 00:30 and no more than 05:00',
+          isOpen: true,
+          severity: 'error',
+        }),
+      );
     } else {
       SendWSMessage('changeSettings', roomKey, gameSettings);
       SendWSMessage('changeRoute', roomKey, Routes.game);
