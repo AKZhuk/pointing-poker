@@ -25,6 +25,7 @@ import { SendWSMessage } from '../../../helpers/WebSocketApi';
 import { setOpen } from '../../../redux/reducers/popUp/popUpActions';
 import UploadButton from '../UploadButton';
 import { IIssue, IRootState } from '../../../types';
+import { setNotification } from '../../../redux/reducers/room/roomActions';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -76,17 +77,31 @@ const CreateIssue = ({ oldIssue }: { oldIssue?: IIssue }): JSX.Element => {
     if (inputName === 'title' && value.length > 0) {
       setTitleError(' ');
     } else if (inputName === 'title' && value.length === 0) {
-      setTitleError('Поле не может быть пустым');
+      setTitleError('Field cannot be empty');
     }
+  };
+
+  const checkIsTitlesEmpty = (data: unknown[]) => {
+    return data.filter((elem: any) => !elem.title || elem.title === '').length !== 0;
   };
 
   const importIssues = (ArrayBuffer: ArrayBuffer) => {
     const data = parseDataFromExcel(ArrayBuffer);
-    data.forEach((importedIssue: any) => {
-      importedIssue.id = idGenerator();
-      importedIssue.finalScore = '-';
-      SendWSMessage('addIssue', roomKey, importedIssue);
-    });
+    if (checkIsTitlesEmpty(data)) {
+      dispatch(
+        setNotification({
+          text: 'Import is not successful. Titles must be filled. Correct data and try again.',
+          isOpen: true,
+          severity: 'error',
+        }),
+      );
+    } else {
+      data.forEach((importedIssue: any) => {
+        importedIssue.id = idGenerator();
+        importedIssue.finalScore = '-';
+        SendWSMessage('addIssue', roomKey, importedIssue);
+      });
+    }
     dispatch(setOpen('CreateIssuePopUp', false));
   };
 

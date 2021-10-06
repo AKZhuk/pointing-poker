@@ -45,7 +45,7 @@ const GameSettings = (): JSX.Element => {
           handleChecked={handleChange}
         />
         <Switcher
-          label="Add players if the game has started:"
+          label="Add players if game has started:"
           name="addPlayerWhenGameStarted"
           value={settings.addPlayerWhenGameStarted}
           handleChecked={handleChange}

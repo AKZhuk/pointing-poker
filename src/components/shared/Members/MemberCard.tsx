@@ -43,10 +43,15 @@ const MemberCard = ({
   };
 
   return (
-    <Card className={isScrumMaster || member.role === 'scrumMaster' ? 'card scrum-master' : 'card'} elevation={4}>
+    <Card className="card member" elevation={4}>
       <CardContent className="card-content">
-        <Badge overlap="circular" anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }} variant="dot">
-          <Avatar alt="avatar" src={member.urlToImage} className="avatar">
+        <Badge
+          overlap="circular"
+          className="member__avatar"
+          anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
+          variant="dot"
+        >
+          <Avatar alt="avatar" src={member.urlToImage} className="avatar ">
             {member.firstName[0] + (member.lastName && member.lastName[0])}
           </Avatar>
         </Badge>
@@ -54,6 +59,7 @@ const MemberCard = ({
           <Typography variant="caption" display="block" gutterBottom>
             {member.role} {id === member.id && `, it's you`}
           </Typography>
+          <div className={`divider ${member.role}`} />
           <Typography variant="h6" component="p" display="block">{`${member.firstName} ${member.lastName}`}</Typography>
           <Typography variant="caption" display="block" gutterBottom>
             {member.jobPostion}

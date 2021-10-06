@@ -1,7 +1,6 @@
-import { ButtonBase, Collapse, Snackbar } from '@material-ui/core';
+import { ButtonBase, Collapse } from '@material-ui/core';
 import { useSelector } from 'react-redux';
 import { useState } from 'react';
-import { Alert } from '@material-ui/lab';
 import { GameRole, IRootState, IUser, PopUpNames } from '../../types';
 import Title from '../shared/Title';
 import GameControl from './GameControl';
@@ -13,9 +12,9 @@ import KickMember from '../shared/Members/KickMember';
 import PopUp from '../shared/PopUp';
 import RoundControlPanel from './RoundControlPanel';
 import Votes from './Votes';
-import './Game.scss';
 import Statistics from '../shared/Statistic/Statistics';
 import Notification from '../shared/Notification';
+import './Game.scss';
 
 const Game = (): JSX.Element => {
   const { deleteMemberPopUp } = PopUpNames;
@@ -69,7 +68,7 @@ const Game = (): JSX.Element => {
         </div>
       </div>
       {(role === GameRole.player || isScrumMasterCanVote()) && (
-        <>
+        <section>
           <Title text="Make your choise" align="center" variant="h5" />
           <section className="center">
             {scoreTypes[scoreType].slice(0, cards).map(card => (
@@ -82,7 +81,7 @@ const Game = (): JSX.Element => {
               </ButtonBase>
             ))}
           </section>
-        </>
+        </section>
       )}
       <PopUp name={deleteMemberPopUp}>
         <KickMember member={kickUser} popUpName={deleteMemberPopUp} />

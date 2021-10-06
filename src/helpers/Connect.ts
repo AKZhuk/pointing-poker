@@ -15,7 +15,6 @@ const keepAlive = () => {
     socket.send(JSON.stringify({ method: WSMethods.reconnect }));
   }
   setTimeout(keepAlive, RECONNECT_TIMEOUT);
-  console.log('Reconnect');
 };
 
 export const Connect = (): void => {
@@ -26,7 +25,7 @@ export const Connect = (): void => {
 
   socket.onopen = () => {
     dispatch(setConnection('isConnected', true));
-    console.log('Connected!');
+    dispatch(setNotification({ text: 'Connected to server', isOpen: true, severity: 'success' }));
     keepAlive();
   };
 
@@ -92,10 +91,10 @@ export const Connect = (): void => {
     }
   };
   socket.onclose = () => {
-    console.log('Websocket closed');
+    dispatch(setNotification({ text: 'Lost conection to server', isOpen: true, severity: 'error' }));
   };
 
   socket.onerror = () => {
-    console.log('Что-то пошло не так!');
+    dispatch(setNotification({ text: 'Something went wrong', isOpen: true, severity: 'error' }));
   };
 };

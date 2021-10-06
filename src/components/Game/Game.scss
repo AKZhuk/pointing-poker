@@ -10,9 +10,27 @@
   }
 
   &__right {
-    width: 90%;
-    max-width: 600px;
+    width: 62%;
+    max-width: 800px;
     position: sticky;
     top: 200px;
+  }
+}
+
+@media screen and (max-width: 920px) {
+  .game__right {
+    width: 100%;
+  }
+}
+
+@media screen and (max-width: 585px) {
+  .card__sm {
+    width: 300px !important;
+    min-height: auto;
+    margin: 0 10px;
+  }
+
+  .game-card_large {
+    margin: 6px;
   }
 }

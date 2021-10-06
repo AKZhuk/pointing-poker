@@ -9,9 +9,9 @@
   align-items: center;
   cursor: pointer;
   &-content {
+    word-break: break-word;
     width: 100%;
-    gap: 12px;
-    padding: 8px 0 8px 12px !important;
+    padding: 8px 12px !important;
     @include flexbox(space-between, center, row, nowrap);
   }
 }
@@ -22,9 +22,6 @@
   align-items: center;
 }
 
-.member-name {
-  font-weight: 600;
-}
 .kick-text {
   font-size: 18px;
 }
@@ -38,6 +35,34 @@
   font-size: 1.2rem;
 }
 
-.scrum-master {
-  background-color: rgba(255, 99, 71, 0.1) !important;
+.divider {
+  width: 50%;
+  transition: all 0.5s ease-in-out;
+}
+
+.member {
+  &__avatar {
+    margin-right: 12px;
+  }
+  &-name {
+    font-weight: 600;
+  }
+  &:hover .divider {
+    width: 100%;
+  }
+}
+.scrumMaster {
+  border-bottom: 2px solid #ac0800;
+}
+
+.player {
+  border-bottom: 2px solid $secondary;
+}
+
+.observer {
+  border-bottom: 2px solid #0088a3;
+}
+
+.members-container {
+  max-width: 650px;
 }

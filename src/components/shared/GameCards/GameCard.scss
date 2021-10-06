@@ -23,20 +23,6 @@
 .game-card_large {
   width: 141px;
   height: 211px !important;
-  &-enter {
-    width: 0px;
-    transition: width 500ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
-  }
-  &-enter-active {
-    width: 161px;
-    transition: width 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
-  }
-  &-exit {
-    width: auto;
-  }
-  &-exit-active {
-    width: 0;
-  }
 }
 
 .rotate {
@@ -55,7 +41,7 @@
   justify-content: center;
   align-items: center;
   gap: 8px;
-  margin: 10px 0 40px;
+  margin: 10px 10px 40px;
 }
 
 .elevation-8 {

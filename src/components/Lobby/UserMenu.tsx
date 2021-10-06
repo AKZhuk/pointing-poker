@@ -1,16 +1,17 @@
-import { Button, Paper, Snackbar, Typography } from '@material-ui/core';
-import { Alert } from '@material-ui/lab';
+import { Button, Paper, Typography } from '@material-ui/core';
+
 import { useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { delay } from '../../helpers/helpers';
 import { SendWSMessage } from '../../helpers/WebSocketApi';
+import { setNotification } from '../../redux/reducers/room/roomActions';
 import { GameRole, IRootState, Routes } from '../../types';
 import MemberCard from '../shared/Members/MemberCard';
-import Notification from '../shared/Notification';
 
 const UserMenu = (): JSX.Element => {
   const [copy, setCopy] = useState(false);
-  const [alertText, setAlertText] = useState('');
+  const [isStartGameButtonDisabled, setStartGameButtonDisabled] = useState(false);
+  const dispatch = useDispatch();
   const {
     connection: { url },
     room: { roomKey, scrumMaster, issues, members, gameSettings },
@@ -25,15 +26,17 @@ const UserMenu = (): JSX.Element => {
     setCopy(false);
   };
   const handleStartGame = async (): Promise<void> => {
+    setStartGameButtonDisabled(true);
     if (issues.length === 0) {
-      setAlertText('Create at least one Issue');
+      dispatch(setNotification({ text: 'Create at least one Issue', isOpen: true, severity: 'warning' }));
     } else if (members.length === 0) {
-      setAlertText('Invite your teammates');
+      dispatch(setNotification({ text: 'Invite your teammates', isOpen: true, severity: 'warning' }));
     } else {
       SendWSMessage('changeSettings', roomKey, gameSettings);
       SendWSMessage('changeRoute', roomKey, Routes.game);
       SendWSMessage('setActiveIssue', roomKey, {});
     }
+    setStartGameButtonDisabled(false);
   };
 
   return (
@@ -60,7 +63,12 @@ const UserMenu = (): JSX.Element => {
               )}
             </div>
             <div className="menu__masterButtons">
-              <Button variant="contained" color="primary" disabled={!!alertText} onClick={handleStartGame}>
+              <Button
+                variant="contained"
+                color="primary"
+                disabled={isStartGameButtonDisabled}
+                onClick={handleStartGame}
+              >
                 Start game
               </Button>
               <Button
@@ -85,17 +93,6 @@ const UserMenu = (): JSX.Element => {
           </Button>
         )}
       </div>
-      <Snackbar
-        open={!!alertText}
-        onClose={() => setAlertText('')}
-        autoHideDuration={6000}
-        anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}
-      >
-        <Alert severity="warning" variant="filled">
-          {alertText}
-        </Alert>
-      </Snackbar>
-      <Notification text={alertText} isOpen={!!alertText} onClose={() => setAlertText('')} />
     </>
   );
 };
