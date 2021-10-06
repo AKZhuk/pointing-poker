@@ -51,3 +51,11 @@ export const filterFileExtention = (file: File, regExp: RegExp): boolean => {
   const ext = arr[arr.length - 1];
   return regExp.test(ext.toLowerCase());
 };
+
+export const validateTimer = (time: string): boolean => {
+  const timeArr = time.split(':');
+  if (!time) return false;
+  if (Number(timeArr[0]) > 5 || (Number(timeArr[0]) === 0 && Number(timeArr[1]) < 30)) return false;
+  if (Number(timeArr[0]) === 5 && Number(timeArr[1]) !== 0) return false;
+  return true;
+};
