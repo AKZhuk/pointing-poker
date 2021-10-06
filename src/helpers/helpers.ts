@@ -45,3 +45,9 @@ export const exportToExcel = (data: unknown[], headers?: string[]): void => {
   XLSX.utils.book_append_sheet(wb, ws, 'result');
   XLSX.writeFile(wb, 'excel.xlsx');
 };
+
+export const filterFileExtention = (file: File, regExp: RegExp): boolean => {
+  const arr = file.name.split('.');
+  const ext = arr[arr.length - 1];
+  return regExp.test(ext.toLowerCase());
+};

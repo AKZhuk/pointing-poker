@@ -15,19 +15,15 @@ export async function checkRoom(roomKey: string): Promise<boolean> {
   return false;
 }
 
-export async function uploadAvatar(elem: HTMLInputElement, userId: string): Promise<{ [key: string]: string }> {
-  const { files } = elem;
+export async function uploadAvatar(file: File, userId: string): Promise<{ [key: string]: string }> {
   const data = new FormData();
-  if (files && files.length > 0) {
-    data.append('img', files[0]);
-    data.append('userId', userId);
-    const resp = await fetch(`${SERVER_URL}/uploadAvatar`, {
-      method: 'POST',
-      body: data,
-    });
-    return resp.json();
-  }
-  return {};
+  data.append('img', file);
+  data.append('userId', userId);
+  const resp = await fetch(`${SERVER_URL}/uploadAvatar`, {
+    method: 'POST',
+    body: data,
+  });
+  return resp.json();
 }
 
 export async function deleteAvatar(userId: string): Promise<void> {
