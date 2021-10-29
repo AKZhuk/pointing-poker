@@ -114,7 +114,10 @@ Don't forget to give the project a star! Thanks again!
 
 Aliaksei - [@AKZhuk](https://twitter.com/AKZhuk) - lesha.zhuk@gmail.com
 
+Evgeniy - evegeninaum@gmail.com
+
 Project Link: [https://github.com/AKZhuk/pointing-poker](https://github.com/AKZhuk/pointing-poker)
 
-<p align="right">(<a href="#top">back to top</a>)</p>
+Backend Link: [https://github.com/Jendozz/pointing-poker-server](https://github.com/Jendozz/pointing-poker-server)
 
+<p align="right">(<a href="#top">back to top</a>)</p>
